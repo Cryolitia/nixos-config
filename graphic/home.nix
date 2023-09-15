@@ -158,6 +158,8 @@ in
                 };
             };
         };
+        "debug.javascript.autoAttachFilter" = "onlyWithFlag";
+        "git.autofetch" = false;
       };
 
     ".config/ibus/rime/default.custom.yaml".source = 

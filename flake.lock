@@ -59,11 +59,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1694375657,
-        "narHash": "sha256-32X8dcty4vPXx+D4yJPQZBo5hJ1NQikALhevGv6elO4=",
+        "lastModified": 1694643239,
+        "narHash": "sha256-pv2k/5FvyirDE8g4TNehzwZ0T4UOMMmqWSQnM/luRtE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f7848d3e5f15ed02e3f286029697e41ee31662d7",
+        "rev": "d9b88b43524db1591fb3d9410a21428198d75d49",
         "type": "github"
       },
       "original": {
@@ -79,11 +79,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1694395166,
-        "narHash": "sha256-F0SRxtFF8EsEff6cRO81NdCpVz/S761ytETNqRkRwU4=",
+        "lastModified": 1694740775,
+        "narHash": "sha256-cxnaqGPye8mN7WaCpF1TGlcQaSHAyEIgSVImOTuVrsQ=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "e6c8e1659000d07804526e42b99fa5f15190c324",
+        "rev": "d073d60efa6c3400d9de3c91bcddba5c4c419159",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1693718952,
-        "narHash": "sha256-+nGdJlgTk0MPN7NygopipmyylVuAVi7OItIwTlwtGnw=",
+        "lastModified": 1694710316,
+        "narHash": "sha256-uRh46iIC86D8BD1wCDA5gRrt+hslUXiD0kx/UjnjBcs=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "793de77d9f83418b428e8ba70d1e42c6507d0d35",
+        "rev": "570256327eb6ca6f7bebe8d93af49459092a0c43",
         "type": "github"
       },
       "original": {
@@ -126,11 +126,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1694183432,
-        "narHash": "sha256-YyPGNapgZNNj51ylQMw9lAgvxtM2ai1HZVUu3GS8Fng=",
+        "lastModified": 1694669921,
+        "narHash": "sha256-6ESpJ6FsftHV96JO/zn6je07tyV2dlLR7SdLsmkegTY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "db9208ab987cdeeedf78ad9b4cf3c55f5ebd269b",
+        "rev": "f2ea252d23ebc9a5336bf6a61e0644921f64e67c",
         "type": "github"
       },
       "original": {
@@ -156,11 +156,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1694407298,
-        "narHash": "sha256-8k7XylFDEsikBG+Kxk2WnpYhz/L5QtqMR0+BRPLkDhM=",
+        "lastModified": 1694778311,
+        "narHash": "sha256-Hu5U9pXwMqUjWF7uh4SKqdKy1QMy9RVGxmst11srSgA=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "7b30979750fbb823bf4d5c6360ed89143344e7df",
+        "rev": "7a673ac1f35648a908730206a2793b0e3818bc25",
         "type": "github"
       },
       "original": {
@@ -176,17 +176,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1694407172,
-        "narHash": "sha256-Ktg7umQb/XYEdpKZRqwed6Islb1w8mE+ux60bD0+deA=",
-        "owner": "Cryolitia",
-        "repo": "nur-packages",
-        "rev": "0b332ec8a12eb55f582f2dcc76b33a9537989af5",
-        "type": "github"
+        "lastModified": 1694792163,
+        "narHash": "sha256-eGvMysvxQaQ6Sc9BWRmhE7rWzNVhBtpj1ja+0Rc74C8=",
+        "ref": "refs/heads/master",
+        "rev": "db074345bcfe2840a9c17eb8522ce423e98e712f",
+        "revCount": 17,
+        "type": "git",
+        "url": "file:/home/cryolitia/nur-packages"
       },
       "original": {
-        "owner": "Cryolitia",
-        "repo": "nur-packages",
-        "type": "github"
+        "type": "git",
+        "url": "file:/home/cryolitia/nur-packages"
       }
     },
     "root": {

@@ -4,8 +4,8 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
-      # "https://mirrors.cernet.edu.cn/nix-channels/store"
-      "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      "https://mirrors.cernet.edu.cn/nix-channels/store"
+      # "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
   };
@@ -29,7 +29,7 @@
         };
 
         nur-cryolitia = {
-          url = "github:Cryolitia/nur-packages";
+          url = "git+file:/home/cryolitia/nur-packages";
           inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -128,7 +128,7 @@
         modules = [
 
           ./hosts/rpi4
-          ./common/distribute.nix
+          # ./common/distribute.nix
 
           vscode-server.nixosModules.default
           ({ config, pkgs, ... }: {
