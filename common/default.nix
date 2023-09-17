@@ -80,5 +80,8 @@
     "https://cache.nixos.org/"
   ];
 
+
+  boot.loader.systemd-boot.configurationLimit = 3;
+
 }
 

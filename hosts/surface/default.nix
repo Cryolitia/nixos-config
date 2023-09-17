@@ -12,6 +12,7 @@
       ../../hardware
       ../../graphic/software
       ../../graphic/software/waydroid.nix
+      ../../graphic/desktop/gnome.nix
     ];
 
       # Bootloader.

@@ -5,7 +5,6 @@
     [
       ./vscode.nix
       ../../common/software
-      ../gnome.nix
       ./chrome.nix
     ];
 
@@ -27,12 +26,6 @@
     enable = true;
     tunMode = true;
   };
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1v"
-    "electron-19.0.7"
-    "electron-19.1.9"
-  ];
 
   fonts = {
     packages = with pkgs; [

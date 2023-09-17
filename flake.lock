@@ -79,11 +79,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1694740775,
-        "narHash": "sha256-cxnaqGPye8mN7WaCpF1TGlcQaSHAyEIgSVImOTuVrsQ=",
+        "lastModified": 1694913747,
+        "narHash": "sha256-LkrsDO4JbymdEkU/Ymi63+2abiqPtYYpWAEOVKIKDYc=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "d073d60efa6c3400d9de3c91bcddba5c4c419159",
+        "rev": "50cf0e19f6226a1d5c4278f5d5702ce0c8028a2d",
         "type": "github"
       },
       "original": {
@@ -126,11 +126,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1694669921,
-        "narHash": "sha256-6ESpJ6FsftHV96JO/zn6je07tyV2dlLR7SdLsmkegTY=",
+        "lastModified": 1694767346,
+        "narHash": "sha256-5uH27SiVFUwsTsqC5rs3kS7pBoNhtoy9QfTP9BmknGk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f2ea252d23ebc9a5336bf6a61e0644921f64e67c",
+        "rev": "ace5093e36ab1e95cb9463863491bee90d5a4183",
         "type": "github"
       },
       "original": {
@@ -156,11 +156,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1694792679,
-        "narHash": "sha256-hqBoX8XtJhjZGFwP80Hd/2wpjPaLNNB1ocg0G04nXqo=",
+        "lastModified": 1694954496,
+        "narHash": "sha256-l9xsmZxZ0ISgbH6RRZdNbFfi3hKDdA8rHdSn2zJElJ0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "7423ca4058db6a9c992009936457a6e9b0d45e7e",
+        "rev": "926dfdc88dd64c4ec4ed1ba1c29bc198e9713bbb",
         "type": "github"
       },
       "original": {
@@ -176,17 +176,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1694792865,
-        "narHash": "sha256-DJAxXkaYvHHVNZ6Fi1zX9m78qxAIJX9yPElnqbgpjyc=",
-        "ref": "refs/heads/master",
-        "rev": "adc6f52febc2742c519e9b924423596079a0d869",
-        "revCount": 18,
-        "type": "git",
-        "url": "file:/home/cryolitia/nur-packages"
+        "lastModified": 1694928850,
+        "narHash": "sha256-ghKuLvpjVvYMYWj0VIuX8IZfnWlNCwvxJyOH+C+kZIg=",
+        "owner": "Cryolitia",
+        "repo": "nur-packages",
+        "rev": "c1e3d8b9623d422657752c2167e02166a743bf37",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/cryolitia/nur-packages"
+        "owner": "Cryolitia",
+        "repo": "nur-packages",
+        "type": "github"
       }
     },
     "root": {

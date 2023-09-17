@@ -29,7 +29,7 @@
         };
 
         nur-cryolitia = {
-          url = "git+file:/home/cryolitia/nur-packages";
+          url = "github:Cryolitia/nur-packages";
           inputs.nixpkgs.follows = "nixpkgs";
         };
 

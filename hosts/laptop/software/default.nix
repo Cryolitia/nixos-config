@@ -19,5 +19,18 @@
         nur-cryolitia.MaaAssistantArknights-beta
         nur-cryolitia.MaaX
         # config.nur.repos.Freed-Wu.netease-cloud-music
+        wpsoffice
+        config.nur.repos.linyinfeng.wemeet
+        obs-studio
+  ];
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w"
+    "electron-19.0.7"
+    "electron-19.1.9"
   ];
 }

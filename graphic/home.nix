@@ -16,13 +16,13 @@ in
     dconf.settings = {
 
         "org/gnome/desktop/background" = {
-            picture-uri = "file:///home/cryolitia/nixos-config/graphic/background.jpg";
-            picture-uri-dark = "file:///home/cryolitia/nixos-config/graphic/background.jpg";
+            picture-uri = "file:///home/cryolitia/nixos-config/graphic/background/1.jpg";
+            picture-uri-dark = "file:///home/cryolitia/nixos-config/graphic/background/1.jpg";
             primary-color = "#000000000000";
             secondary-color = "#000000000000";
         };
         "org/gnome/desktop/screensaver" = {
-            picture-uri = "file:///home/cryolitia/nixos-config/graphic/background.jpg";
+            picture-uri = "file:///home/cryolitia/nixos-config/graphic/background/1.jpg";
             primary-color = "#000000000000";
             secondary-color = "#000000000000";
         };
@@ -52,6 +52,8 @@ in
 
         "org/gnome/desktop/interface" = {
             gtk-theme = "Nordic";
+            cursor-theme = "Nordic-cursors";
+            icon-theme = "Nordic-cursors";
         };
 
         "org/gnome/desktop/wm/preferences" = {

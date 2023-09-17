@@ -1,10 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  
-  specialisation."NvidiaOpenDriver".configuration = {
 
-    system.nixos.tags = [ "Nvidia-Open-Driver" ];
+    system.nixos.tags = [ "Nvidia" ];
     
     services.xserver.videoDrivers = ["nvidia"];
 
@@ -24,6 +22,6 @@
 
     nixpkgs.config.cudaSupport = true;
 
-  };
+
 
 }
