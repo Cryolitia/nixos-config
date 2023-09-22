@@ -22,7 +22,7 @@
         wpsoffice
         config.nur.repos.linyinfeng.wemeet
         obs-studio
-        android-studio-beta
+        androidStudioPackages.beta
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
