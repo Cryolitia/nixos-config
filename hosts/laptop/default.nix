@@ -45,4 +45,10 @@
     system.stateVersion = "23.05"; # Did you read the comment?
 
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+    virtualisation.docker = {
+      enable = true;
+      enableOnBoot = true;
+    };
+
 }

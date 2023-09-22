@@ -2,8 +2,6 @@
 
 {
 
-  programs.dconf.enable = true;
-
   specialisation."GnomeNvidia".configuration = {
       imports = [
         ./nvidia.nix

@@ -18,6 +18,7 @@
     go-musicfox
     nixd
     nixpkgs-fmt
+    libsForQt5.okular
   ];
 
   programs.chrome.enable = true;

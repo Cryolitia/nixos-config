@@ -22,6 +22,6 @@
 
     nixpkgs.config.cudaSupport = true;
 
-
+    virtualisation.docker.enableNvidia = true;
 
 }

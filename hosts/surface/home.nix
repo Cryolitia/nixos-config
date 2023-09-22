@@ -3,7 +3,7 @@
 {
 
     imports = [
-        ../../graphic/home.nix
+        ../../graphic/home
     ];
 
     programs.git.signing = {
