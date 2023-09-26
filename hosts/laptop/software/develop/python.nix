@@ -2,6 +2,10 @@
 
 {
 
+  imports = [
+    ./develop
+  ]
+
   environment.systemPackages = (with pkgs.python310Packages; [
     pytorch-bin
     venvShellHook

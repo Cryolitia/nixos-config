@@ -53,6 +53,7 @@
       gsconnect
       freon
       caffeine
+      blur-my-shell
     ]
   );
 

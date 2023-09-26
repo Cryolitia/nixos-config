@@ -3,8 +3,8 @@
 let
   mkTuple = lib.hm.gvariant.mkTuple;
 in
-{
-  dconf.settings = lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
+lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
+  dconf.settings = {
 
     "org/gnome/desktop/background" = {
       picture-uri = "file:///home/cryolitia/nixos-config/graphic/background/1.jpg";
@@ -29,6 +29,7 @@ in
         "gsconnect@andyholmes.github.io"
         "caffeine@patapon.info"
         "freon@UshakovVasilii_Github.yahoo.com"
+        "blur-my-shell@aunetx"
       ];
       favorite-apps = [
         "org.gnome.Console.desktop"
@@ -56,7 +57,8 @@ in
       show-mounts = true;
       show-mounts-only-mounted = false;
       show-mounts-network = true;
-      apply-custom-theme = true;
+      apply-custom-theme = false;
+      transparency-mode = "DYNAMIC";
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -106,7 +108,14 @@ in
     "org/gtk/gtk4/settings/file-chooser" = {
       sort-directories-first = true;
     };
-
+    "org/gnome/shell/extensions/blur-my-shell/applications" = {
+      whitelist = [
+        "kgx"
+        "org.gnome.Console"
+      ];
+      sigma = 0;
+      opacity = 176;
+    };
   };
 
 }

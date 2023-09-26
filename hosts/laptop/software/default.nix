@@ -23,6 +23,7 @@
         config.nur.repos.linyinfeng.wemeet
         obs-studio
         androidStudioPackages.beta
+        jetbrains.clion
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
