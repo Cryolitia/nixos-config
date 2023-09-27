@@ -126,11 +126,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1695360818,
-        "narHash": "sha256-JlkN3R/SSoMTa+CasbxS1gq+GpGxXQlNZRUh9+LIy/0=",
+        "lastModified": 1695644571,
+        "narHash": "sha256-asS9dCCdlt1lPq0DLwkVBbVoEKuEuz+Zi3DG7pR/RxA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e35dcc04a3853da485a396bdd332217d0ac9054f",
+        "rev": "6500b4580c2a1f3d0f980d32d285739d8e156d92",
         "type": "github"
       },
       "original": {
@@ -176,11 +176,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1695482640,
-        "narHash": "sha256-VRYrxv+pIN0sJKJ2dk2T84QTUBiox59lE4ICpteUB10=",
+        "lastModified": 1695760363,
+        "narHash": "sha256-fd+lu3Sjg7Smzf7f9tQQ8PpUF4HDftXL2bNX3KQtUeQ=",
         "owner": "Cryolitia",
         "repo": "nur-packages",
-        "rev": "7001f2e26725d3933c5cbb51b36c40e51c93f70f",
+        "rev": "662133c3fd3a585b553bced9cd6ec9d42f2d0e9b",
         "type": "github"
       },
       "original": {

@@ -62,7 +62,6 @@
           };
 
           modules = [
-
             ({
               nixpkgs.overlays = [
                 (final: prev: {
@@ -89,7 +88,6 @@
               home-manager.users.cryolitia = import ./hosts/laptop/home.nix;
 
             }
-
           ];
         };
       };
@@ -129,7 +127,6 @@
           specialArgs = {
             inherit inputs;
           };
-
           modules = [
 
             ./hosts/rpi4
@@ -156,66 +153,79 @@
         };
       };
 
-      devShells."${system}".gcc =
-        let
-          pkgs = import nixpkgs {
-            config = {
-              allowUnfree = true;
+      devShells."${system}" = {
+
+        gcc =
+          let
+
+            pkgs = import nixpkgs {
+              config = {
+                allowUnfree = true;
+              };
+              inherit system;
             };
-            inherit system;
-          };
-        in
-        (pkgs.mkShell {
-          buildInputs = with pkgs; [
-            jetbrains.clion
-            cmake
 
-          ];
-          shellHook = ''
-            cd ~
-            exec zsh
-          '';
-        });
+          in
+          (pkgs.mkShell {
 
-      devShells."${system}".cuda =
-        let
-          pkgs = import nixpkgs {
-            config = {
-              allowUnfree = true;
-              cudaSupport = true;
+            buildInputs = with pkgs; [
+              jetbrains.clion
+              cmake
+
+            ];
+
+            shellHook = ''
+              cd ~
+              exec zsh
+            '';
+
+          });
+
+        cuda =
+          let
+
+            pkgs = import nixpkgs {
+              config = {
+                allowUnfree = true;
+                cudaSupport = true;
+              };
+              inherit system;
             };
-            inherit system;
-          };
-        in
-        (pkgs.mkShell {
-          buildInputs = (
-            (with pkgs.python310Packages; [
-              pytorch-bin
-              venvShellHook
-              numpy
-              pillow
-              matplotlib
-              torchvision-bin
-            ]) ++ (with pkgs; [
-              python310
-              cudaPackages.cudatoolkit
-              virtualenv
-              jetbrains.pycharm-professional
-            ])
-          );
-          shellHook = ''
-            cd ~
-            echo "`${pkgs.python310}/bin/python3 --version`"
-            virtualenv --no-setuptools venv
-            export PATH=$PWD/venv/bin:$PATH
-            export PYTHONPATH=venv/lib/python3.10/site-packages/:$PYTHONPATH
-            exec zsh
-          '';
-          postShellHook = ''
-            ln -sf PYTHONPATH/* ${pkgs.virtualenv}/lib/python3.10/site-packages
-          '';
-        });
 
+          in
+          (pkgs.mkShell {
+
+            buildInputs = (
+              (with pkgs.python310Packages; [
+                pytorch-bin
+                venvShellHook
+                numpy
+                pillow
+                matplotlib
+                torchvision-bin
+              ]) ++ (with pkgs; [
+                python310
+                cudaPackages.cudatoolkit
+                virtualenv
+                jetbrains.pycharm-professional
+              ])
+            );
+
+            shellHook = ''
+              cd ~
+              echo "`${pkgs.python310}/bin/python3 --version`"
+              virtualenv --no-setuptools venv
+              export PATH=$PWD/venv/bin:$PATH
+              export PYTHONPATH=venv/lib/python3.10/site-packages/:$PYTHONPATH
+              exec zsh
+            '';
+
+            postShellHook = ''
+              ln -sf PYTHONPATH/* ${pkgs.virtualenv}/lib/python3.10/site-packages
+            '';
+
+          });
+      };
     };
 
 }
