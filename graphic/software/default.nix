@@ -6,6 +6,7 @@
       ./vscode.nix
       ../../common/software
       ./chrome.nix
+      ../../common/yubikey.nix
     ];
 
   # List packages installed in system profile. To search, run:
@@ -19,6 +20,8 @@
     nixd
     nixpkgs-fmt
     libsForQt5.okular
+    yubikey-manager-qt
+    hugo
   ];
 
   programs.chrome.enable = true;
