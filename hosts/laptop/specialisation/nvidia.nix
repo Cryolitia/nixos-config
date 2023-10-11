@@ -18,6 +18,7 @@
       cudatoolkit
       cutensor
       cudnn
+      pkgs.nur-cryolitia.MaaAssistantArknights-beta-cuda
     ];
 
     nixpkgs.config.cudaSupport = true;

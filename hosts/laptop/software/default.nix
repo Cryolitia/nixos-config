@@ -16,7 +16,6 @@
         jetbrains.idea-ultimate
         android-tools
         jetbrains.pycharm-professional
-        nur-cryolitia.MaaAssistantArknights-beta
         nur-cryolitia.MaaX
         # config.nur.repos.Freed-Wu.netease-cloud-music
         wpsoffice

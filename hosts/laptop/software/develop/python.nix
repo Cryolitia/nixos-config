@@ -13,6 +13,7 @@
     pillow
     matplotlib
     torchvision-bin
+    requests
   ]) ++ (with pkgs; [
     python310
     virtualenv

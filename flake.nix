@@ -33,10 +33,7 @@
 
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nur.url = "github:nix-community/NUR";
 
     nur-cryolitia = {
       url = "github:Cryolitia/nur-packages";
@@ -181,7 +178,10 @@
             buildInputs = with pkgs; [
               jetbrains.clion
               cmake
-
+              opencv
+              onnxruntime
+              cudaPackages.cudatoolkit
+              eigen
             ];
 
             shellHook = ''

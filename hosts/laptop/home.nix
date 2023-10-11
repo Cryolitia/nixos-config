@@ -8,7 +8,7 @@
 
     programs.git.signing = {
         signByDefault = true;
-        key = "C0C35E0CE6B1D1D0";
+        key = "684609BA7B5BC68D";
     };
 
 }

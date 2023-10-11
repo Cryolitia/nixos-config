@@ -48,6 +48,7 @@ in
       virt-manager
       virtiofsd
       looking-glass-client
+      nur-cryolitia.MaaAssistantArknights-beta
     ];
 
     programs.chrome.useGPU = false;

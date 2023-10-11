@@ -27,6 +27,7 @@ in
                 medo64.code-point
                 s-nlf-fh.glassit
                 eamodio.gitlens
+                twxs.cmake
             ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
                     name = "remote-ssh";
