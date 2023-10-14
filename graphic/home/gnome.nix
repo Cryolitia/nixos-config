@@ -8,7 +8,7 @@ lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
 
     "org/gnome/desktop/background" = {
       picture-uri = "file:///home/cryolitia/nixos-config/graphic/background/1.jpg";
-      picture-uri-dark = "file:///home/cryolitia/nixos-config/graphic/background/1.jpg";
+      picture-uri-dark = "file:///home/cryolitia/nixos-config/graphic/background/2.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
@@ -17,6 +17,27 @@ lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
+
+    "org/gnome/system/location" = {
+      enabled = true;
+    };
+
+    "org/gnome/shell/extensions/nightthemeswitcher/gtk-variants" = {
+      enabled = true;
+      day = "Nordic-Polar";
+      night = "Nordic";
+    };
+
+    "org/gnome/shell/extensions/nightthemeswitcher/shell-varients" = {
+      enabled = true;
+      day = "Nordic-Polar";
+      night = "Nordic";
+    };
+
+    "org/gnome/shell/extensions/nightthemeswitcher/commands" = {
+      enabled = true;
+    };
+
 
     "org/gnome/shell" = {
       disable-user-extensions = false;
@@ -30,6 +51,7 @@ lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
         "caffeine@patapon.info"
         "freon@UshakovVasilii_Github.yahoo.com"
         "blur-my-shell@aunetx"
+        "nightthemeswitcher@romainvigier.fr"
       ];
       favorite-apps = [
         "org.gnome.Console.desktop"
@@ -38,12 +60,12 @@ lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
       ];
     };
 
-    "org/gnome/shell/extensions/user-theme" = {
+    /*"org/gnome/shell/extensions/user-theme" = {
       name = "Nordic";
-    };
+    };*/
 
     "org/gnome/desktop/interface" = {
-      gtk-theme = "Nordic";
+      #gtk-theme = "Nordic";
       cursor-theme = "Adwaita";
       icon-theme = "Adwaita";
     };

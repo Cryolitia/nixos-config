@@ -13,7 +13,7 @@ in
   ];
 
   home.sessionVariables = {
-    GTK_THEME = "Nordic";
+    GTK_THEME = "Arc-Dark";
     QT_STYLE_OVERRIDE = "Nordic";
   };
 
@@ -81,8 +81,8 @@ in
   gtk = {
     enable = true;
     theme = {
-      name = "Nordic";
-      package = pkgs.nordic;
+      name = "Arc";
+      package = pkgs.arc-theme;
     };
   };
 

@@ -46,6 +46,7 @@
   environment.systemPackages = (with pkgs; [
     gnome.gnome-tweaks
     nordic
+    arc-theme
   ]) ++ ( with pkgs.gnomeExtensions; [
       appindicator
       pop-shell
@@ -54,6 +55,8 @@
       freon
       caffeine
       blur-my-shell
+      night-theme-switcher
+      desktop-lyric
     ]
   );
 

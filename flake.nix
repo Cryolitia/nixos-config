@@ -182,6 +182,9 @@
               onnxruntime
               cudaPackages.cudatoolkit
               eigen
+              zlib
+              asio
+              libcpr
             ];
 
             shellHook = ''
