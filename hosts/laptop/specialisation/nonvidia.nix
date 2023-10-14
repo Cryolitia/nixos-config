@@ -51,8 +51,6 @@ in
       nur-cryolitia.MaaAssistantArknights-beta
     ];
 
-    programs.chrome.useGPU = false;
-
     boot.extraModprobeConfig = ''
       blacklist nouveau
       options nouveau modeset=0

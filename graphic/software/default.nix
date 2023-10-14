@@ -24,8 +24,6 @@
     hugo
   ];
 
-  programs.chrome.enable = true;
-
   programs.clash-verge = {
     enable = true;
     tunMode = true;
