@@ -24,7 +24,6 @@
 
   inputs =
     {
-
       # NixOS 官方软件源，这里使用 nixos-unstable 分支
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -69,6 +68,7 @@
     let
       system = "x86_64-linux";
     in
+    builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」"
     {
       nixosConfigurations = {
         Cryolitia-nixos = nixpkgs.lib.nixosSystem rec {

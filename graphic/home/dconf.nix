@@ -41,6 +41,10 @@ in
     idle-delay = 900;
   };
 
+  "org/gnome/desktop/wm/keybindings" = {
+    close = [ "<Super>q" ];
+  };
+
   "org/gnome/desktop/wm/preferences" = {
     #theme = "Nordic";
     button-layout = "appmenu:minimize,maximize,close";
@@ -48,6 +52,16 @@ in
 
   "org/gnome/mutter" = {
     dynamic-workspaces = true;
+  };
+
+  "org/gnome/settings-daemon/plugins/media-keys" = {
+    custom-keybindings = [ "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" ];
+  };
+
+  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+    binding = "<Super>t";
+    command = "kitty";
+    name = "kitty";
   };
 
   "org/gnome/settings-daemon/plugins/power" = {
@@ -98,6 +112,7 @@ in
     show-mounts-network = true;
     apply-custom-theme = false;
     transparency-mode = "DYNAMIC";
+    shortcut = [ ];
   };
 
   "org/gnome/shell/extensions/freon" = {
