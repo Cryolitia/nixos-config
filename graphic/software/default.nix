@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports =
@@ -22,6 +22,8 @@
     libsForQt5.okular
     yubikey-manager-qt
     hugo
+    inputs.anyrun.packages.${system}.anyrun-with-all-plugins
+    kitty
   ];
 
   programs.clash-verge = {

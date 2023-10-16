@@ -60,11 +60,6 @@
 
   #system.autoUpgrade.enable = true;
 
-  nix.settings.trusted-users = [
-    "root"
-    "@wheel"
-  ];
-
   nix.gc = {
     automatic = true;
     options = "--delete-older-than 1d";
@@ -76,16 +71,25 @@
   security.sudo.wheelNeedsPassword = false;
 
   nix.settings = {
+    
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+
     experimental-features = [ "nix-command" "flakes" ];
+
     substituters = [
       "https://mirrors.cernet.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
+
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://cryolitia.cachix.org"
       "https://cuda-maintainers.cachix.org"
     ];
+    
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="

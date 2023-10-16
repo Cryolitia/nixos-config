@@ -7,7 +7,7 @@
         {
             hostName = "192.168.50.69";
             sshUser = "cryolitia";
-            sshKey = "${config.home.homeDirectory}/.ssh/id_ed25519";
+            sshKey = "/home/cryolitia/.ssh/id_ed25519";
             systems = [
                 "x86_64-linux"
                 "aarch64-linux"

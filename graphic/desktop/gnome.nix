@@ -47,6 +47,7 @@
     gnome.gnome-tweaks
     nordic
     arc-theme
+    libnotify
   ]) ++ ( with pkgs.gnomeExtensions; [
       appindicator
       pop-shell

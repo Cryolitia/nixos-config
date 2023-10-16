@@ -12,39 +12,47 @@
       "https://nix-community.cachix.org"
       "https://cryolitia.cachix.org"
       "https://cuda-maintainers.cachix.org"
+      "https://anyrun.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+      "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
     ];
   };
 
-  inputs = {
+  inputs =
+    {
 
-    # NixOS 官方软件源，这里使用 nixos-unstable 分支
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+      # NixOS 官方软件源，这里使用 nixos-unstable 分支
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # home-manager，用于管理用户配置
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # home-manager，用于管理用户配置
+      home-manager = {
+        url = "github:nix-community/home-manager";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
+      nixos-hardware.url = github:NixOS/nixos-hardware/master;
+
+      nur.url = "github:nix-community/NUR";
+
+      nur-cryolitia = {
+        url = "github:Cryolitia/nur-packages";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
+      nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+      vscode-server.url = "github:nix-community/nixos-vscode-server";
+
+      anyrun = {
+        url = "github:Kirottu/anyrun";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
     };
-
-    nixos-hardware.url = github:NixOS/nixos-hardware/master;
-
-    nur.url = "github:nix-community/NUR";
-
-    nur-cryolitia = {
-      url = "github:Cryolitia/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
-
-  };
 
   outputs =
     inputs@{ self
@@ -55,6 +63,7 @@
     , nixos-hardware
     , nix-vscode-extensions
     , vscode-server
+    , anyrun
     , ...
     }:
     let
@@ -91,7 +100,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = inputs;
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.cryolitia = import ./hosts/laptop/home.nix;
 
             }

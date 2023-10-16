@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ inputs, lib, config, pkgs, ... }:
 
 let
   jsonFormat = pkgs.formats.json { };
@@ -10,6 +10,7 @@ in
   imports = [
     ../../common/home.nix
     ./gnome.nix
+    inputs.anyrun.homeManagerModules.default
   ];
 
   home.sessionVariables = {
@@ -86,4 +87,39 @@ in
     };
   };
 
+  programs.kitty = {
+    enable = true;
+    font.name = "JetBrainsMono Nerd Font Mono";
+    shellIntegration.enableZshIntegration = true;
+    theme = "Catppuccin-Frappe";
+    extraConfig = ''
+      background_opacity 0.8
+      wayland_titlebar_color background
+      map ctrl+c copy_or_interrupt
+    '';
+  };
+
+  programs.anyrun = {
+    enable = true;
+    config = {
+      plugins = with inputs.anyrun.packages.${pkgs.system}; [
+        #applications
+        dictionary
+        #kidex
+        #randr
+        rink
+        #shell
+        symbols
+        translate
+        websearch
+      ];
+      hideIcons = false;
+      ignoreExclusiveZones = false;
+      layer = "overlay";
+      hidePluginInfo = false;
+      closeOnClick = false;
+      showResultsImmediately = false;
+      maxEntries = null;
+    };
+  };
 }

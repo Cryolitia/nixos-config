@@ -72,7 +72,7 @@ in
     ];
 
     favorite-apps = [
-      "org.gnome.Console.desktop"
+      "kitty.desktop"
       "google-chrome.desktop"
       "code.desktop"
     ];
