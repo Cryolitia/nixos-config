@@ -129,7 +129,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = inputs;
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.cryolitia = import ./hosts/surface/home.nix;
             }
 
@@ -161,7 +161,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = inputs;
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.cryolitia = import ./hosts/rpi4/home.nix;
             }
 
