@@ -14,7 +14,7 @@ in
     environment.systemPackages = with pkgs; [
         (vscode-with-extensions.override {
             vscode = pkgs.vscode.override {
-                commandLineArgs = lib.optionalString (elem "nvidia" config.services.xserver.videoDrivers) "--disable-gpu";
+                commandLineArgs = "--disable-gpu";
             };
             vscodeExtensions = (with vscode-extensions.vscode-marketplace; [
                 ms-ceintl.vscode-language-pack-zh-hans
