@@ -3,7 +3,7 @@
 {
 
   system.nixos.tags = [ "Gnome" ];
-  
+
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
@@ -42,24 +42,29 @@
   ];
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
-  
+
   environment.systemPackages = (with pkgs; [
     gnome.gnome-tweaks
     nordic
     arc-theme
     libnotify
-  ]) ++ ( with pkgs.gnomeExtensions; [
-      appindicator
-      pop-shell
-      dash-to-dock
-      gsconnect
-      freon
-      caffeine
-      blur-my-shell
-      night-theme-switcher
-      desktop-lyric
-    ]
-  );
+  ]) ++ (with pkgs.gnomeExtensions; [
+    appindicator
+    pop-shell
+    dash-to-dock
+    gsconnect
+    freon
+    caffeine
+    blur-my-shell
+    night-theme-switcher
+    (desktop-lyric.overrideAttrs (oldAttrs: rec {
+      # https://github.com/tuberry/desktop-lyric/issues/16
+      postPatch = ''
+        sed -i "s/43/44/g" metadata.json 
+      '';
+    }
+    ))
+  ]);
 
   programs.gpaste.enable = true;
 

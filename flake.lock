@@ -198,11 +198,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1697465522,
-        "narHash": "sha256-RAqg7A25H0xGK19Yo0oanJLU4Gq9zq3JocXePXdHlps=",
+        "lastModified": 1697470606,
+        "narHash": "sha256-TP3UN5RktQpqDVj5mA6rb1Nu4vGTnctWkbe5sef4LEw=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "2cc8d4d4c1e6add0f7d0bb5bd6b1ab6ac99f42e9",
+        "rev": "cc83a858d3dbf50a934a4f74fe5508ac2fa72bc5",
         "type": "github"
       },
       "original": {
@@ -218,16 +218,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1697302492,
-        "narHash": "sha256-6sJpP8Koknp859z3zycQgOvomA4NrIWaRIuUOgt95TA=",
+        "lastModified": 1697041481,
+        "narHash": "sha256-AlYmn5/zXZFlDBwdih/YlkWp5we1IQJS6YeUJKKI6Y8=",
         "owner": "Cryolitia",
         "repo": "nur-packages",
-        "rev": "58785fb6563e13d5a219e8762b9aa46729d97fba",
+        "rev": "a84dda68a63a9703dd7973ab03bf1ba017565f2b",
         "type": "github"
       },
       "original": {
         "owner": "Cryolitia",
         "repo": "nur-packages",
+        "rev": "a84dda68a63a9703dd7973ab03bf1ba017565f2b",
         "type": "github"
       }
     },

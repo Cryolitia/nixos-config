@@ -38,7 +38,7 @@
       nur.url = "github:nix-community/NUR";
 
       nur-cryolitia = {
-        url = "github:Cryolitia/nur-packages";
+        url = "github:Cryolitia/nur-packages/a84dda68a63a9703dd7973ab03bf1ba017565f2b";
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
