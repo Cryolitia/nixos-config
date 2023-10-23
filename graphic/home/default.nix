@@ -1,21 +1,28 @@
 { inputs, lib, config, pkgs, ... }:
 
 let
+
   jsonFormat = pkgs.formats.json { };
   yamlFormat = pkgs.formats.yaml { };
+
+  rimeConfig = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/rime/default.custom.yaml";
+  rimeDict = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/rime/my.dict.yaml";
+
 in
 
 {
 
   imports = [
     ../../common/home.nix
-    ./gnome.nix
+    ./gnome
     inputs.anyrun.homeManagerModules.default
   ];
 
   home.sessionVariables = {
     GTK_THEME = "Arc-Dark";
-    QT_STYLE_OVERRIDE = "Nordic";
+    QT_STYLE_OVERRIDE = "Nordic-Polar";
+    GDK_BACKEND = "wayland,x11";
+    QT_QPA_PLATFORM = "wayland;xcb";
   };
 
   home.file = {
@@ -60,23 +67,13 @@ in
         "latex-workshop.latex.recipe.default" = "latexmk (xelatex)";
       };
 
-    ".config/ibus/rime/default.custom.yaml".source =
-      yamlFormat.generate "rime-settings" {
-        "patch" = {
-          # 仅使用「雾凇拼音」的默认配置，配置此行即可
-          "schema_list" = [
-            {
-              "schema" = "rime-ice";
-            }
-          ];
-        };
-      };
-    #".config/ibus/rime/default.custom.yaml".text = ''
-    #  patch:
-    #    # 仅使用「雾凇拼音」的默认配置，配置此行即可
-    #    schema_list:
-    #    - schema: rime_ice
-    #'';
+    ".config/ibus/rime/default.custom.yaml".source = rimeConfig;
+    ".local/share/fcitx5/rime/default.custom.yaml".source = rimeConfig;
+    ".config/ibus/rime/my.dict.yaml".source = rimeDict;
+    ".local/share/fcitx5/rime/my.dist.yaml".source = rimeDict;
+
+
+    ".face".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/graphic/face.jpg";
   };
 
   gtk = {
@@ -85,7 +82,10 @@ in
       name = "Arc";
       package = pkgs.arc-theme;
     };
+    font.name = "更纱黑体 SC 11";
   };
+
+  qt.style.name = "Nordic-Polar";
 
   programs.kitty = {
     enable = true;
@@ -97,29 +97,5 @@ in
       wayland_titlebar_color background
       map ctrl+c copy_or_interrupt
     '';
-  };
-
-  programs.anyrun = {
-    enable = true;
-    config = {
-      plugins = with inputs.anyrun.packages.${pkgs.system}; [
-        #applications
-        dictionary
-        #kidex
-        #randr
-        rink
-        #shell
-        symbols
-        translate
-        websearch
-      ];
-      hideIcons = false;
-      ignoreExclusiveZones = false;
-      layer = "overlay";
-      hidePluginInfo = false;
-      closeOnClick = false;
-      showResultsImmediately = false;
-      maxEntries = null;
-    };
   };
 }

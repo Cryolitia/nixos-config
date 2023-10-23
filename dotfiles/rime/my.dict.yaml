@@ -1,0 +1,8 @@
+---
+name: rime_ice
+version: "1"
+import_tables:
+  - rime_ice
+  - zhwiki
+  - moegirl
+...

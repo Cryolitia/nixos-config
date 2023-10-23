@@ -4,6 +4,7 @@
 
     imports = [
         ../../graphic/home
+        ../../graphic/home/hyprland.nix
     ];
 
     programs.git.signing = {
@@ -11,6 +12,6 @@
         key = "684609BA7B5BC68D";
     };
 
-    home.file.".config/maa".source = config.lib.file.mkOutOfStoreSymlink /home/cryolitia/nixos-config/maa;
+    home.file.".config/maa".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/maa";
 
 }

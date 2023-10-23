@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -22,9 +22,15 @@
     libsForQt5.okular
     yubikey-manager-qt
     hugo
-    inputs.anyrun.packages.${system}.anyrun-with-all-plugins
     kitty
+    nordic
+    arc-theme
+    libsForQt5.qt5.qtwayland
+    qt6.qtwayland
   ];
+
+  programs.kdeconnect.enable = true;
+  security.pam.services.cryolitia.enableKwallet = true;
 
   programs.clash-verge = {
     enable = true;

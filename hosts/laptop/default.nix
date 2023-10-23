@@ -50,5 +50,4 @@
       enable = true;
       enableOnBoot = true;
     };
-
 }

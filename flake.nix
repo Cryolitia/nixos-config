@@ -13,12 +13,16 @@
       "https://cryolitia.cachix.org"
       "https://cuda-maintainers.cachix.org"
       "https://anyrun.cachix.org"
+      "https://nixpkgs-wayland.cachix.org"
+      "https://hyprland.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
 
@@ -38,8 +42,8 @@
       nur.url = "github:nix-community/NUR";
 
       nur-cryolitia = {
-        url = "github:Cryolitia/nur-packages/a84dda68a63a9703dd7973ab03bf1ba017565f2b";
-        inputs.nixpkgs.follows = "nixpkgs";
+        url = "github:Cryolitia/nur-packages";
+        #inputs.nixpkgs.follows = "nixpkgs";
       };
 
       nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
@@ -51,203 +55,117 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
+      wayland = {
+        url = "github:nix-community/nixpkgs-wayland";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
+      hyprland.url = "github:hyprwm/Hyprland";
+
     };
 
   outputs =
-    inputs@{ self
-    , nixpkgs
-    , home-manager
-    , nur
-    , nur-cryolitia
-    , nixos-hardware
-    , nix-vscode-extensions
-    , vscode-server
-    , anyrun
-    , ...
-    }:
+    inputs:
     let
       system = "x86_64-linux";
+      commonModule = import ./common/module.nix { inherit inputs; };
     in
     builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」"
-    {
-      nixosConfigurations = {
-        Cryolitia-nixos = nixpkgs.lib.nixosSystem rec {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
+      {
 
-          modules = [
-            ({
-              nixpkgs.overlays = [
-                (final: prev: {
-                  nur-cryolitia = inputs.nur-cryolitia.packages."${prev.system}";
-                })
-              ];
-            })
-
-            ./hosts/laptop
-            ./overlays/python3Packages-tpm2-pytss.nix
-
-            nixos-hardware.nixosModules.common-hidpi
-            nixos-hardware.nixosModules.common-cpu-intel
-            nixos-hardware.nixosModules.common-pc-laptop
-            nixos-hardware.nixosModules.common-pc-laptop-ssd
-
-            nur.nixosModules.nur
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.cryolitia = import ./hosts/laptop/home.nix;
-
-            }
-          ];
-        };
-      };
-
-      nixosConfigurations = {
-        Cryolitia-surface = nixpkgs.lib.nixosSystem rec {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-
-          modules = [
-
-            ./hosts/surface
-            ./overlays/python3Packages-tpm2-pytss.nix
-            ./common/distribute.nix
-
-            nur.nixosModules.nur
-
-            nixos-hardware.nixosModules.microsoft-surface-go
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.cryolitia = import ./hosts/surface/home.nix;
-            }
-
-          ];
-        };
-      };
-
-      nixosConfigurations = {
-        rpi-nixos = nixpkgs.lib.nixosSystem rec {
-          system = "aarch64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-
-            ./hosts/rpi4
-            # ./common/distribute.nix
-
-            vscode-server.nixosModules.default
-            ({ config, pkgs, ... }: {
-              services.vscode-server.enable = true;
-            })
-
-            nur.nixosModules.nur
-
-            nixos-hardware.nixosModules.raspberry-pi-4
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.cryolitia = import ./hosts/rpi4/home.nix;
-            }
-
-          ];
-        };
-      };
-
-      devShells."${system}" = {
-
-        gcc =
-          let
-
-            pkgs = import nixpkgs {
-              config = {
-                allowUnfree = true;
-              };
-              inherit system;
+        nixosConfigurations = {
+          Cryolitia-nixos = inputs.nixpkgs.lib.nixosSystem rec {
+            system = "x86_64-linux";
+            specialArgs = {
+              inherit inputs;
             };
 
-          in
-          (pkgs.mkShell {
+            modules = commonModule ++ (with inputs; [
 
-            buildInputs = with pkgs; [
-              jetbrains.clion
-              cmake
-              opencv
-              onnxruntime
-              cudaPackages.cudatoolkit
-              eigen
-              zlib
-              asio
-              libcpr
-            ];
+              ./hosts/laptop
 
-            shellHook = ''
-              cd ~
-              exec zsh
-            '';
+              nixos-hardware.nixosModules.common-hidpi
+              nixos-hardware.nixosModules.common-cpu-intel
+              nixos-hardware.nixosModules.common-pc-laptop
+              nixos-hardware.nixosModules.common-pc-laptop-ssd
 
-          });
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.users.cryolitia = import ./hosts/laptop/home.nix;
 
-        cuda =
-          let
+              }
+            ]);
+          };
+        };
 
-            pkgs = import nixpkgs {
-              config = {
-                allowUnfree = true;
-                cudaSupport = true;
-              };
-              inherit system;
+        nixosConfigurations = {
+          Cryolitia-surface = inputs.nixpkgs.lib.nixosSystem rec {
+            system = "x86_64-linux";
+            specialArgs = {
+              inherit inputs;
             };
 
-          in
-          (pkgs.mkShell {
+            modules = commonModule ++ (with inputs;[
 
-            buildInputs = (
-              (with pkgs.python310Packages; [
-                pytorch-bin
-                venvShellHook
-                numpy
-                pillow
-                matplotlib
-                torchvision-bin
-              ]) ++ (with pkgs; [
-                python310
-                cudaPackages.cudatoolkit
-                virtualenv
-                jetbrains.pycharm-professional
-              ])
-            );
+              ./hosts/surface
+              ./common/distribute.nix
 
-            shellHook = ''
-              cd ~
-              echo "`${pkgs.python310}/bin/python3 --version`"
-              virtualenv --no-setuptools venv
-              export PATH=$PWD/venv/bin:$PATH
-              export PYTHONPATH=venv/lib/python3.10/site-packages/:$PYTHONPATH
-              exec zsh
-            '';
+              nixos-hardware.nixosModules.microsoft-surface-go
 
-            postShellHook = ''
-              ln -sf PYTHONPATH/* ${pkgs.virtualenv}/lib/python3.10/site-packages
-            '';
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.users.cryolitia = import ./hosts/surface/home.nix;
+              }
+            ]);
+          };
+        };
 
-          });
+        nixosConfigurations = {
+          rpi-nixos = inputs.nixpkgs.lib.nixosSystem rec {
+            system = "aarch64-linux";
+            specialArgs = {
+              inherit inputs;
+            };
+            modules = (with inputs;[
+
+              ./hosts/rpi4
+              # ./common/distribute.nix
+
+              vscode-server.nixosModules.default
+
+              {
+                services.vscode-server.enable = true;
+              }
+
+              nur.nixosModules.nur
+
+              nixos-hardware.nixosModules.raspberry-pi-4
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.users.cryolitia = import ./hosts/rpi4/home.nix;
+              }
+
+            ]);
+          };
+        };
+
+        devShells."${system}" = {
+
+          gcc = import ./develop/gcc.nix { pkgs = inputs.pkgs; };
+
+          cuda = import ./develop/cuda.nix { pkgs = inputs.pkgs; };
+
+        };
       };
-    };
 
 }

@@ -18,17 +18,10 @@
       ];
   };
 
-  specialisation."KDENvidia".configuration = {
-      imports = [
-        ./nvidia.nix
-        ../../../graphic/desktop/kde.nix
-      ];
-  };
-
-  specialisation."KDENoNvidia".configuration = {
+  specialisation."HyprlandNoNvidia".configuration = {
       imports = [
         ./nonvidia.nix
-        ../../../graphic/desktop/kde.nix
+        ../../../graphic/desktop/hyprland.nix
       ];
   };
 

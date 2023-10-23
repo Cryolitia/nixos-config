@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
+let 
+  
+  cuda = import ../../../common/software/cuda.nix { inherit pkgs; };
 
-{
+in {
 
     system.nixos.tags = [ "Nvidia" ];
     
@@ -15,10 +18,11 @@
     };
 
     environment.systemPackages = with pkgs.cudaPackages; [
-      cudatoolkit
+      cuda.cuda-redist
+      cuda.cuda-native-redist
       cutensor
       cudnn
-      pkgs.nur-cryolitia.MaaAssistantArknights-beta-cuda
+      pkgs.nur-cryolitia.MaaAssistantArknights-beta-cuda-bin
     ];
 
     nixpkgs.config.cudaSupport = true;

@@ -45,8 +45,6 @@
 
   environment.systemPackages = (with pkgs; [
     gnome.gnome-tweaks
-    nordic
-    arc-theme
     libnotify
   ]) ++ (with pkgs.gnomeExtensions; [
     appindicator
@@ -75,10 +73,7 @@
     enabled = "ibus";
     ibus.engines = with pkgs.ibus-engines; [
       (rime.override {
-        rimeDataPkgs = with config.nur.repos.linyinfeng.rimePackages;
-          withRimeDeps [
-            rime-ice
-          ];
+        rimeDataPkgs = import ../software/rime-data.nix { inherit config; inherit pkgs; };
       })
     ];
   };

@@ -1,0 +1,18 @@
+patch:
+  # 仅使用「雾凇拼音」的默认配置，配置此行即可
+  schema_list:
+    - schema: rime_ice
+    - schema: latex
+  translator:
+    dictionary: my
+  switches/@next:
+    name: emoji_suggestion
+    reset: 1
+    states: [ "🈚︎", "🈶️" ]
+  'engine/filters/@before 0':
+    simplifier@emoji_suggestion
+  emoji_suggestion:
+    opencc_config: emoji.json
+    option_name: emoji_suggestion
+    tips: none
+    inherit_comment: false
