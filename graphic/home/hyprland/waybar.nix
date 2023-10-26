@@ -408,7 +408,7 @@
           tooltip-format-wifi = "{ifname} via {gwaddr} {frequency}MHz";
           format-linked = "{ifname} (No IP)";
           format-disconnected = "Disconnected ⚠";
-          ormat-alt = "{ifname}= {ipaddr}/{cidr}";
+          format-alt = "{ifname}= {ipaddr}/{cidr}";
         };
         pulseaudio = {
           # "scroll-step"= 1; # %; can be a float
