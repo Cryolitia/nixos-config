@@ -50,4 +50,6 @@
       enable = true;
       enableOnBoot = true;
     };
+
+    services.xserver.sddm.settings.General.GreeterEnvironment="QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
 }
