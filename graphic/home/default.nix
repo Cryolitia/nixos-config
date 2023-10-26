@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, lib, config, pkgs, osConfig, ... }:
 
 let
 
@@ -15,8 +15,9 @@ in
   imports = [
     ../../common/home.nix
     ./gnome
-    ./hyprland
     inputs.anyrun.homeManagerModules.default
+  ] ++ lib.optionals osConfig.programs.hyprland.enable [
+    ./hyprland
   ];
 
   home.sessionVariables = {
