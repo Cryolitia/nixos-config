@@ -11,7 +11,7 @@
       global = {
         follow = "mouse";
         font = "Source Han Serif SC 12";
-        format = "\"<small>%a</small>\\n<b>%s</b>\\n%b\"";
+        format = ''<small>%a</small>\n<b>%s</b>\n%b'';
         browser = "/usr/bin/env xdg-open";
         corner_radius = 10;
         mouse_left_click = "do_action, close_current";

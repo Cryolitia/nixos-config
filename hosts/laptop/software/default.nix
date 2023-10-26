@@ -10,7 +10,6 @@
 
     environment.systemPackages = with pkgs; [
         firefox
-        qq
         config.nur.repos.xddxdd.wechat-uos
         texlive.combined.scheme-full
         jetbrains.idea-ultimate

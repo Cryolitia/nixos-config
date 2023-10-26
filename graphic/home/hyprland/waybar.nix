@@ -352,8 +352,8 @@
         };
         clock = {
           # "timezone"= "America/New_York";
-          tooltip-format = "<big>{=%Y %B}</big>\\n<tt><small>{calendar}</small></tt>";
-          format = "{=%Y-%m-%d %H=%M}";
+          # tooltip-format = ''<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>'';
+          format = "{:%Y-%m-%d}";
         };
         cpu = {
           format = "{usage}% ";

@@ -27,6 +27,7 @@
     arc-theme
     libsForQt5.qt5.qtwayland
     qt6.qtwayland
+    qq
   ];
 
   programs.kdeconnect.enable = true;
