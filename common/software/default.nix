@@ -18,6 +18,7 @@
     bottom
     ncdu
     iperf
+    htop
   ];
 
   programs.git = {

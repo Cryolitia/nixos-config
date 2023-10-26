@@ -15,6 +15,7 @@ in
   imports = [
     ../../common/home.nix
     ./gnome
+    ./hyprland
     inputs.anyrun.homeManagerModules.default
   ];
 
@@ -65,6 +66,7 @@ in
         "debug.javascript.autoAttachFilter" = "onlyWithFlag";
         "git.autofetch" = false;
         "latex-workshop.latex.recipe.default" = "latexmk (xelatex)";
+        "files.insertFinalNewline" = true;
       };
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;

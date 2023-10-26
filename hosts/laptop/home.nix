@@ -4,7 +4,6 @@
 
     imports = [
         ../../graphic/home
-        ../../graphic/home/hyprland.nix
     ];
 
     programs.git.signing = {

@@ -81,10 +81,10 @@
 
     substituters = [
       "https://mirrors.cernet.edu.cn/nix-channels/store"
-      "https://cache.nixos.org/"
     ];
 
     extra-substituters = [
+      "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
       "https://cryolitia.cachix.org"
       "https://cuda-maintainers.cachix.org"

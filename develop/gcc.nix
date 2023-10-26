@@ -19,13 +19,11 @@ in
     cmake
     opencv
     onnxruntime
-    cuda.cuda-redist
-    cuda.cuda-native-redist
     eigen
     zlib
     asio
     libcpr
-  ];
+  ] ++ cuda.cuda-native-redist;
 
   shellHook = ''
     cd ~

@@ -25,11 +25,15 @@
     libsForQt5.polkit-kde-agent
     wpaperd
     wl-clip-persist
+    udisks
     udiskie
     playerctl
     pavucontrol
     swayosd
     libnotify
+    networkmanagerapplet
+    libsecret
+    cliphist
   ]);
 
   i18n.inputMethod = {

@@ -18,12 +18,10 @@ in {
     };
 
     environment.systemPackages = with pkgs.cudaPackages; [
-      cuda.cuda-redist
-      cuda.cuda-native-redist
       cutensor
       cudnn
       pkgs.nur-cryolitia.MaaAssistantArknights-beta-cuda-bin
-    ];
+    ] ++ cuda.cuda-native-redist;
 
     nixpkgs.config.cudaSupport = true;
 

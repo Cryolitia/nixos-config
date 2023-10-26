@@ -6,9 +6,9 @@
     substituters = [
       "https://mirrors.cernet.edu.cn/nix-channels/store"
       # "https://mirrors.bfsu.edu.cn/nix-channels/store"
-      "https://cache.nixos.org/"
     ];
     extra-substituters = [
+      "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
       "https://cryolitia.cachix.org"
       "https://cuda-maintainers.cachix.org"
@@ -61,6 +61,11 @@
       };
 
       hyprland.url = "github:hyprwm/Hyprland";
+
+      hyprland-plugin = {
+        url = "github:hyprwm/hyprland-plugins";
+        inputs.hyprland.follows = "hyprland";
+      };
 
     };
 
@@ -159,11 +164,19 @@
           };
         };
 
-        devShells."${system}" = {
+        devShells."${system}" = rec {
 
-          gcc = import ./develop/gcc.nix { pkgs = inputs.pkgs; };
+          pkgs = import inputs.nixpkgs {
+            config = {
+              allowUnfree = true;
+              cudaSupport = true;
+            };
+            inherit system;
+          };
 
-          cuda = import ./develop/cuda.nix { pkgs = inputs.pkgs; };
+          gcc = import ./develop/gcc.nix { inherit pkgs; };
+
+          cuda = import ./develop/cuda.nix { inherit pkgs; };
 
         };
       };

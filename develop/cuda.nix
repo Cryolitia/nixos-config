@@ -2,15 +2,7 @@
 
 let
 
-  pkgs = import nixpkgs {
-    config = {
-      allowUnfree = true;
-      cudaSupport = true;
-    };
-    inherit system;
-  };
-
-  cuda = 
+  cuda = import ../common/software/cuda.nix { inherit pkgs; };
 
 in
 (pkgs.mkShell {
@@ -25,7 +17,7 @@ in
       torchvision-bin
     ]) ++ (with pkgs; [
       python310
-      cuda-redist
+      cuda.cuda-native-redist
       virtualenv
       jetbrains.pycharm-professional
     ])
@@ -34,6 +26,7 @@ in
   shellHook = ''
     cd ~
     echo "`${pkgs.python310}/bin/python3 --version`"
+    rm -v $HOME/venv/bin/python
     virtualenv --no-setuptools venv
     export PATH=$PWD/venv/bin:$PATH
     export PYTHONPATH=venv/lib/python3.10/site-packages/:$PYTHONPATH
@@ -44,4 +37,4 @@ in
     ln -sf PYTHONPATH/* ${pkgs.virtualenv}/lib/python3.10/site-packages
   '';
 
-});
+})

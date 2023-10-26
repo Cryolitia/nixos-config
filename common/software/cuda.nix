@@ -10,13 +10,10 @@ rec {
     cudnn # cudnn.h
   ];
 
-  cuda-native-redist = pkgs.symlinkJoin {
-    name = "cuda-native-redist-${pkgs.cudaPackages.cudaVersion}";
-    paths = with pkgs.cudaPackages; [
+  cuda-native-redist = with pkgs.cudaPackages; [
       cuda_cudart # cuda_runtime.h cuda_runtime_api.h
       cuda_nvcc
     ] ++ cuda-common-redist;
-  };
 
   cuda-redist = pkgs.symlinkJoin {
     name = "cuda-redist-${pkgs.cudaPackages.cudaVersion}";

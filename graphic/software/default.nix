@@ -30,7 +30,8 @@
   ];
 
   programs.kdeconnect.enable = true;
-  security.pam.services.cryolitia.enableKwallet = true;
+  # security.pam.services.cryolitia.enableKwallet = true;
+  services.gnome.gnome-keyring.enable = true;
 
   programs.clash-verge = {
     enable = true;
