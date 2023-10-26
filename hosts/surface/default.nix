@@ -32,12 +32,12 @@
   specialisation = {
     "Gnome".configuration = {
       imports = [
-        ../../../graphic/desktop/gnome.nix
+        ../../graphic/desktop/gnome.nix
       ];
     };
     "Hyprland".configuration = {
       imports = [
-        ../../../graphic/desktop/hyprland.nix
+        ../../graphic/desktop/hyprland.nix
       ];
     };
   };
