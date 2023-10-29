@@ -43,12 +43,18 @@
 
       nur-cryolitia = {
         url = "github:Cryolitia/nur-packages";
-        #inputs.nixpkgs.follows = "nixpkgs";
+        inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+      nix-vscode-extensions = {
+        url = "github:nix-community/nix-vscode-extensions";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
 
-      vscode-server.url = "github:nix-community/nixos-vscode-server";
+      vscode-server = {
+        url = "github:nix-community/nixos-vscode-server";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
 
       anyrun = {
         url = "github:Kirottu/anyrun";
@@ -60,7 +66,10 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      hyprland.url = "github:hyprwm/Hyprland";
+      hyprland = {
+        url = "github:hyprwm/Hyprland";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
 
       hyprland-plugin = {
         url = "github:hyprwm/hyprland-plugins";
@@ -97,7 +106,8 @@
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
+                home-manager.useUserPackages = false;
+                home-manager.backupFileExtension = "backup";
                 home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.cryolitia = import ./hosts/laptop/home.nix;
 
@@ -123,7 +133,8 @@
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
+                home-manager.useUserPackages = false;
+                home-manager.backupFileExtension = "backup";
                 home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.cryolitia = import ./hosts/surface/home.nix;
               }
@@ -155,7 +166,8 @@
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
+                home-manager.useUserPackages = false;
+                home-manager.backupFileExtension = "backup";
                 home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.cryolitia = import ./hosts/rpi4/home.nix;
               }

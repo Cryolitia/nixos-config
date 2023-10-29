@@ -3,11 +3,8 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    xwayland.enable = true;
-    enableNvidiaPatches = builtins.elem "nvidia" osConfig.services.xserver.videoDrivers;
     plugins = [
-      inputs.hyprland-plugin.packages.${pkgs.system}.hyprbars
+      # inputs.hyprland-plugin.packages.${pkgs.system}.hyprbars
     ];
     settings = {
       monitor = ",preferred,auto,auto";

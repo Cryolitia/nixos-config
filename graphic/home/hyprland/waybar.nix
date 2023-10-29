@@ -392,6 +392,7 @@
           format = "{capacity}% {icon}";
           format-charging = "";
           format-discharging = "{capacity}% {icon}";
+          tooltip-firmat = "{capacity}% {timeTo}";
           format-icons = [
             ""
             ""
