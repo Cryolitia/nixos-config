@@ -16,3 +16,4 @@ patch:
     option_name: emoji_suggestion
     tips: none
     inherit_comment: false
+  switches/@0/reset: 1
