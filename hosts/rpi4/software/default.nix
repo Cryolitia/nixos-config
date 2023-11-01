@@ -4,7 +4,7 @@
   imports =
     [
       ../../../common/software
-      ./homeassistant.nix
+      # ./homeassistant.nix
       ./syncthing.nix
       ./samba.nix
       ./qbittorrent.nix
