@@ -1,0 +1,36 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{float}
+\setCJKmainfont{Sarasa Gothic CL}
+\setCJKsansfont{Source Han Serif TC}
+\setCJKmonofont{JetBrainsMono Nerd Font}
+\lstset{
+    frame=single,
+    basicstyle=\ttfamily,
+    backgroundcolor=\color{lightgray}
+}
+
+\title{标题}
+\author{作者}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section{章节一}
+
+\begin{lstlisting}[
+    title=标题,
+    mathescape=true
+    ]
+Hello, world!
+\end{lstlisting}
+
+\newpage
+
+\end{document}

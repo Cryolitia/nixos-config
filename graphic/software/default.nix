@@ -28,6 +28,7 @@
     libsForQt5.qt5.qtwayland
     qt6.qtwayland
     qq
+    mpv
   ];
 
   programs.kdeconnect.enable = true;

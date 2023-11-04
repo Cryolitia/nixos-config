@@ -44,8 +44,8 @@
       (fcitx5-rime.override {
         rimeDataPkgs = import ../software/rime-data.nix { inherit config; inherit pkgs; };
       })
-      nur-cryolitia.fcitx5-nord
-      nur-cryolitia.fcitx5-material-color
+      fcitx5-nord
+      fcitx5-material-color
     ];
   };
 }
