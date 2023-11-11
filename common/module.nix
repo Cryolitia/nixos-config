@@ -10,7 +10,5 @@
     ];
   })
 
-  ../overlays/python3Packages-tpm2-pytss.nix
-
   inputs.nur.nixosModules.nur
 ]

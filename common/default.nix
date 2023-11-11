@@ -110,5 +110,7 @@
     "diffie-hellman-group1-sha1"
   ];
 
+  time.hardwareClockInLocalTime = true;
+
 }
 

@@ -5,8 +5,8 @@ let
   jsonFormat = pkgs.formats.json { };
   yamlFormat = pkgs.formats.yaml { };
 
-  rimeConfig = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/rime/default.custom.yaml";
-  rimeDict = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/rime/my.dict.yaml";
+  rimeConfig = config.lib.file.mkOutOfStoreSymlink "../../dotfiles/rime/default.custom.yaml";
+  rimeDict = config.lib.file.mkOutOfStoreSymlink "../../dotfiles/rime/my.dict.yaml";
 
 in
 
@@ -79,7 +79,7 @@ in
     ".local/share/fcitx5/rime/my.dist.yaml".source = rimeDict;
 
 
-    ".face".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/graphic/face.jpg";
+    ".face".source = config.lib.file.mkOutOfStoreSymlink "../graphic/face.jpg";
   };
 
   gtk = {

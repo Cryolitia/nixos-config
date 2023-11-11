@@ -7,8 +7,8 @@ in
 {
 
   "org/gnome/desktop/background" = {
-    picture-uri = "file://${config.home.homeDirectory}/nixos-config/graphic/background/1.jpg";
-    picture-uri-dark = "file://${config.home.homeDirectory}/nixos-config/graphic/background/2.jpg";
+    picture-uri = ../../background/1.jpg;
+    picture-uri-dark = ../../background/2.jpg;
     primary-color = "#000000000000";
     secondary-color = "#000000000000";
   };
@@ -31,7 +31,7 @@ in
   };
 
   "org/gnome/desktop/screensaver" = {
-    picture-uri = "file://${config.home.homeDirectory}/nixos-config/graphic/background/1.jpg";
+    picture-uri = "../../background/1.jpg";
     primary-color = "#000000000000";
     secondary-color = "#000000000000";
     lock-enabled = true;

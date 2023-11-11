@@ -76,6 +76,11 @@
         inputs.hyprland.follows = "hyprland";
       };
 
+      nixos-generators = {
+        url = "github:nix-community/nixos-generators";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
     };
 
   outputs =
@@ -173,6 +178,27 @@
               }
 
             ]);
+          };
+        };
+
+        packages.x86_64-linux = {
+          iso = inputs.nixos-generators.nixosGenerate {
+            system = "x86_64-linux";
+            modules = commonModule ++ (with inputs;[
+
+              ./hosts/image
+
+              /*home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = false;
+                home-manager.backupFileExtension = "backup";
+                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.users.cryolitia = import ./hosts/surface/home.nix;
+              }*/
+            ]);
+            format = "install-iso";
+            specialArgs = { inherit inputs; };
           };
         };
 
