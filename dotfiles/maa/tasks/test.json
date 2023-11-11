@@ -1,0 +1,26 @@
+{
+    "tasks": [
+        {
+            "type": "StartUp",
+            "params": {
+                "client_type": "Official"
+            }
+        },
+        {
+            "type": "Recruit",
+            "params": {
+                "enable": true,
+                "refresh": true,
+                "select": [ 3, 4, 5 ],
+                "confirm": [ 3, 4, 5 ],
+                "times": 999,
+                "expedite": true,
+                "expedite_times": 999,
+                "skip_rebot": true
+            }
+        },
+        {
+            "type": "Award"
+        }
+    ]
+}

@@ -1,136 +1,131 @@
 {
-    "tasks": [
-        {
-            "type": "StartUp",
-            "params": {
-                "client_type": "Official"
-            }
+  "tasks": [
+    {
+      "type": "StartUp",
+      "params": {
+        "client_type": "Official"
+      }
+    },
+    {
+      "type": "Fight",
+      "params": {
+        "enable": {
+          "default": false,
+          "description": "enable custom stage"
         },
-        {
-            "type": "Fight",
-            "params": {
-                "enable": {
-                  "default": false,
-		  "description": "enable custom stage"
-		},
-                "stage": {
-		  "default": "Annihilation",
-		  "description": "custom stage"
-		},
-		"times": {
-		  "default": 999,
-		  "description": "custom stage times"
-		},
-                "medicine": 999
-            }
+        "stage": {
+          "default": "Annihilation",
+          "description": "custom stage"
         },
-        {
-            "type": "Fight",
-            "params": {
-                "stage": "Annihilation",
-                "medicine": 999,
-                "times": 5
-            },
-            "variants": [
-                {
-                    "condition": {
-                        "type": "Weekday",
-                        "weekdays": [ "Mon" ]
-                    }
-                }
-            ]
+        "times": {
+          "default": 999,
+          "description": "custom stage times"
         },
+        "medicine": 999
+      }
+    },
+    {
+      "type": "Fight",
+      "params": {
+        "stage": "Annihilation",
+        "medicine": 999,
+        "times": 5
+      },
+      "variants": [
         {
-            "type": "Fight",
-            "params": {
-                "enable": true,
-                "medicine": 0,
-                "expiring_medicine": 999
-            },
-            "variants": [
-                {
-                    "condition": {
-                        "type": "Weekday",
-                        "weekdays": [ "Mon", "Thu", "Sat", "Sun" ]
-                    },
-                    "params": {
-                        "stage": "AP-5"
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "Weekday",
-                        "weekdays": [ "Tue" ]
-                    },
-                    "params": {
-                        "stage": "CE-6"
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "Weekday",
-                        "weekdays": [ "Wed" ]
-                    },
-                    "params": {
-                        "stage": "CA-5"
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "Weekday",
-                        "weekdays": [ "Fri" ]
-                    },
-                    "params": {
-                        "stage": "LS-6"
-                    }
-                }
-            ]
-        },
-        {
-            "type": "Recruit",
-            "params": {
-                "enable": true,
-                "refresh": true,
-                "select": [ 3, 4, 5 ],
-                "confirm": [ 3, 4, 5 ],
-                "times": 999,
-                "expedite": true,
-                "expedite_times": 999,
-                "skip_rebot": true
-            }
-        },
-        {
-            "type": "Infrast",
-            "params": {
-                "enable": true,
-                "facility": [
-                    "Mfg",
-                    "Trade",
-                    "Power",
-                    "Control",
-                    "Reception",
-                    "Office",
-                    "Dorm"
-                ],
-                "drones": "CombatRecord",
-                "dorm_trust_enabled": true
-            }
-        },
-        {
-            "type": "Mall",
-            "params": {
-                "shopping": true,
-                "blacklist": [
-                    "加急许可",
-                    "家具零件",
-                    "碳",
-                    "碳素"
-                ],
-                "force_shopping_if_credit_full": true
-            }
-        },
-        {
-            "type": "Award"
+          "condition": {
+            "type": "Weekday",
+            "weekdays": ["Mon"]
+          }
         }
-    ]
+      ]
+    },
+    {
+      "type": "Fight",
+      "params": {
+        "enable": true,
+        "medicine": 0,
+        "expiring_medicine": 999
+      },
+      "variants": [
+        {
+          "condition": {
+            "type": "Weekday",
+            "weekdays": ["Mon", "Thu", "Sat", "Sun"]
+          },
+          "params": {
+            "stage": "AP-5"
+          }
+        },
+        {
+          "condition": {
+            "type": "Weekday",
+            "weekdays": ["Tue"]
+          },
+          "params": {
+            "stage": "CE-6"
+          }
+        },
+        {
+          "condition": {
+            "type": "Weekday",
+            "weekdays": ["Wed"]
+          },
+          "params": {
+            "stage": "CA-5"
+          }
+        },
+        {
+          "condition": {
+            "type": "Weekday",
+            "weekdays": ["Fri"]
+          },
+          "params": {
+            "stage": "LS-6"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Recruit",
+      "params": {
+        "enable": true,
+        "refresh": true,
+        "select": [3, 4, 5],
+        "confirm": [3, 4, 5],
+        "times": 999,
+        "expedite": true,
+        "expedite_times": 999,
+        "skip_rebot": true
+      }
+    },
+    {
+      "type": "Infrast",
+      "params": {
+        "enable": true,
+        "facility": [
+          "Mfg",
+          "Trade",
+          "Power",
+          "Control",
+          "Reception",
+          "Office",
+          "Dorm"
+        ],
+        "drones": "CombatRecord",
+        "dorm_trust_enabled": true
+      }
+    },
+    {
+      "type": "Mall",
+      "params": {
+        "shopping": true,
+        "blacklist": ["加急许可", "家具零件", "碳", "碳素"],
+        "force_shopping_if_credit_full": true
+      }
+    },
+    {
+      "type": "Award"
+    }
+  ]
 }

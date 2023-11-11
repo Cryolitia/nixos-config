@@ -68,6 +68,9 @@ in
         "git.autofetch" = false;
         "latex-workshop.latex.recipe.default" = "latexmk (xelatex)";
         "files.insertFinalNewline" = true;
+        "[json]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
       };
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;

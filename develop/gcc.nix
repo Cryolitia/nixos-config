@@ -2,13 +2,6 @@
 
 let
 
-  pkgs = import nixpkgs {
-    config = {
-      allowUnfree = true;
-    };
-    inherit system;
-  };
-
   cuda = import ../common/software/cuda.nix { inherit pkgs; };
 
 in
@@ -30,4 +23,4 @@ in
     exec zsh
   '';
 
-});
+})

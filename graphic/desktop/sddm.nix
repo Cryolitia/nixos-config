@@ -12,7 +12,6 @@
   };
 
   environment.systemPackages = [
-
     pkgs.nordic.sddm
   ];
 }

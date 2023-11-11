@@ -31,8 +31,8 @@
       server_names = [
         "cloudflare"
         "google"
-        "dnspod"
-        "alidns-doh"
+        #"dnspod"
+        #"alidns-doh"
       ];
 
     };
