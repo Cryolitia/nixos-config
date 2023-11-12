@@ -5,8 +5,9 @@ let
   jsonFormat = pkgs.formats.json { };
   yamlFormat = pkgs.formats.yaml { };
 
-  rimeConfig = config.lib.file.mkOutOfStoreSymlink "../../dotfiles/rime/default.custom.yaml";
-  rimeDict = config.lib.file.mkOutOfStoreSymlink "../../dotfiles/rime/my.dict.yaml";
+  rimeConfig = ../../dotfiles/rime/default.custom.yaml;
+  rimeDict = ../../dotfiles/rime/my.dict.yaml;
+  rimeIce = ../../dotfiles/rime/rime_ice.custom.yaml;
 
 in
 
@@ -77,7 +78,8 @@ in
     ".local/share/fcitx5/rime/default.custom.yaml".source = rimeConfig;
     ".config/ibus/rime/my.dict.yaml".source = rimeDict;
     ".local/share/fcitx5/rime/my.dist.yaml".source = rimeDict;
-
+    ".config/ibus/rime/rime_ice.custom.yaml".source = rimeIce;
+    ".local/share/fcitx5/rime/rime_ice.custom.yaml".source = rimeIce;
 
     ".face".source = config.lib.file.mkOutOfStoreSymlink "../graphic/face.jpg";
   };
