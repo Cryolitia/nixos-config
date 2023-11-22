@@ -34,6 +34,7 @@
     networkmanagerapplet
     libsecret
     cliphist
+    config.nur.repos.cryolitia.hyprshot
   ]);
 
   i18n.inputMethod = {

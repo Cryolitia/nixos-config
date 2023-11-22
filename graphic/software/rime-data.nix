@@ -10,6 +10,7 @@ with config.nur.repos.linyinfeng.rimePackages;
   xddxdd.rime-moegirl
   xddxdd.rime-zhwiki
   pkgs.nur-cryolitia.rime-latex
+  pkgs.nur-cryolitia.rime-project-trans
 ]
 ))
 

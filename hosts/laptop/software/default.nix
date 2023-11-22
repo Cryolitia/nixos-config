@@ -6,6 +6,7 @@
         ./syncthing.nix
         ../../../graphic/software/waydroid.nix
         ../../../graphic/software
+        ./develop
     ];
 
     environment.systemPackages = with pkgs; [

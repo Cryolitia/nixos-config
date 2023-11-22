@@ -16,6 +16,7 @@ in
     zlib
     asio
     libcpr
+    python310Packages.pybind11
   ] ++ cuda.cuda-native-redist;
 
   shellHook = ''

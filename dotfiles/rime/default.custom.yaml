@@ -3,8 +3,6 @@ patch:
   schema_list:
     - schema: rime_ice
     - schema: latex
-  translator:
-    dictionary: my
   switches/@next:
     name: emoji_suggestion
     reset: 1

@@ -7,8 +7,8 @@ in
 {
 
   "org/gnome/desktop/background" = {
-    picture-uri = toString ../../background/1.jpg;
-    picture-uri-dark = toString ../../background/4.jpeg;
+    picture-uri = "${../../background}/1.jpg";
+    picture-uri-dark = "${../../background}/4.jpeg";
     primary-color = "#000000000000";
     secondary-color = "#000000000000";
   };
@@ -31,7 +31,7 @@ in
   };
 
   "org/gnome/desktop/screensaver" = {
-    picture-uri = toString ../../background/1.jpg;
+    picture-uri = "${../../background}/1.jpg";
     primary-color = "#000000000000";
     secondary-color = "#000000000000";
     lock-enabled = true;

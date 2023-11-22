@@ -15,10 +15,10 @@ in
       pillow
       matplotlib
       torchvision-bin
+      virtualenv
     ]) ++ (with pkgs; [
       python310
       cuda.cuda-native-redist
-      virtualenv
       jetbrains.pycharm-professional
     ])
   );

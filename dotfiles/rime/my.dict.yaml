@@ -1,8 +1,15 @@
 ---
-name: rime_ice
+name: my
 version: "1"
 import_tables:
   - rime_ice
+  - cn_dicts/8105     # 字表
+  # - cn_dicts/41448  # 大字表（按需启用）
+  - cn_dicts/base     # 基础词库
+  - cn_dicts/ext      # 扩展词库
+  - cn_dicts/tencent  # 腾讯词向量（大词库，部署时间较长）
+  - cn_dicts/others   # 一些杂项
   - zhwiki
   - moegirl
+  - project_trans
 ...

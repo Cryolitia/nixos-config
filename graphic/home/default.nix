@@ -77,11 +77,11 @@ in
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;
     ".local/share/fcitx5/rime/default.custom.yaml".source = rimeConfig;
     ".config/ibus/rime/my.dict.yaml".source = rimeDict;
-    ".local/share/fcitx5/rime/my.dist.yaml".source = rimeDict;
+    ".local/share/fcitx5/rime/my.dict.yaml".source = rimeDict;
     ".config/ibus/rime/rime_ice.custom.yaml".source = rimeIce;
     ".local/share/fcitx5/rime/rime_ice.custom.yaml".source = rimeIce;
 
-    ".face".source = config.lib.file.mkOutOfStoreSymlink "../graphic/face.jpg";
+    ".face".source = ../face.jpg;
   };
 
   gtk = {
