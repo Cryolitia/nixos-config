@@ -42,4 +42,8 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    wpsoffice
+  ];
+
 }
