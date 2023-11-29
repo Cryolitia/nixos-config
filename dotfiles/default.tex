@@ -1,15 +1,22 @@
 \documentclass[UTF8]{ctexart}
+\usepackage{hyperref}
 \usepackage{listings}
-\usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
 \setCJKmainfont{Sarasa Gothic CL}
 \setCJKsansfont{Source Han Serif TC}
-\setCJKmonofont{JetBrainsMono Nerd Font}
+\setCJKmonofont{Sarasa Mono CL}
 \lstset{
+    breaklines,
     frame=single,
     basicstyle=\ttfamily,
-    backgroundcolor=\color{lightgray}
+    backgroundcolor=\color{lightgray},
+    keywordstyle=\bfseries\color{NavyBlue},
+    stringstyle=\color{purple},
+    commentstyle=\color{teal},
+    numberstyle=\color{magenta}
 }
 
 \title{标题}
@@ -22,15 +29,39 @@
 
 \newpage
 
+\tableofcontents
+
+\newpage
+
 \section{章节一}
 
 \begin{lstlisting}[
     title=标题,
-    mathescape=true
+    mathescape=true,
+    language=Python,
     ]
 Hello, world!
 \end{lstlisting}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{Figure_1.png}
+\end{figure}
+
+\begin{enumerate}[
+    label = (\arabic*),
+    itemindent = 0pt,
+    labelindent = \parindent,
+    labelwidth = 2em,
+    labelsep = 5pt,
+    leftmargin = *]
+    \item 1
+\end{enumerate}
+
 \newpage
+
+\appendix
+
+\section{附录}
 
 \end{document}

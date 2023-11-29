@@ -16,6 +16,12 @@ in
       matplotlib
       torchvision-bin
       virtualenv
+      (opencv4.override {
+        enablePython = true;
+        pythonPackages = pkgs.python310Packages;
+        enableGtk2 = true;
+        enableGtk3 = true;
+      })
     ]) ++ (with pkgs; [
       python310
       cuda.cuda-native-redist

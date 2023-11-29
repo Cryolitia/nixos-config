@@ -12,7 +12,7 @@
       ../../hardware
       ../../graphic/software
       ../../graphic/desktop/gnome.nix
-      #"${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
+      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -29,6 +29,6 @@
     })
   ];
 
-  networking.networkmanager.enable = lib.mkForce false;
-
+  hardware.pulseaudio.enable = lib.mkForce false;
+  
 }

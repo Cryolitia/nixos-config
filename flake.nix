@@ -188,14 +188,14 @@
 
               ./hosts/image
 
-              /*home-manager.nixosModules.home-manager
+              home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = false;
                 home-manager.backupFileExtension = "backup";
                 home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.cryolitia = import ./hosts/surface/home.nix;
-              }*/
+              }
             ]);
             format = "install-iso";
             specialArgs = { inherit inputs; };
