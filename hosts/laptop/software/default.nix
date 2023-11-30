@@ -7,6 +7,7 @@
         ../../../graphic/software/waydroid.nix
         ../../../graphic/software
         ./develop
+        # ./hadoop.nix
     ];
 
     environment.systemPackages = with pkgs; [
