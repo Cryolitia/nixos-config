@@ -128,6 +128,10 @@
         #SwayOSD
         ", XF86AudioMute, exec, swayosd --output-volume mute-toggle"
         ", XF86AudioMicMute, exec, swayosd --input-volume mute-toggle"
+
+        ", Print, exec, hyprshot -m region --raw | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
+        "$mainMod, Print, exec, hyprshot -m window --raw | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
+        "$mainMod SHIFT, Print, exec, hyprshot -m output --raw | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
       ];
 
       bindm = [

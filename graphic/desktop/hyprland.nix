@@ -35,6 +35,7 @@
     libsecret
     cliphist
     hyprshot
+    satty
   ]);
 
   i18n.inputMethod = {
