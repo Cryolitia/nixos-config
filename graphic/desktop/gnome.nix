@@ -50,7 +50,6 @@
     appindicator
     pop-shell
     dash-to-dock
-    gsconnect
     freon
     caffeine
     blur-my-shell

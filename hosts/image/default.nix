@@ -30,5 +30,7 @@
   ];
 
   hardware.pulseaudio.enable = lib.mkForce false;
+
+  environment.sessionVariables.POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = "true";
   
 }

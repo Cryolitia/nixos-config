@@ -78,7 +78,6 @@ in
       "pop-shell@system76.com"
       "appindicatorsupport@rgcjonas.gmail.com"
       "GPaste@gnome-shell-extensions.gnome.org"
-      "gsconnect@andyholmes.github.io"
       "caffeine@patapon.info"
       "freon@UshakovVasilii_Github.yahoo.com"
       "blur-my-shell@aunetx"
