@@ -31,6 +31,7 @@ in
                 s-nlf-fh.glassit
                 eamodio.gitlens
                 twxs.cmake
+                m4ns0ur.base64
             ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
                     name = "remote-ssh";

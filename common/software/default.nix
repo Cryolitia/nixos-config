@@ -19,6 +19,9 @@
     ncdu
     iperf
     htop
+    bat
+    btop
+    yazi
   ];
 
   programs.git = {

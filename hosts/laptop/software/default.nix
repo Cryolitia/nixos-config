@@ -24,6 +24,8 @@
         obs-studio
         androidStudioPackages.beta
         jetbrains.clion
+        libsForQt5.kleopatra
+        keepassxc
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
