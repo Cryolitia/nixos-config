@@ -62,8 +62,8 @@
 
   nix.gc = {
     automatic = true;
-    options = "--delete-older-than 1d";
-    dates = "Sun 19:00";
+    options = "--delete-older-than 7d";
+    dates = "daily";
   };
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "03:45" ];
