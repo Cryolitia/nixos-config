@@ -22,6 +22,7 @@
     bat
     btop
     yazi
+    zellij
   ];
 
   programs.git = {
