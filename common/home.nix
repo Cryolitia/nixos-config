@@ -28,6 +28,11 @@
     enable = true;
     userName = "Cryolitia";
     userEmail = "Cryolitia@gmail.com";
+    extraConfig = {
+      core = {
+        autocrlf = true;
+      };
+    };
   };
 
   # The home.packages option allows you to install Nix packages into your
