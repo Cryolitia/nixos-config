@@ -72,6 +72,9 @@ in
         "[json]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
+        "[markdown]" = {
+          "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
+        };
       };
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;
