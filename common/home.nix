@@ -30,7 +30,7 @@
     userEmail = "Cryolitia@gmail.com";
     extraConfig = {
       core = {
-        autocrlf = true;
+        autocrlf = "input";
       };
     };
   };
