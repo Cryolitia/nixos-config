@@ -74,7 +74,9 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    
+
+    ".p10k.zsh".source = ../dotfiles/.p10k.zsh;
+    ".config/hyfetch.json".source = ../dotfiles/hyfetch.json;
   };
 
   # You can also manage environment variables but you will have to manually

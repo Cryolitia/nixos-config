@@ -443,11 +443,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1701800281,
-        "narHash": "sha256-sRthN5qDRoQyc6Fug1lSrD/ilpKEDs8zOzMuuzUt7dM=",
+        "lastModified": 1702529516,
+        "narHash": "sha256-5wlrYxPSx4ugVQR0lg9qUhYUstPAQHeWA3MjyEoNlN0=",
         "owner": "Cryolitia",
         "repo": "nur-packages",
-        "rev": "0a5c9b572fbc71c59522f6d26cdc0bf5cbcc274a",
+        "rev": "d6edaf6d101bc9419126a2a23312ab3ef237a7ce",
         "type": "github"
       },
       "original": {
