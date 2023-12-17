@@ -30,6 +30,10 @@ in
     show-battery-percentage = true;
   };
 
+  "org/gnome/desktop/peripherals/touchpad" = {
+    tap-to-click = true;
+  };
+
   "org/gnome/desktop/screensaver" = {
     picture-uri = "${../../background}/1.jpg";
     primary-color = "#000000000000";

@@ -4,8 +4,9 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
-      # "https://mirrors.cernet.edu.cn/nix-channels/store"
-      "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      "https://mirrors.cernet.edu.cn/nix-channels/store"
+      # "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      # "https://cache.nixos.org/"
     ];
     extra-substituters = [
       "https://cache.nixos.org/"
@@ -115,7 +116,34 @@
                 home-manager.backupFileExtension = "backup";
                 home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.cryolitia = import ./hosts/laptop/home.nix;
+              }
+            ]);
+          };
 
+          Cryolitia-GPD-NixOS = inputs.nixpkgs.lib.nixosSystem rec {
+            system = "x86_64-linux";
+            specialArgs = {
+              inherit inputs;
+            };
+
+            modules = commonModule ++ (with inputs; [
+
+              ./hosts/gpd
+
+              nixos-hardware.nixosModules.common-hidpi
+              nixos-hardware.nixosModules.common-cpu-amd
+              nixos-hardware.nixosModules.common-cpu-amd-pstate
+              nixos-hardware.nixosModules.common-gpu-amd
+              nixos-hardware.nixosModules.common-pc-laptop
+              nixos-hardware.nixosModules.common-pc-laptop-ssd
+
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = false;
+                home-manager.backupFileExtension = "backup";
+                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.users.cryolitia = import ./hosts/gpd/home.nix;
               }
             ]);
           };
@@ -212,6 +240,15 @@
 
           cuda = import ./develop/cuda.nix { inherit pkgs; };
 
+          pkgs2 = import inputs.nixpkgs {
+            config = {
+              allowUnfree = true;
+              cudaSupport = false;
+            };
+            inherit system;
+          };
+
+          python = import ./develop/python.nix { pkgs = pkgs2; };
         };
       };
 }

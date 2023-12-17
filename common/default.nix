@@ -110,7 +110,7 @@
     "diffie-hellman-group1-sha1"
   ];
 
-  time.hardwareClockInLocalTime = true;
+  #time.hardwareClockInLocalTime = true;
 
   boot.tmp.cleanOnBoot = true;
   
