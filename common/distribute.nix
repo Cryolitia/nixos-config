@@ -18,9 +18,11 @@
                 "kvm"
             ];
             protocol = "ssh-ng";
+            maxJobs = 12;
+            speedFactor = 1;
         }
         {
-            hostname = "192.168.50.97";
+            hostName = "192.168.50.97";
             sshUser = "cryolitia";
             sshKey = "/home/cryolitia/.ssh/id_ed25519";
             systems = [
@@ -33,6 +35,8 @@
                 "kvm"
             ];
             protocol = "ssh-ng";
+            maxJobs = 16;
+            speedFactor = 2;
         }
     ];
     nix.extraOptions = ''
