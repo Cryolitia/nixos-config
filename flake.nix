@@ -136,7 +136,7 @@
 
               # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
-              nur-cryolitia.nixosModules
+              nur-cryolitia.nixosModules.ryzen-smu
 
               home-manager.nixosModules.home-manager
               {
