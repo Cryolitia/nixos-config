@@ -32,6 +32,7 @@ in
                 eamodio.gitlens
                 twxs.cmake
                 m4ns0ur.base64
+                uctakeoff.vscode-counter
             ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
                     name = "remote-ssh";
