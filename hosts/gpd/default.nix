@@ -50,11 +50,6 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-  };
-
   services.xserver.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
 
   hardware.sensor.iio.enable = true;
