@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 let 
-  
-  cuda = import ../../../common/software/cuda.nix { inherit pkgs; };
 
 in {
 
@@ -14,14 +12,6 @@ in {
         nvidiaSettings = true;
         powerManagement.enable = true;
     };
-
-    environment.systemPackages = with pkgs.cudaPackages; [
-      cutensor
-      cudnn
-      pkgs.nur-cryolitia.MaaAssistantArknights-beta-cuda-bin
-    ] ++ cuda.cuda-native-redist;
-
-    nixpkgs.config.cudaSupport = true;
 
     virtualisation.docker.enableNvidia = true;
 

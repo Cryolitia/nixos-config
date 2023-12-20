@@ -374,6 +374,22 @@
         "type": "github"
       }
     },
+    "nixos-hardware-cryolitia": {
+      "locked": {
+        "lastModified": 1703050826,
+        "narHash": "sha256-NLB6pBQoxHeGkdupG7dlAmDCVa5XJBnVfbp2DD3nCE8=",
+        "owner": "Cryolitia",
+        "repo": "nixos-hardware",
+        "rev": "f528dbed06a3cda7a4a731e4497ea5fd1e1d9e6a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Cryolitia",
+        "ref": "gpd-win-max-2-2023",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1702830618,
@@ -465,6 +481,7 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
+        "nixos-hardware-cryolitia": "nixos-hardware-cryolitia",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "nur-cryolitia": "nur-cryolitia",

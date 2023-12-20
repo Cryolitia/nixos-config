@@ -40,6 +40,8 @@
 
       nixos-hardware.url = github:NixOS/nixos-hardware/master;
 
+      nixos-hardware-cryolitia.url = github:Cryolitia/nixos-hardware/gpd-win-max-2-2023;
+
       nur.url = "github:nix-community/NUR";
 
       nur-cryolitia = {
@@ -130,12 +132,7 @@
 
               ./hosts/gpd
 
-              nixos-hardware.nixosModules.common-hidpi
-              nixos-hardware.nixosModules.common-cpu-amd
-              nixos-hardware.nixosModules.common-cpu-amd-pstate
-              nixos-hardware.nixosModules.common-gpu-amd
-              nixos-hardware.nixosModules.common-pc-laptop
-              nixos-hardware.nixosModules.common-pc-laptop-ssd
+              nixos-hardware-cryolitia.nixosModules.gpd-win-max-2-2023
 
               # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
