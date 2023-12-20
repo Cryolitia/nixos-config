@@ -4,9 +4,9 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
-      "https://mirrors.cernet.edu.cn/nix-channels/store"
+      # "https://mirrors.cernet.edu.cn/nix-channels/store"
       # "https://mirrors.bfsu.edu.cn/nix-channels/store"
-      # "https://cache.nixos.org/"
+      "https://cache.nixos.org/"
     ];
     extra-substituters = [
       "https://cache.nixos.org/"
@@ -136,6 +136,10 @@
               nixos-hardware.nixosModules.common-gpu-amd
               nixos-hardware.nixosModules.common-pc-laptop
               nixos-hardware.nixosModules.common-pc-laptop-ssd
+
+              # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+
+              nur-cryolitia.nixosModules
 
               home-manager.nixosModules.home-manager
               {

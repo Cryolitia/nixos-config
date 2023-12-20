@@ -11,7 +11,6 @@
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
-    enableNvidiaPatches = builtins.elem "nvidia" config.services.xserver.videoDrivers;
   };
 
   environment.systemPackages = (with pkgs; [

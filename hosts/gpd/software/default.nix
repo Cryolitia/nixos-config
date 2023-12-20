@@ -27,6 +27,7 @@
     libsForQt5.kleopatra
     keepassxc
     nur-cryolitia.MaaAssistantArknights-beta
+    ryzenadj
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [

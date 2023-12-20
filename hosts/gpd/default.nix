@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
 
   ryzen_smu = config.boot.kernelPackages.callPackage ./software/ryzen_smu.nix { };
 
-in {
+in
+{
   imports =
     [
       # Include the results of the hardware scan.
@@ -58,7 +59,5 @@ in {
 
   hardware.sensor.iio.enable = true;
 
-  # boot.extraModulePackages = [ ryzen_smu ];
-
-  # boot.kernelModules = [ "ryzen_smu" ];
+  hardware.cpu.amd.ryzen-smu.enable = true;
 }
