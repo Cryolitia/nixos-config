@@ -212,6 +212,7 @@
             modules = commonModule ++ (with inputs;[
 
               ./hosts/image
+              nur-cryolitia.nixosModules.ryzen-smu
 
               home-manager.nixosModules.home-manager
               {

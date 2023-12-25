@@ -16,13 +16,16 @@
     tldr
     nnn
     bottom
-    ncdu
+    gdu
     iperf
     htop
     bat
     btop
     yazi
     zellij
+    usbutils
+    pciutils
+    lazygit
   ];
 
   programs.git = {

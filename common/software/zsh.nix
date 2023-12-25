@@ -25,4 +25,9 @@
   
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
+
+  programs.fzf = {
+    keybindings = true;
+    fuzzyCompletion = true;
+  };
 }

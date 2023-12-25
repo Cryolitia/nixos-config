@@ -32,5 +32,9 @@
   hardware.pulseaudio.enable = lib.mkForce false;
 
   environment.sessionVariables.POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = "true";
-  
+
+  # For test https://github.com/NixOS/nixpkgs/pull/271342
+  hardware.cpu.amd.ryzen-smu.enable = true;
+  environment.systemPackages =  [ pkgs.ryzenadj ];
+
 }

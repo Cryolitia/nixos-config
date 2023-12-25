@@ -55,4 +55,9 @@ in
   hardware.sensor.iio.enable = true;
 
   hardware.cpu.amd.ryzen-smu.enable = true;
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
+    SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
+  '';
 }
