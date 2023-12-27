@@ -26,6 +26,7 @@
     usbutils
     pciutils
     lazygit
+    lm_sensors
   ];
 
   programs.git = {

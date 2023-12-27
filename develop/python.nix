@@ -9,6 +9,7 @@
       pillow
       matplotlib
       virtualenv
+      pandas
     ]) ++ (with pkgs; [
       python310
       jetbrains.pycharm-professional

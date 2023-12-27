@@ -29,6 +29,7 @@
     qt6.qtwayland
     qq
     mpv
+    vlc
   ];
 
   programs.kdeconnect.enable = true;

@@ -11,6 +11,7 @@
       "networkmanager"
       "docker"
       "input"
+      "i2c"
     ]; # Enable ‘sudo’ for the user.
     hashedPassword = "$6$wisKmlN2/bkocZwi$79lkaHiKpkrfBtId5H.R1byVTTzg.vc/YGlr37zS4J4gPMRSveHrLLgY19m3UfPvc9aAnVEAEh3pSShBeh.D61";
     openssh.authorizedKeys.keys = [
