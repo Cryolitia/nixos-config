@@ -30,6 +30,7 @@
     qq
     mpv
     vlc
+    blackbox-terminal
   ];
 
   programs.kdeconnect.enable = true;
