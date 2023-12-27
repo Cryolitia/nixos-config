@@ -103,6 +103,7 @@
             modules = commonModule ++ (with inputs; [
 
               ./hosts/laptop
+              ./common/distribute.nix
 
               nixos-hardware.nixosModules.common-hidpi
               nixos-hardware.nixosModules.common-cpu-intel
