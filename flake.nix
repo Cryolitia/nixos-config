@@ -4,8 +4,8 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
-      "https://mirrors.cernet.edu.cn/nix-channels/store"
-      # "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      # "https://mirrors.cernet.edu.cn/nix-channels/store"
+      "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
     extra-substituters = [
@@ -30,7 +30,7 @@
   inputs =
     {
       # NixOS 官方软件源，这里使用 nixos-unstable 分支
-      nixpkgs.url = "github:PhDyellow/nixpkgs/ryzen_smu";
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
       # home-manager，用于管理用户配置
       home-manager = {
@@ -135,7 +135,7 @@
 
               # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
-              # nur-cryolitia.nixosModules.ryzen-smu
+              nur-cryolitia.nixosModules.ryzen-smu
 
               home-manager.nixosModules.home-manager
               {

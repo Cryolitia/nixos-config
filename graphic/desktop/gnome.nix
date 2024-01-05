@@ -17,11 +17,11 @@
     gnome-photos
     gnome-tour
     gnome-text-editor
+    gedit
     gnome-console
   ]) ++ (with pkgs.gnome; [
     cheese # webcam tool
     gnome-music
-    gedit # text editor
     epiphany # web browser
     geary # email reader
     evince # document viewer

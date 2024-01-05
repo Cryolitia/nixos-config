@@ -10,14 +10,14 @@ in
   buildInputs = with pkgs; [
     jetbrains.clion
     cmake
-    opencv
-    onnxruntime
-    eigen
-    zlib
-    asio
-    libcpr
-    python310Packages.pybind11
-  ] ++ cuda.cuda-native-redist;
+    #opencv
+    #onnxruntime
+    #eigen
+    #zlib
+    #asio
+    #libcpr
+    #python310Packages.pybind11
+  ]; #++ cuda.cuda-native-redist;
 
   shellHook = ''
     cd ~

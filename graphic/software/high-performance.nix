@@ -24,6 +24,8 @@
     libsForQt5.kleopatra
     keepassxc
     nur-cryolitia.MaaAssistantArknights-beta
+    nodePackages.pnpm
+    nodePackages.nodejs 
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
@@ -40,4 +42,8 @@
     enable = true;
     enableOnBoot = true;
   };
+
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
+  xdg.portal.config.common.default = "*";
 }

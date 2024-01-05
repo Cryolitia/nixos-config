@@ -36,10 +36,11 @@
     };
   };
 
-  programs.gh = {
-    enable = true;
-    gitCredentialHelper.enable = true;
-  };
+# https://github.com/nix-community/home-manager/issues/4816
+#  programs.gh = {
+#    enable = true;
+#    gitCredentialHelper.enable = true;
+#  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.

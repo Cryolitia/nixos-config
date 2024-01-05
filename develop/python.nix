@@ -10,11 +10,17 @@
       matplotlib
       virtualenv
       pandas
+      scikit-learn
+      joblib
+      pygobject3
+      pyudev
     ]) ++ (with pkgs; [
       python310
       jetbrains.pycharm-professional
     ])
   );
+
+  LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
 
   shellHook = ''
     cd ~
