@@ -22,6 +22,7 @@
       source ~/.p10k.zsh
 #      source ~/incr*.zsh
     '';
+    history.extended = true;
   };
   
   programs.git = {
