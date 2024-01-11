@@ -31,6 +31,7 @@
     mpv
     vlc
     blackbox-terminal
+    libnotify
   ];
 
   programs.kdeconnect.enable = true;

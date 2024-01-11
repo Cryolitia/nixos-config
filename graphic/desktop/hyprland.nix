@@ -29,7 +29,6 @@
     playerctl
     pavucontrol
     swayosd
-    libnotify
     networkmanagerapplet
     libsecret
     cliphist

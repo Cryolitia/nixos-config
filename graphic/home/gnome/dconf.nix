@@ -21,7 +21,7 @@ in
   "org/gnome/desktop/interface" = {
     #gtk-theme = "Nordic";
     cursor-theme = "Adwaita";
-    icon-theme = "Adwaita";
+    icon-theme = "Tela";
     clock-show-weekday = true;
     font-name = "更纱黑体 SC 11";
     document-font-name = "Source Han Serif 11";

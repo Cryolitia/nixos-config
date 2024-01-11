@@ -46,7 +46,7 @@
 
   environment.systemPackages = (with pkgs; [
     gnome.gnome-tweaks
-    libnotify
+    tela-icon-theme
   ]) ++ (with pkgs.gnomeExtensions; [
     appindicator
     pop-shell
@@ -55,13 +55,7 @@
     caffeine
     blur-my-shell
     night-theme-switcher
-    (desktop-lyric.overrideAttrs (oldAttrs: rec {
-      # https://github.com/tuberry/desktop-lyric/issues/16
-      postPatch = ''
-        sed -i "s/43/44/g" metadata.json 
-      '';
-    }
-    ))
+    desktop-lyric
   ]);
 
   programs.gpaste.enable = true;

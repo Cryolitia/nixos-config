@@ -15,10 +15,10 @@
 
   home.file."Documents/template.tex".source = ../../dotfiles/template.tex;
 
-  programs.kitty.font.size = 16.0;
+  programs.kitty.font.size = 12.0;
 
   dconf.settings = {
-    "org/gnome/desktop/interface".text-scaling-factor = 1.5;
+    "org/gnome/desktop/interface".text-scaling-factor = 1.0;
 
     "org/gnome/shell/extensions/freon".hot-sensors = lib.mkForce [
       "__max__"

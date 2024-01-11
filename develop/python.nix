@@ -14,6 +14,12 @@
       joblib
       pygobject3
       pyudev
+      (opencv4.override {
+        enablePython = true;
+        pythonPackages = pkgs.python310Packages;
+        enableGtk2 = true;
+        enableGtk3 = true;
+      })
     ]) ++ (with pkgs; [
       python310
       jetbrains.pycharm-professional
