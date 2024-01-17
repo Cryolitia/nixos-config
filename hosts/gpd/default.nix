@@ -64,7 +64,27 @@ in
     SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
   '';
 
-  boot.blacklistedKernelModules = [ "bmi160_i2c" "bmi160_core" ];
+  boot.blacklistedKernelModules = [ "bmi160_spi" "bmi160_i2c" "bmi160_core" ];
+
+  # https://community.frame.work/t/resolved-systemd-suspend-then-hibernate-wakes-up-after-5-minutes/39392/7
+  boot.kernelParams = [
+    "rtc_cmos.use_acpi_alarm=1"
+  ];
+
+  boot.kernelPatches = [{
+    name = "enable DEBUG_FS";
+    patch = null;
+    extraConfig = ''
+      DEBUG_FS n
+    '';
+  }{
+    name = "0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04";
+    patch = pkgs.fetchpatch {
+      name = "0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04.patch";
+      url = "https://gitlab.freedesktop.org/drm/amd/uploads/ca30c559675070b61eaa35687837a3a2/0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04.patch";
+      hash = "sha256-AJ4rUQgybTU9/bnAgSY4mVp7nNwdkGqnJcqtqIU0iQQ=";
+    };
+  }];
 
   hardware.i2c.enable = true;
 }

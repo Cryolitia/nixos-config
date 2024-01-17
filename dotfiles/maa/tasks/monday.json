@@ -7,6 +7,15 @@
             }
         },
         {
+            "type": "Fight",
+            "params": {
+                "enable": true,
+                "stage": "Annihilation",
+                "medicine": 999,
+                "times": 5
+            }
+        },
+        {
             "type": "Recruit",
             "params": {
                 "enable": true,
@@ -17,15 +26,6 @@
                 "expedite": true,
                 "expedite_times": 999,
                 "skip_rebot": true
-            }
-        },
-        {
-            "type": "Fight",
-            "params": {
-                "enable": true,
-                "stage": "Annihilation",
-                "medicine": 999,
-                "times": 5
             }
         },
         {

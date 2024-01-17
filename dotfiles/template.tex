@@ -5,6 +5,9 @@
 \usepackage{float}
 \usepackage{enumitem}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{tabto}
+\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\addbibresource{default.bib}
 \setCJKmainfont{Sarasa Gothic CL}
 \setCJKsansfont{Source Han Serif TC}
 \setCJKmonofont{Sarasa Mono CL}
@@ -58,10 +61,26 @@ Hello, world!
     \item 1
 \end{enumerate}
 
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{l|c|c|c|c}
+        &\multicolumn{2}{c|}{\textbf{样例 1}}&\multicolumn{2}{c|}{\textbf{样例 2}}\\
+        &遍历节点数&运行时间（ms）&遍历节点数&运行时间（ms）\\
+        \hline
+        Demo 2&69670.2&1026&1283936.3&17972.4\\
+        Demo 3&30&1&1762&1\\
+    \end{tabular}
+\end{center}
+\end{table}
+
 \newpage
 
 \appendix
 
 \section{附录}
+
+\subsection{参考文献}
+
+\printbibliography[heading=none]
 
 \end{document}

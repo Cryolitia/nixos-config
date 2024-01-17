@@ -10,6 +10,7 @@ in
   buildInputs = with pkgs; [
     jetbrains.clion
     cmake
+    ninja
     #opencv
     #onnxruntime
     #eigen

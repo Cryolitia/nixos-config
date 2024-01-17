@@ -241,6 +241,8 @@
 
           cuda = import ./develop/cuda.nix { inherit pkgs; };
 
+          rust = import ./develop/rust.nix { inherit pkgs; };
+
           pkgs2 = import inputs.nixpkgs {
             config = {
               allowUnfree = true;

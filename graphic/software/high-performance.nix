@@ -25,7 +25,8 @@
     keepassxc
     nur-cryolitia.MaaAssistantArknights-beta
     nodePackages.pnpm
-    nodePackages.nodejs 
+    nodePackages.nodejs
+    discord
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
