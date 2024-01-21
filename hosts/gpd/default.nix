@@ -62,6 +62,9 @@ in
   services.udev.extraRules = ''
     SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
     SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
+
+    ACTION=="add", SUBSYSTEM=="i2c", ATTR{name}=="GXTP7385:00", ATTR{power/wakeup}="disabled"
+    ACTION=="add", SUBSYSTEM=="i2c", ATTR{name}=="PNP0C50:00", ATTR{power/wakeup}="disabled"
   '';
 
   boot.blacklistedKernelModules = [ "bmi160_spi" "bmi160_i2c" "bmi160_core" ];
@@ -71,20 +74,15 @@ in
     "rtc_cmos.use_acpi_alarm=1"
   ];
 
-  boot.kernelPatches = [{
-    name = "enable DEBUG_FS";
-    patch = null;
-    extraConfig = ''
-      DEBUG_FS n
-    '';
-  }{
-    name = "0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04";
-    patch = pkgs.fetchpatch {
-      name = "0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04.patch";
-      url = "https://gitlab.freedesktop.org/drm/amd/uploads/ca30c559675070b61eaa35687837a3a2/0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04.patch";
-      hash = "sha256-AJ4rUQgybTU9/bnAgSY4mVp7nNwdkGqnJcqtqIU0iQQ=";
-    };
-  }];
+  #boot.kernelPatches = [{
+  #  name = "0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04";
+  #  patch = pkgs.fetchpatch {
+  #    name = "0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04.patch";
+  #    url = "https://gitlab.freedesktop.org/drm/amd/uploads/ca30c559675070b61eaa35687837a3a2/0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04.patch";
+  #    hash = "sha256-AJ4rUQgybTU9/bnAgSY4mVp7nNwdkGqnJcqtqIU0iQQ=";
+  #  };
+  #}];
 
   hardware.i2c.enable = true;
+  hardware.sensor.iio.bmi260.enable = true;
 }

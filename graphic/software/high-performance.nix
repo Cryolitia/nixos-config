@@ -23,7 +23,7 @@
     jetbrains.clion
     libsForQt5.kleopatra
     keepassxc
-    nur-cryolitia.MaaAssistantArknights-beta
+    #nur-cryolitia.MaaAssistantArknights-beta
     nodePackages.pnpm
     nodePackages.nodejs
     discord
