@@ -1,4 +1,4 @@
-{ inputs, pkgs, osConfig, ... }:
+{ inputs, pkgs, ... }:
 
 {
   wayland.windowManager.hyprland = {

@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ ... }:
 
 {
     # nix.settings.max-jobs = 0;

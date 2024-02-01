@@ -82,6 +82,8 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
+      rust-overlay.url = "github:oxalica/rust-overlay";
+
     };
 
   outputs =
@@ -230,21 +232,7 @@
 
         devShells."${system}" = rec {
 
-          pkgs = import inputs.nixpkgs {
-            config = {
-              allowUnfree = true;
-              cudaSupport = true;
-            };
-            inherit system;
-          };
-
-          gcc = import ./develop/gcc.nix { inherit pkgs; };
-
-          cuda = import ./develop/cuda.nix { inherit pkgs; };
-
-          rust = import ./develop/rust.nix { inherit pkgs; };
-
-          pkgs2 = import inputs.nixpkgs {
+          pkgs-unfree = import inputs.nixpkgs {
             config = {
               allowUnfree = true;
               cudaSupport = false;
@@ -252,7 +240,32 @@
             inherit system;
           };
 
-          python = import ./develop/python.nix { pkgs = pkgs2; };
+          pkgs-cuda = import inputs.nixpkgs {
+            config = {
+              allowUnfree = true;
+              cudaSupport = true;
+            };
+            inherit system;
+          };
+
+          pkgs-rust = import inputs.nixpkgs {
+            config = {
+              allowUnfree = true;
+              cudaSupport = false;
+            };
+            inherit system;
+            overlays = [
+              (import inputs.rust-overlay)
+            ];
+          };
+
+          gcc = import ./develop/gcc.nix { pkgs = pkgs-unfree; };
+
+          cuda = import ./develop/cuda.nix { pkgs = pkgs-cuda; };
+
+          rust = import ./develop/rust.nix { pkgs = pkgs-rust; };
+
+          python = import ./develop/python.nix { pkgs = pkgs-unfree; };
         };
       };
 }

@@ -1,9 +1,9 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 let
   inherit (lib)
     add attrNames elemAt foldl' genList length replaceStrings sort toLower trace;
 
-  maintainers = import ./dconf.nix { inherit lib; inherit config; };
+  maintainers = import ./dconf.nix { inherit lib; inherit config; inherit pkgs; };
   simplify = replaceStrings [ "-" "_" ] [ "" "" ];
   compare = a: b: simplify (toLower a) < simplify (toLower b);
   namesSorted =

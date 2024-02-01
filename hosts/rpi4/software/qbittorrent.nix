@@ -1,9 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    qbittorrent-nox
-  ];
   
   systemd.services.qbittorrent = {
       after = [ "network.target" ];

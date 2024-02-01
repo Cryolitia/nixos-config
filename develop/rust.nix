@@ -1,15 +1,22 @@
 { pkgs, ... }:
+let 
 
-((pkgs.mkShell.override { stdenv = pkgs.llvmPackages.stdenv; }) {
+  rust = (pkgs.rust-bin.stable.latest.rust.override {
+      extensions = ["rust-src"];
+    });
 
-  buildInputs = with pkgs; [
-    rustc
-    cargo
+in ((pkgs.mkShell.override { stdenv = pkgs.llvmPackages.stdenv; }) {
+
+  buildInputs = [
+    rust
   ];
 
   LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+  RUST_SRC_PATH = "${rust}/lib/rustlib/src/rust";
 
   shellHook = ''
+    rustc --version
+    cargo --version
     exec zsh
   '';
 

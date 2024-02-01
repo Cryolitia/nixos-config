@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-patch, ... }:
+{ ... }:
 
 {
   networking = {
@@ -40,6 +40,10 @@
 
   systemd.services.dnscrypt-proxy2.serviceConfig = {
     StateDirectory = "dnscrypt-proxy";
+  };
+
+  networking.hosts = {
+    "121.194.4.13" = [ "www.cnki.net" ];
   };
 
 }

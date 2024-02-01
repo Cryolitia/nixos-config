@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -6,7 +6,7 @@
       ./vscode.nix
       ../../common/software
       ./chrome.nix
-      ../../common/yubikey.nix
+      ../../hardware/yubikey.nix
     ];
 
   # List packages installed in system profile. To search, run:
@@ -20,7 +20,6 @@
     nixd
     nixpkgs-fmt
     libsForQt5.okular
-    yubikey-manager-qt
     hugo
     kitty
     nordic
@@ -32,6 +31,7 @@
     vlc
     blackbox-terminal
     libnotify
+    mission-center
   ];
 
   programs.kdeconnect.enable = true;

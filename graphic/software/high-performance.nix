@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -27,6 +27,8 @@
     nodePackages.pnpm
     nodePackages.nodejs
     discord
+    yesplaymusic
+    jetbrains.rust-rover
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [

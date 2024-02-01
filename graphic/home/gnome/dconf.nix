@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, pkgs, ... }:
 let
 
   mkTuple = lib.hm.gvariant.mkTuple;
@@ -130,6 +130,8 @@ in
 
   "org/gnome/shell/extensions/nightthemeswitcher/commands" = {
     enabled = true;
+    sunrise = "${pkgs.libnotify}/bin/notify-send \"漱正阳而含朝霞\"";
+    sunset = "${pkgs.libnotify}/bin/notify-send \"有月影 在水面 漂流不定\"";
   };
 
   "org/gnome/shell/extensions/nightthemeswitcher/gtk-variants" = {

@@ -7,7 +7,7 @@
 #        01:00.2 USB controller [0c03]: NVIDIA Corporation TU116 USB 3.1 Host Controller [10de:1aec] (rev a1)
 #        01:00.3 Serial bus controller [0c80]: NVIDIA Corporation TU116 USB Type-C UCSI Controller [10de:1aed] (rev a1)
 
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 let
 
