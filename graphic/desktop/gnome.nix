@@ -8,8 +8,8 @@
     enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
-    layout = "cn";
-    xkbVariant = "";
+    xkb.layout = "cn";
+    xkb.variant = "";
     excludePackages = [ pkgs.xterm ];
   };
 

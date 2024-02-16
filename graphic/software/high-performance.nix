@@ -21,6 +21,7 @@
     obs-studio
     androidStudioPackages.beta
     jetbrains.clion
+    config.boot.kernelPackages.perf
     libsForQt5.kleopatra
     keepassxc
     #nur-cryolitia.MaaAssistantArknights-beta

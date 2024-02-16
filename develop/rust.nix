@@ -7,8 +7,10 @@ let
 
 in ((pkgs.mkShell.override { stdenv = pkgs.llvmPackages.stdenv; }) {
 
-  buildInputs = [
+  buildInputs = with pkgs; [
     rust
+    libusb
+    pkg-config
   ];
 
   LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";

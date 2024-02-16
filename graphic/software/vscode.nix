@@ -33,6 +33,7 @@ in
                 twxs.cmake
                 m4ns0ur.base64
                 uctakeoff.vscode-counter
+                rust-lang.rust-analyzer
             ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
                     name = "remote-ssh";

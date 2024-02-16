@@ -52,8 +52,6 @@ in
 
   services.xserver.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
 
-  hardware.sensor.iio.enable = true;
-
   # hardware.cpu.amd.ryzen_smu.enable = true;
   # programs.ryzen_monitor_ng.enable = true;
 
@@ -65,24 +63,7 @@ in
 
     ACTION=="add", SUBSYSTEM=="i2c", ATTR{name}=="GXTP7385:00", ATTR{power/wakeup}="disabled"
     ACTION=="add", SUBSYSTEM=="i2c", ATTR{name}=="PNP0C50:00", ATTR{power/wakeup}="disabled"
+
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="2f24", ATTRS{idProduct}=="0135", MODE="0666", GROUP="plugdev"
   '';
-
-  boot.blacklistedKernelModules = [ "bmi160_spi" "bmi160_i2c" "bmi160_core" ];
-
-  # https://community.frame.work/t/resolved-systemd-suspend-then-hibernate-wakes-up-after-5-minutes/39392/7
-  boot.kernelParams = [
-    "rtc_cmos.use_acpi_alarm=1"
-  ];
-
-  #boot.kernelPatches = [{
-  #  name = "0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04";
-  #  patch = pkgs.fetchpatch {
-  #    name = "0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04.patch";
-  #    url = "https://gitlab.freedesktop.org/drm/amd/uploads/ca30c559675070b61eaa35687837a3a2/0001-gpiolib-acpi-Ignore-touchpad-wakeup-on-GPD-G1619-04.patch";
-  #    hash = "sha256-AJ4rUQgybTU9/bnAgSY4mVp7nNwdkGqnJcqtqIU0iQQ=";
-  #  };
-  #}];
-
-  hardware.i2c.enable = true;
-  hardware.sensor.iio.bmi260.enable = true;
 }

@@ -4,8 +4,8 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
-      # "https://mirrors.cernet.edu.cn/nix-channels/store"
-      "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      "https://mirrors.cernet.edu.cn/nix-channels/store"
+      # "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
     extra-substituters = [
@@ -16,6 +16,7 @@
       "https://anyrun.cachix.org"
       "https://nixpkgs-wayland.cachix.org"
       "https://hyprland.cachix.org"
+      "https://ezkea.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -24,6 +25,7 @@
       "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
     ];
   };
 
@@ -39,6 +41,7 @@
       };
 
       nixos-hardware.url = github:NixOS/nixos-hardware/master;
+      # nixos-hardware.url = github:Cryolitia/nixos-hardware/gpd;
 
       nur.url = "github:nix-community/NUR";
 
@@ -82,8 +85,15 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      rust-overlay.url = "github:oxalica/rust-overlay";
+      rust-overlay = {
+        url = "github:oxalica/rust-overlay";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
 
+      aagl = {
+        url = "github:ezKEa/aagl-gtk-on-nix";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
     };
 
   outputs =
@@ -138,7 +148,6 @@
               # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
               nur-cryolitia.nixosModules.ryzen-smu
-              nur-cryolitia.nixosModules.bmi260
 
               home-manager.nixosModules.home-manager
               {
