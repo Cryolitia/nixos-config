@@ -34,6 +34,7 @@ in
                 m4ns0ur.base64
                 uctakeoff.vscode-counter
                 rust-lang.rust-analyzer
+                nvarner.typst-lsp
             ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
                     name = "remote-ssh";

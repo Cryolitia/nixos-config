@@ -43,7 +43,7 @@
   };
 
   networking.hosts = {
-    "121.194.4.13" = [ "www.cnki.net" ];
+    "10.1.1.1" = [ "portal.csu.edu.cn" ];
   };
 
 }

@@ -32,6 +32,8 @@
     blackbox-terminal
     libnotify
     mission-center
+    typst
+    typst-lsp
   ];
 
   programs.kdeconnect.enable = true;

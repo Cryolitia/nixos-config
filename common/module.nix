@@ -6,7 +6,6 @@
       (final: prev: {
         nur-cryolitia = inputs.nur-cryolitia.packages."${prev.system}";
       })
-      inputs.wayland.overlay
     ];
   })
 

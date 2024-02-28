@@ -47,7 +47,11 @@
 
       nur-cryolitia = {
         url = "github:Cryolitia/nur-packages";
-        inputs.nixpkgs.follows = "nixpkgs";
+        inputs = {
+          nixpkgs.follows = "nixpkgs";
+          rust-overlay.follows = "rust-overlay";
+        };
+
       };
 
       nix-vscode-extensions = {
@@ -62,11 +66,6 @@
 
       anyrun = {
         url = "github:Kirottu/anyrun";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      wayland = {
-        url = "github:nix-community/nixpkgs-wayland";
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
