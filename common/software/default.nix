@@ -27,6 +27,7 @@
     pciutils
     lazygit
     lm_sensors
+    nix-output-monitor
   ];
 
   programs.git = {
