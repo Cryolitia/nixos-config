@@ -34,6 +34,7 @@
     mission-center
     typst
     typst-lsp
+    warp-terminal
   ];
 
   programs.kdeconnect.enable = true;
