@@ -65,8 +65,8 @@ in
 
   "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
     binding = "<Super>t";
-    command = "kitty";
-    name = "kitty";
+    command = "warp-terminal";
+    name = "Terminal";
   };
 
   "org/gnome/settings-daemon/plugins/power" = {
@@ -91,6 +91,7 @@ in
 
     favorite-apps = [
       "kitty.desktop"
+      "dev.warp.Warp.desktop"
       "google-chrome.desktop"
       "code.desktop"
     ];
