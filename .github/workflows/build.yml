@@ -40,8 +40,6 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup Github Caches
-      uses: DeterminateSystems/magic-nix-cache-action@v2
     - name: Build x86_64 ISO
       if: ${{ matrix.arch == 'x86_64' }}
       run: nix build .#iso --accept-flake-config
