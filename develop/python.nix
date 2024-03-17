@@ -14,6 +14,7 @@
       joblib
       pygobject3
       pyudev
+      networkx
     ]) ++ (with pkgs; [
       python310
       jetbrains.pycharm-professional

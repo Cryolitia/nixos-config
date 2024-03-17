@@ -33,7 +33,6 @@
     libnotify
     mission-center
     typst
-    typst-lsp
     warp-terminal
   ];
 

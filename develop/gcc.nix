@@ -9,8 +9,10 @@ in
 
   buildInputs = with pkgs; [
     jetbrains.clion
+    codeblocks
     cmake
     ninja
+    gdb
     #opencv
     #onnxruntime
     #eigen

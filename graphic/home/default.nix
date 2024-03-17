@@ -75,6 +75,9 @@ in
         "[markdown]" = {
           "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
         };
+        allowedLocales = {
+          zh-hans = true;
+        };
       };
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;
