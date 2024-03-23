@@ -35,6 +35,7 @@ in
                 uctakeoff.vscode-counter
                 rust-lang.rust-analyzer
                 nvarner.typst-lsp
+                github.copilot
             ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
                     name = "remote-ssh";
