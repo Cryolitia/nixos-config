@@ -7,6 +7,10 @@
     dhcpcd.extraConfig = "nohook resolv.conf";
         # If using NetworkManager:
     networkmanager.dns = "none";
+
+    hosts = {
+      "10.1.1.1" = [ "portal.csu.edu.cn" ];
+    };
   };
 
   services.resolved.enable = false;
@@ -40,10 +44,6 @@
 
   systemd.services.dnscrypt-proxy2.serviceConfig = {
     StateDirectory = "dnscrypt-proxy";
-  };
-
-  networking.hosts = {
-    "10.1.1.1" = [ "portal.csu.edu.cn" ];
   };
 
 }

@@ -11,6 +11,7 @@ in ((pkgs.mkShell.override { stdenv = pkgs.llvmPackages.stdenv; }) {
     rust
     libusb
     pkg-config
+    openssl
   ];
 
   LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";

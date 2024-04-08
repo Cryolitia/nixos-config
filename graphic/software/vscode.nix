@@ -36,6 +36,8 @@ in
                 rust-lang.rust-analyzer
                 nvarner.typst-lsp
                 github.copilot
+                github.copilot-chat
+                vue.volar
             ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
                     name = "remote-ssh";

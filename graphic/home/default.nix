@@ -75,7 +75,7 @@ in
         "[markdown]" = {
           "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
         };
-        allowedLocales = {
+        "editor.unicodeHighlight.allowedLocales" = {
           zh-hans = true;
         };
       };

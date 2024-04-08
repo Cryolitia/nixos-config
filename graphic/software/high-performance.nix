@@ -9,7 +9,7 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    config.nur.repos.xddxdd.wechat-uos
+    wechat-uos
     texlive.combined.scheme-full
     jetbrains.idea-ultimate
     android-tools

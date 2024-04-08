@@ -104,17 +104,27 @@
 
   boot.loader.systemd-boot.configurationLimit = 3;
 
-  programs.ssh.kexAlgorithms = [
-    "curve25519-sha256@libssh.org"
-    "diffie-hellman-group-exchange-sha256"
-    "diffie-hellman-group1-sha1"
-  ];
+  programs.ssh = {
+    kexAlgorithms = [
+      "curve25519-sha256@libssh.org"
+      "diffie-hellman-group-exchange-sha256"
+      "diffie-hellman-group1-sha1"
+    ];
+    pubkeyAcceptedKeyTypes = [
+      "ssh-ed25519"
+      "ssh-rsa"
+    ];
+  };
 
   #time.hardwareClockInLocalTime = true;
 
   boot.tmp.cleanOnBoot = true;
-  
+
   zramSwap.enable = true;
+
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = 1;
+  };
 
 }
 
