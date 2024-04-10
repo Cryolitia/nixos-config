@@ -26,7 +26,7 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  networking.hostName = "Cryolitia-nixos"; # Define your hostname.
+  networking.hostName = "cryolitia-nixos"; # Define your hostname.
 
   fileSystems."/mnt/Data" = {
     device = "/dev/disk/by-uuid/b7b5e345-1b1c-4203-920e-d7e4680c4a69";
@@ -61,5 +61,5 @@
     ];
   };
 
-  services.xserver.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
+  services.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
 }

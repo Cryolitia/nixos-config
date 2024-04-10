@@ -33,6 +33,7 @@
     {
       # NixOS 官方软件源，这里使用 nixos-unstable 分支
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+      # nixpkgs.url = "github:cryolitia/nixpkgs/dc5a51e6c5a8b6afd06e4043a7be63374ce1fe66";
 
       # home-manager，用于管理用户配置
       home-manager = {
@@ -51,7 +52,6 @@
           nixpkgs.follows = "nixpkgs";
           rust-overlay.follows = "rust-overlay";
         };
-
       };
 
       nix-vscode-extensions = {
@@ -93,6 +93,11 @@
         url = "github:ezKEa/aagl-gtk-on-nix";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+
+      jetbrains-plugins = {
+        url = "github:Cryolitia/nix-jetbrains-plugins";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
     };
 
   outputs =
@@ -105,34 +110,7 @@
       {
 
         nixosConfigurations = {
-          Cryolitia-nixos = inputs.nixpkgs.lib.nixosSystem rec {
-            system = "x86_64-linux";
-            specialArgs = {
-              inherit inputs;
-            };
-
-            modules = commonModule ++ (with inputs; [
-
-              ./hosts/laptop
-              ./common/distribute.nix
-
-              nixos-hardware.nixosModules.common-hidpi
-              nixos-hardware.nixosModules.common-cpu-intel
-              nixos-hardware.nixosModules.common-pc-laptop
-              nixos-hardware.nixosModules.common-pc-laptop-ssd
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = false;
-                home-manager.backupFileExtension = "backup";
-                home-manager.extraSpecialArgs = { inherit inputs; };
-                home-manager.users.cryolitia = import ./hosts/laptop/home.nix;
-              }
-            ]);
-          };
-
-          Cryolitia-GPD-NixOS = inputs.nixpkgs.lib.nixosSystem rec {
+          cryolitia-gpd-nixos = inputs.nixpkgs.lib.nixosSystem rec {
             system = "x86_64-linux";
             specialArgs = {
               inherit inputs;
@@ -159,7 +137,7 @@
             ]);
           };
 
-          Cryolitia-surface = inputs.nixpkgs.lib.nixosSystem rec {
+          cryolitia-surface = inputs.nixpkgs.lib.nixosSystem rec {
             system = "x86_64-linux";
             specialArgs = {
               inherit inputs;
@@ -167,7 +145,7 @@
 
             modules = commonModule ++ (with inputs;[
 
-              ./hosts/surface
+              ./hosts/surface-go
               ./common/distribute.nix
 
               nixos-hardware.nixosModules.microsoft-surface-go

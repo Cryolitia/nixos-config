@@ -29,7 +29,7 @@ in
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  networking.hostName = "Cryolitia-GPD-NixOS"; # Define your hostname.
+  networking.hostName = "cryolitia-gpd-nixos"; # Define your hostname.
 
   fileSystems."/mnt/Data" = {
     device = "/dev/disk/by-uuid/c8388a09-ca0a-43a9-b92a-fe9e83f8fc90";
@@ -60,9 +60,6 @@ in
   services.udev.extraRules = ''
     SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
     SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
-
-    ACTION=="add", SUBSYSTEM=="i2c", ATTR{name}=="GXTP7385:00", ATTR{power/wakeup}="disabled"
-    ACTION=="add", SUBSYSTEM=="i2c", ATTR{name}=="PNP0C50:00", ATTR{power/wakeup}="disabled"
 
     SUBSYSTEM=="usb", ATTRS{idVendor}=="2f24", ATTRS{idProduct}=="0135", MODE="0666", GROUP="plugdev"
   '';

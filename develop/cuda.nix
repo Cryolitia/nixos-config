@@ -25,7 +25,6 @@ in
     ]) ++ (with pkgs; [
       python310
       cuda.cuda-native-redist
-      jetbrains.pycharm-professional
     ])
   );
 

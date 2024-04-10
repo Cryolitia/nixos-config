@@ -8,7 +8,6 @@ in
 (pkgs.mkShell {
 
   buildInputs = with pkgs; [
-    jetbrains.clion
     codeblocks
     cmake
     ninja

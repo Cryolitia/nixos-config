@@ -38,6 +38,7 @@ in
                 github.copilot
                 github.copilot-chat
                 vue.volar
+                github.vscode-github-actions
             ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
                     name = "remote-ssh";

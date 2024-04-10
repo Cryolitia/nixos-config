@@ -1,6 +1,7 @@
-{ pkgs, config, ... }:
-
-{
+{ pkgs, config, inputs, ... }:
+let 
+  jetbrains-with-plugins = import ./jetbrains.nix { inherit pkgs; inherit inputs; };
+in {
   imports =
     [
       ./waydroid.nix
@@ -11,25 +12,23 @@
     firefox
     wechat-uos
     texlive.combined.scheme-full
-    jetbrains.idea-ultimate
     android-tools
-    jetbrains.pycharm-professional
-    # nur-cryolitia.MaaX
-    # config.nur.repos.Freed-Wu.netease-cloud-music
     wpsoffice
     config.nur.repos.linyinfeng.wemeet
     obs-studio
-    androidStudioPackages.beta
-    jetbrains.clion
     config.boot.kernelPackages.perf
     libsForQt5.kleopatra
     keepassxc
-    #nur-cryolitia.MaaAssistantArknights-beta
     nodePackages.pnpm
     nodePackages.nodejs
     discord
     yesplaymusic
-    jetbrains.rust-rover
+
+    androidStudioPackages.beta
+    jetbrains-with-plugins.idea-ultimate
+    jetbrains-with-plugins.pycharm-professional
+    jetbrains-with-plugins.rust-rover
+    jetbrains-with-plugins.clion
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [

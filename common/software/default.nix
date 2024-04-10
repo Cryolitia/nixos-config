@@ -28,6 +28,7 @@
     lazygit
     lm_sensors
     nix-output-monitor
+    nixfmt-rfc-style
   ];
 
   programs.git = {

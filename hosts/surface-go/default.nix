@@ -19,7 +19,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "Cryolitia-surface"; # Define your hostname.
+  networking.hostName = "cryolitia-surface"; # Define your hostname.
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

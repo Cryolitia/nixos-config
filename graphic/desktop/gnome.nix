@@ -47,6 +47,8 @@
   environment.systemPackages = (with pkgs; [
     gnome.gnome-tweaks
     tela-icon-theme
+    xdg-terminal-exec
+    nautilus-open-any-terminal
   ]) ++ (with pkgs.gnomeExtensions; [
     appindicator
     pop-shell

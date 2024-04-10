@@ -53,6 +53,7 @@
       source-han-serif
       source-han-sans
       noto-fonts-emoji
+      nur-cryolitia.shanggu-fonts
     ];
 
     fontconfig = {
