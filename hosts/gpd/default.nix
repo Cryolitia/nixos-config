@@ -50,7 +50,7 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  services.xserver.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
+  services.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
 
   # hardware.cpu.amd.ryzen_smu.enable = true;
   # programs.ryzen_monitor_ng.enable = true;
@@ -63,4 +63,11 @@ in
 
     SUBSYSTEM=="usb", ATTRS{idVendor}=="2f24", ATTRS{idProduct}=="0135", MODE="0666", GROUP="plugdev"
   '';
+
+  # xdg.terminal-exec = {
+  #   enable = true;
+  #   config.default = [ "kitty.desktop" ];
+  # };
+
+  hardware.gpd-fan.enable = true;
 }

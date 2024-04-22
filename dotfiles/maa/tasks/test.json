@@ -3,7 +3,8 @@
         {
             "type": "StartUp",
             "params": {
-                "client_type": "Official"
+                "client_type": "Official",
+                "start_game_enabled": true
             }
         },
         {
@@ -17,6 +18,23 @@
                 "expedite": true,
                 "expedite_times": 999,
                 "skip_rebot": true
+            }
+        },
+        {
+            "type": "Infrast",
+            "params": {
+              "enable": true,
+              "facility": [
+                "Mfg",
+                "Trade",
+                "Power",
+                "Control",
+                "Reception",
+                "Office",
+                "Dorm"
+              ],
+              "drones": "CombatRecord",
+              "dorm_trust_enabled": true
             }
         },
         {

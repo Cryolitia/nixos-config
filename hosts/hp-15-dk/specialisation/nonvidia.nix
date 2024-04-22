@@ -21,6 +21,10 @@ let
 in  
 
 {
+    imports = [
+      ../../../common/libvirt.nix
+    ];
+
     system.nixos.tags = [ "No-Nvidia" ];
 
     boot.initrd.kernelModules = [
@@ -34,18 +38,7 @@ in
        ("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
     ];
 
-    virtualisation.libvirtd.enable = true;
-    virtualisation.spiceUSBRedirection.enable = true;
-    virtualisation.libvirtd.qemu.swtpm.enable = true;
-    virtualisation.libvirtd.qemu.ovmf.packages = [ (pkgs.OVMFFull.override {      csmSupport = false; }).fd ];
-    virtualisation.libvirtd.extraConfig = ''
-      unix_sock_group = "libvirtd"
-    '';
-
-    users.users.cryolitia.extraGroups = [ "libvirtd" ];
-
     environment.systemPackages = with pkgs; [
-      virt-manager
       virtiofsd
       looking-glass-client
       nur-cryolitia.MaaAssistantArknights-beta

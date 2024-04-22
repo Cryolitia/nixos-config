@@ -92,6 +92,7 @@
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
+    NIXPKGS_ALLOW_UNFREE = 1;
     # EDITOR = "emacs";
   };
 

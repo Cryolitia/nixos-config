@@ -33,7 +33,7 @@
     {
       # NixOS 官方软件源，这里使用 nixos-unstable 分支
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-      # nixpkgs.url = "github:cryolitia/nixpkgs/dc5a51e6c5a8b6afd06e4043a7be63374ce1fe66";
+      #nixpkgs.url = "github:cryolitia/nixpkgs/bb393e91679d68e1f96d3e4a1cec39bd8362c038";
 
       # home-manager，用于管理用户配置
       home-manager = {
@@ -124,7 +124,7 @@
 
               # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
-              nur-cryolitia.nixosModules.ryzen-smu
+              nur-cryolitia.nixosModules.gpd-fan
 
               home-manager.nixosModules.home-manager
               {

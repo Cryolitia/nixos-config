@@ -6,6 +6,7 @@ in {
     [
       ./waydroid.nix
       ./.
+      ../../common/libvirt.nix
     ];
 
   environment.systemPackages = with pkgs; [
@@ -32,6 +33,7 @@ in {
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
+    # required by obs-studio
     v4l2loopback
   ];
 

@@ -23,8 +23,8 @@
     "org/gnome/shell/extensions/freon".hot-sensors = lib.mkForce [
       "__max__"
       "in0"
-      "Composite"
       "PPT"
+      "fan1"
     ];
   };
 }

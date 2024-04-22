@@ -23,7 +23,7 @@ with lib;
     (mkIf (!(elem "nvidia" config.services.xserver.videoDrivers)) (with pkgs; [
       (google-chrome.override {
         commandLineArgs = [
-          "--disable-gpu"
+          # "--disable-gpu"
         ];
       })
     ]))

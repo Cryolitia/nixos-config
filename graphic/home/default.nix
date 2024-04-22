@@ -26,6 +26,7 @@ in
     QT_STYLE_OVERRIDE = "Nordic-Polar";
     GDK_BACKEND = "wayland,x11";
     QT_QPA_PLATFORM = "wayland;xcb";
+    EDITOR = "code -n -w";
   };
 
   home.file = {
