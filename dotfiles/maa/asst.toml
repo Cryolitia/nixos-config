@@ -1,7 +1,6 @@
 [connection]
 type = "ADB"
 adb_path = "adb"
-device = "192.168.240.112:5555"
 config = "General"
 
 [instance_options]

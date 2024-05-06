@@ -76,6 +76,9 @@ in
         "[markdown]" = {
           "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
         };
+        "[html]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
         "editor.unicodeHighlight.allowedLocales" = {
           zh-hans = true;
         };

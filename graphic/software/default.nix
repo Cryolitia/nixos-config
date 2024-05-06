@@ -29,7 +29,7 @@
     qq
     mpv
     vlc
-    blackbox-terminal
+    # blackbox-terminal
     libnotify
     mission-center
     typst

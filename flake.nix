@@ -4,8 +4,8 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
-      #"https://mirrors.cernet.edu.cn/nix-channels/store"
-      "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      "https://mirrors.cernet.edu.cn/nix-channels/store"
+      # "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
     extra-substituters = [
@@ -14,8 +14,6 @@
       "https://cryolitia.cachix.org"
       "https://cuda-maintainers.cachix.org"
       "https://anyrun.cachix.org"
-      "https://nixpkgs-wayland.cachix.org"
-      "https://hyprland.cachix.org"
       "https://ezkea.cachix.org"
     ];
     extra-trusted-public-keys = [
@@ -23,8 +21,6 @@
       "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
     ];
   };
@@ -33,7 +29,8 @@
     {
       # NixOS 官方软件源，这里使用 nixos-unstable 分支
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-      #nixpkgs.url = "github:cryolitia/nixpkgs/bb393e91679d68e1f96d3e4a1cec39bd8362c038";
+      #nixpkgs.url = "github:nixos/nixpkgs/58a1abdbae3217ca6b702f03d3b35125d88a2994";
+      #nixpkgs.url = "github:Cryolitia/nixpkgs/13e6ece4709970e8f36f2713366ee9902e6ef137";
 
       # home-manager，用于管理用户配置
       home-manager = {
@@ -41,7 +38,7 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      nixos-hardware.url = github:NixOS/nixos-hardware/master;
+      nixos-hardware.url = "github:NixOS/nixos-hardware/master";
       # nixos-hardware.url = github:Cryolitia/nixos-hardware/gpd;
 
       nur.url = "github:nix-community/NUR";
@@ -69,16 +66,6 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      hyprland = {
-        url = "github:hyprwm/Hyprland";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      hyprland-plugin = {
-        url = "github:hyprwm/hyprland-plugins";
-        inputs.hyprland.follows = "hyprland";
-      };
-
       nixos-generators = {
         url = "github:nix-community/nixos-generators";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -94,10 +81,7 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      jetbrains-plugins = {
-        url = "github:Cryolitia/nix-jetbrains-plugins";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+      jetbrains-plugins.url = "github:Cryolitia/nix-jetbrains-plugins";
     };
 
   outputs =
@@ -124,7 +108,7 @@
 
               # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
-              nur-cryolitia.nixosModules.gpd-fan
+              nur-cryolitia.nixosModules.gpd-fan-driver
 
               home-manager.nixosModules.home-manager
               {

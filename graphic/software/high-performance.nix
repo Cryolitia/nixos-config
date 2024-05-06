@@ -1,7 +1,8 @@
 { pkgs, config, inputs, ... }:
-let 
+let
   jetbrains-with-plugins = import ./jetbrains.nix { inherit pkgs; inherit inputs; };
-in {
+in
+{
   imports =
     [
       ./waydroid.nix
@@ -11,11 +12,16 @@ in {
 
   environment.systemPackages = with pkgs; [
     firefox
-    wechat-uos
+    (wechat-uos.override {
+      uosLicense = pkgs.fetchurl {
+        # https://github.com/NixOS/nixpkgs/pull/305929
+        url = "https://aur.archlinux.org/cgit/aur.git/plain/license.tar.gz?h=wechat-uos-bwrap";
+        hash = "sha256-U3YAecGltY8vo9Xv/h7TUjlZCyiIQdgSIp705VstvWk=";
+      };
+    })
     texlive.combined.scheme-full
     android-tools
     wpsoffice
-    config.nur.repos.linyinfeng.wemeet
     obs-studio
     config.boot.kernelPackages.perf
     libsForQt5.kleopatra

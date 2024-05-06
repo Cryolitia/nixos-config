@@ -20,9 +20,12 @@
     enable = true;
     initExtra = ''
       source ~/.p10k.zsh
-#      source ~/incr*.zsh
     '';
-    history.extended = true;
+    history = {
+      extended = true;
+      save = 999999;
+      size = 999999;
+    };
   };
   
   programs.git = {
@@ -104,6 +107,14 @@
     settings = {
       color_theme = "TTY";
       theme_background = false;
+    };
+  };
+
+  programs.gpg = {
+    enable = true;
+    settings = {
+      keyserver = "hkps://keyserver.ubuntu.com";
+      ask-cert-level = true;
     };
   };
 }

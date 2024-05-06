@@ -70,4 +70,11 @@ in
   # };
 
   hardware.gpd-fan.enable = true;
+
+  services.sunshine = {
+    enable = true;
+    openFirewall = true;
+    capSysAdmin = true;
+    autoStart = false;
+  };
 }

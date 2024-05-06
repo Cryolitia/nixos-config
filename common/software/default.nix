@@ -29,6 +29,7 @@
     lm_sensors
     nix-output-monitor
     nixfmt-rfc-style
+    gnumake
   ];
 
   programs.git = {
