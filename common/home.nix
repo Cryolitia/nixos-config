@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
 
@@ -112,9 +112,14 @@
 
   programs.gpg = {
     enable = true;
-    settings = {
+    # https://github.com/nix-community/home-manager/issues/5383, shame on you!
+    settings = lib.mkForce {
       keyserver = "hkps://keyserver.ubuntu.com";
       ask-cert-level = true;
+      keyserver-options = [
+        "no-self-sigs-only"
+        "no-import-clean"
+      ];
     };
   };
 }
