@@ -140,7 +140,7 @@
                 home-manager.useUserPackages = false;
                 home-manager.backupFileExtension = "backup";
                 home-manager.extraSpecialArgs = { inherit inputs; };
-                home-manager.users.cryolitia = import ./hosts/surface/home.nix;
+                home-manager.users.cryolitia = import ./hosts/surface-go/home.nix;
               }
             ]);
           };
