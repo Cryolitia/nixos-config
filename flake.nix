@@ -35,6 +35,7 @@
       # home-manager，用于管理用户配置
       home-manager = {
         url = "github:nix-community/home-manager";
+        # url = "github:Cryolitia/home-manager/bb035c01b9f9cfa397b16803073c7fe5c2f4262b";
         inputs.nixpkgs.follows = "nixpkgs";
       };
 

@@ -27,7 +27,7 @@
       size = 999999;
     };
   };
-  
+
   programs.git = {
     enable = true;
     userName = "Cryolitia";
@@ -39,11 +39,11 @@
     };
   };
 
-# https://github.com/nix-community/home-manager/issues/4816
-#  programs.gh = {
-#    enable = true;
-#    gitCredentialHelper.enable = true;
-#  };
+  # https://github.com/nix-community/home-manager/issues/4816
+  #  programs.gh = {
+  #    enable = true;
+  #    gitCredentialHelper.enable = true;
+  #  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -114,12 +114,28 @@
     enable = true;
     # https://github.com/nix-community/home-manager/issues/5383, shame on you!
     settings = lib.mkForce {
-      keyserver = "hkps://keyserver.ubuntu.com";
       ask-cert-level = true;
       keyserver-options = [
         "no-self-sigs-only"
         "no-import-clean"
       ];
+      armor = true;
     };
+    # dirmngrSettings = {
+    #   keyserver = "hkps://keyserver.ubuntu.com";
+    #   # https://github.com/rvm/rvm/issues/4215#issuecomment-435228758
+    #   disable-ipv6 = true;
+    # };
   };
+
+  home.file.".gnupg/dirmngr.conf".text = lib.generators.toKeyValue
+    {
+      mkKeyValue = key: value: (if lib.isString value then "${key} ${value}" else lib.optionalString value key);
+      listsAsDuplicateKeys = true;
+    }
+    {
+      keyserver = "hkps://keyserver.ubuntu.com";
+      # https://github.com/rvm/rvm/issues/4215#issuecomment-435228758
+      disable-ipv6 = true;
+    };
 }
