@@ -1,4 +1,9 @@
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
 
@@ -7,7 +12,6 @@
     ./waybar.nix
     ./dunst.nix
     ./wpaperd.nix
-    ./fcitx5.nix
   ];
 
   programs.anyrun = {

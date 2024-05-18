@@ -5,9 +5,11 @@
   programs.dconf.enable = true;
 
   #specialisation."Gnome".configuration = {
-    imports = [
-      ../../../graphic/desktop/gnome.nix
-    ];
+  imports = [
+    ../../../graphic/desktop/gnome.nix
+    # ../../../graphic/desktop/kde.nix
+    # ../../../graphic/desktop/hyprland.nix
+  ];
   #};
 
   #specialisation."GnomeNvidia".configuration = {

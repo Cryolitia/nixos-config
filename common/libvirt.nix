@@ -17,7 +17,5 @@
 
   users.users.cryolitia.extraGroups = [ "libvirtd" ];
 
-  environment.systemPackages = with pkgs; [
-    virt-manager
-  ];
+  environment.systemPackages = with pkgs; [ virt-manager ];
 }

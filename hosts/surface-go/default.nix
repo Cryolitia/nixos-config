@@ -5,16 +5,15 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../common
-      ../../hardware
-      ../../graphic/software
-      # ../../graphic/software/waydroid.nix
-      ../../graphic/desktop/gnome.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../common
+    ../../hardware
+    ../../graphic/software
+    # ../../graphic/software/waydroid.nix
+    ../../graphic/desktop/gnome.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -47,5 +46,4 @@
     wpsoffice
     moonlight-qt
   ];
-
 }

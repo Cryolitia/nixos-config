@@ -1,9 +1,8 @@
 { ... }:
 
 {
-  imports =
-    [
-      ./syncthing.nix
-      ../../../graphic/software/high-performance.nix
-    ];
+  imports = [
+    ./syncthing.nix
+    ../../../graphic/software/high-performance.nix
+  ];
 }

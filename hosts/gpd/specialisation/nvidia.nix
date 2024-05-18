@@ -1,18 +1,17 @@
 { ... }:
-let 
+let
+in
+{
 
-in {
+  system.nixos.tags = [ "Nvidia" ];
 
-    system.nixos.tags = [ "Nvidia" ];
-    
-    services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
-    hardware.nvidia = {
-        open = true;
-        nvidiaSettings = true;
-        powerManagement.enable = true;
-    };
+  hardware.nvidia = {
+    open = true;
+    nvidiaSettings = true;
+    powerManagement.enable = true;
+  };
 
-    virtualisation.docker.enableNvidia = true;
-
+  virtualisation.docker.enableNvidia = true;
 }

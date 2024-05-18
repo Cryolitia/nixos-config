@@ -3,7 +3,6 @@
 let
 
   cuda = import ../common/software/cuda.nix { inherit pkgs; };
-
 in
 (pkgs.mkShell {
 
@@ -22,7 +21,8 @@ in
         enableGtk2 = true;
         enableGtk3 = true;
       })
-    ]) ++ (with pkgs; [
+    ])
+    ++ (with pkgs; [
       python310
       cuda.cuda-native-redist
     ])
@@ -41,5 +41,4 @@ in
   postShellHook = ''
     ln -sf PYTHONPATH/* ${pkgs.virtualenv}/lib/python3.10/site-packages
   '';
-
 })

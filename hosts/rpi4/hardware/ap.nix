@@ -1,7 +1,7 @@
 { ... }:
 
 {
-    services.create_ap = {
+  services.create_ap = {
     enable = true;
     settings = {
       INTERNET_IFACE = "end0";

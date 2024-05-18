@@ -1,10 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./zsh.nix
-    ];
+  imports = [ ./zsh.nix ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -42,5 +39,4 @@
     enable = true;
     enableSSHSupport = true;
   };
-
 }

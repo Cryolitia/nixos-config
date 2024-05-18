@@ -3,7 +3,6 @@
 let
 
   cuda = import ../common/software/cuda.nix { inherit pkgs; };
-
 in
 (pkgs.mkShell {
 
@@ -19,11 +18,10 @@ in
     #asio
     #libcpr
     #python310Packages.pybind11
-  ]; #++ cuda.cuda-native-redist;
+  ]; # ++ cuda.cuda-native-redist;
 
   shellHook = ''
     cd ~
     exec zsh
   '';
-
 })

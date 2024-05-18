@@ -5,15 +5,14 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../common
-      ../../hardware
-      ./software
-      ./specialisation
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../common
+    ../../hardware
+    ./software
+    ./specialisation
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot = {

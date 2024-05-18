@@ -3,9 +3,7 @@
 [
   ({
     nixpkgs.overlays = [
-      (final: prev: {
-        nur-cryolitia = inputs.nur-cryolitia.packages."${prev.system}";
-      })
+      (final: prev: { nur-cryolitia = inputs.nur-cryolitia.packages."${prev.system}"; })
     ];
   })
 

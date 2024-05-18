@@ -1,4 +1,10 @@
-{ inputs, lib, pkgs, osConfig, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  osConfig,
+  ...
+}:
 
 let
 
@@ -8,18 +14,21 @@ let
   rimeConfig = ../../dotfiles/rime/default.custom.yaml;
   rimeDict = ../../dotfiles/rime/my.dict.yaml;
   rimeIce = ../../dotfiles/rime/rime_ice.custom.yaml;
-
 in
-
 {
+  imports =
+    [
+      ../../common/home.nix
+      ./fcitx5.nix
+    ]
+    ++ lib.optionals osConfig.services.xserver.desktopManager.gnome.enable [ ./gnome ]
+    ++ lib.optionals osConfig.services.xserver.desktopManager.plasma6.enable [
 
-  imports = [
-    ../../common/home.nix
-    ./gnome
-    inputs.anyrun.homeManagerModules.default
-  ] ++ lib.optionals osConfig.programs.hyprland.enable [
-    ./hyprland
-  ];
+    ]
+    ++ lib.optionals osConfig.programs.hyprland.enable [
+      ./hyprland
+      inputs.anyrun.homeManagerModules.default
+    ];
 
   home.sessionVariables = {
     GTK_THEME = "Arc-Dark";
@@ -41,48 +50,47 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
-    ".config/Code/User/settings.json".source =
-      jsonFormat.generate "vscode-user-settings" {
-        "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
-        "editor.unicodeHighlight.nonBasicASCII" = false;
-        "editor.wordWrap" = "on";
-        "files.autoSave" = "afterDelay";
-        "git.enableSmartCommit" = true;
-        "latex-workshop.latex.autoBuild.run" = "never";
-        "latex-workshop.view.pdf.viewer" = "tab";
-        "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font Mono";
-        "workbench.colorTheme" = "Material Theme Darker High Contrast";
-        "workbench.editor.enablePreview" = false;
-        "workbench.preferredDarkColorTheme" = "Material Theme High Contrast";
-        "workbench.preferredLightColorTheme" = "Material Theme Lighter High Contrast";
-        "glassit.alpha" = 220;
-        "workbench.iconTheme" = "eq-material-theme-icons";
-        "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nixd";
-        "nix.serverSettings" = {
-          "nixd" = {
-            "formatting" = {
-              "command" = "nixpkgs-fmt";
-            };
+    ".config/Code/User/settings.json".source = jsonFormat.generate "vscode-user-settings" {
+      "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
+      "editor.unicodeHighlight.nonBasicASCII" = false;
+      "editor.wordWrap" = "on";
+      "files.autoSave" = "afterDelay";
+      "git.enableSmartCommit" = true;
+      "latex-workshop.latex.autoBuild.run" = "never";
+      "latex-workshop.view.pdf.viewer" = "tab";
+      "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font Mono";
+      "workbench.colorTheme" = "Material Theme Darker High Contrast";
+      "workbench.editor.enablePreview" = false;
+      "workbench.preferredDarkColorTheme" = "Material Theme High Contrast";
+      "workbench.preferredLightColorTheme" = "Material Theme Lighter High Contrast";
+      "glassit.alpha" = 220;
+      "workbench.iconTheme" = "eq-material-theme-icons";
+      "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "nixd";
+      "nix.serverSettings" = {
+        "nixd" = {
+          "formatting" = {
+            "command" = "nixpkgs-fmt";
           };
         };
-        "debug.javascript.autoAttachFilter" = "onlyWithFlag";
-        "git.autofetch" = false;
-        "latex-workshop.latex.recipe.default" = "latexmk (xelatex)";
-        "files.insertFinalNewline" = true;
-        "[json]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[markdown]" = {
-          "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
-        };
-        "[html]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "editor.unicodeHighlight.allowedLocales" = {
-          zh-hans = true;
-        };
       };
+      "debug.javascript.autoAttachFilter" = "onlyWithFlag";
+      "git.autofetch" = false;
+      "latex-workshop.latex.recipe.default" = "latexmk (xelatex)";
+      "files.insertFinalNewline" = true;
+      "[json]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+      "[markdown]" = {
+        "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
+      };
+      "[html]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+      "editor.unicodeHighlight.allowedLocales" = {
+        zh-hans = true;
+      };
+    };
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;
     ".local/share/fcitx5/rime/default.custom.yaml".source = rimeConfig;
@@ -117,4 +125,9 @@ in
       map ctrl+v paste_from_clipboard
     '';
   };
+
+  home.file.".config/maa".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/maa";
+
+  home.file."Documents/template.tex".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/template.tex";
+  home.file."Documents/template.typ".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/template.typ";
 }

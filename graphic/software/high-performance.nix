@@ -1,14 +1,21 @@
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 let
-  jetbrains-with-plugins = import ./jetbrains.nix { inherit pkgs; inherit inputs; };
+  jetbrains-with-plugins = import ./jetbrains.nix {
+    inherit pkgs;
+    inherit inputs;
+  };
 in
 {
-  imports =
-    [
-      ./waydroid.nix
-      ./.
-      ../../common/libvirt.nix
-    ];
+  imports = [
+    ./waydroid.nix
+    ./.
+    ../../common/libvirt.nix
+  ];
 
   environment.systemPackages = with pkgs; [
     firefox

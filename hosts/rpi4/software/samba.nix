@@ -25,7 +25,7 @@
         "directory mask" = "0777";
         "force user" = "cryolitia";
         "valid users" = "cryolitia";
-        };
+      };
     };
   };
 }

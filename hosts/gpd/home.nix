@@ -1,19 +1,12 @@
 { config, lib, ... }:
 
 {
-
-  imports = [
-    ../../graphic/home
-  ];
+  imports = [ ../../graphic/home ];
 
   programs.git.signing = {
     signByDefault = true;
     key = "3E5D1772FC8A8EDD";
   };
-
-  home.file.".config/maa".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/maa";
-
-  home.file."Documents/template.tex".source = ../../dotfiles/template.tex;
 
   programs.kitty.font.size = 12.0;
 

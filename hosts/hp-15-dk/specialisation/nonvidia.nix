@@ -17,44 +17,44 @@ let
     "10de:1aec"
     "10de:1aed"
   ];
-
-in  
+in
 
 {
-    imports = [
-      ../../../common/libvirt.nix
-    ];
+  imports = [ ../../../common/libvirt.nix ];
 
-    system.nixos.tags = [ "No-Nvidia" ];
+  system.nixos.tags = [ "No-Nvidia" ];
 
-    boot.initrd.kernelModules = [
-      "vfio_pci"
-      "vfio"
-      "vfio_iommu_type1"
-    ];
-  
-    boot.kernelParams = [
-      "intel_iommu=on"
-       ("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
-    ];
+  boot.initrd.kernelModules = [
+    "vfio_pci"
+    "vfio"
+    "vfio_iommu_type1"
+  ];
 
-    environment.systemPackages = with pkgs; [
-      virtiofsd
-      looking-glass-client
-      nur-cryolitia.MaaAssistantArknights-beta
-    ];
+  boot.kernelParams = [
+    "intel_iommu=on"
+    ("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
+  ];
 
-    boot.extraModprobeConfig = ''
-      blacklist nouveau
-      options nouveau modeset=0
-    '';
+  environment.systemPackages = with pkgs; [
+    virtiofsd
+    looking-glass-client
+    nur-cryolitia.MaaAssistantArknights-beta
+  ];
 
-    boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
+  boot.extraModprobeConfig = ''
+    blacklist nouveau
+    options nouveau modeset=0
+  '';
 
-    systemd.tmpfiles.rules = [ 
-      # Type Path               Mode UID     GID Age Argument
-      "f /dev/shm/looking-glass 0660 cryolitia kvm -"
-    ];
-  
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidia"
+    "nvidia_drm"
+    "nvidia_modeset"
+  ];
 
+  systemd.tmpfiles.rules = [
+    # Type Path               Mode UID     GID Age Argument
+    "f /dev/shm/looking-glass 0660 cryolitia kvm -"
+  ];
 }

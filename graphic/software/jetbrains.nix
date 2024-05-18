@@ -1,4 +1,4 @@
-{ pkgs, inputs, ...}:
+{ pkgs, inputs, ... }:
 let
   common-plugins = [
     "github-copilot"
@@ -7,14 +7,16 @@ let
     "chinese-simplified-language-pack----"
   ];
   addPlugins = (inputs.jetbrains-plugins.import pkgs).addPlugins;
-in {
+in
+{
   androidStudioPackages.beta = addPlugins pkgs.androidStudioPackages.beta common-plugins;
-  idea-ultimate = addPlugins pkgs.jetbrains.idea-ultimate (common-plugins ++ [ 
-    # "nixidea" 
-  ]);
+  idea-ultimate = addPlugins pkgs.jetbrains.idea-ultimate (
+    common-plugins
+    ++ [
+      # "nixidea" 
+    ]
+  );
   pycharm-professional = addPlugins pkgs.jetbrains.pycharm-professional common-plugins;
-  rust-rover = addPlugins pkgs.jetbrains.rust-rover [
-    "github-copilot"
-  ];
+  rust-rover = addPlugins pkgs.jetbrains.rust-rover [ "github-copilot" ];
   clion = addPlugins pkgs.jetbrains.clion common-plugins;
 }

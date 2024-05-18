@@ -1,13 +1,12 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [
-      ./vscode.nix
-      ../../common/software
-      ./chrome.nix
-      ../../hardware/yubikey.nix
-    ];
+  imports = [
+    ./vscode.nix
+    ../../common/software
+    ./chrome.nix
+    ../../hardware/yubikey.nix
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -33,6 +32,7 @@
     libnotify
     mission-center
     typst
+    typst-lsp
     warp-terminal
   ];
 
@@ -66,15 +66,13 @@
           "Sarasa Mono SC"
           "JetBrainsMono Nerd Font Mono"
         ];
-        sansSerif = [
-          "Sarasa Gothic SC"
-        ];
-        serif = [
-          "Source Han Serif SC"
-        ];
+        sansSerif = [ "Sarasa Gothic SC" ];
+        serif = [ "Source Han Serif SC" ];
       };
     };
   };
-  
+
   services.xserver.excludePackages = [ pkgs.xterm ];
+
+  #environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

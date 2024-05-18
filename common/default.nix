@@ -5,13 +5,12 @@
 { config, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./user.nix
-      ./dns.nix
-      ./software
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./user.nix
+    ./dns.nix
+    ./software
+  ];
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -73,15 +72,14 @@
       "@wheel"
     ];
 
-    experimental-features = [ "nix-command" "flakes" ];
-
-    substituters = [
-      "https://mirrors.cernet.edu.cn/nix-channels/store"
+    experimental-features = [
+      "nix-command"
+      "flakes"
     ];
 
-    extra-substituters = [
-      "https://cache.nixos.org/"
-    ];
+    substituters = [ "https://mirrors.cernet.edu.cn/nix-channels/store" ];
+
+    extra-substituters = [ "https://cache.nixos.org/" ];
   };
 
   boot.loader.systemd-boot.configurationLimit = 3;
@@ -111,6 +109,4 @@
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", ATTRS{idProduct}=="320d", MODE="0666", GROUP="plugdev"
   '';
-
 }
-

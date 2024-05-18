@@ -83,7 +83,7 @@
       };
 
       misc = {
-        force_hypr_chan = true;
+        #force_hypr_chan = true;
       };
 
       "$mainMod" = "SUPER";
@@ -123,7 +123,9 @@
         "$mainMod, mouse_down, workspace, -1"
         "$mainMod, mouse_up, workspace, +1"
 
-        "SUPER, V, exec, cliphist list | anyrun --plugins ${inputs.anyrun.packages.${pkgs.system}.stdin}/lib/libstdin.so | cliphist decode | wl-copy"
+        "SUPER, V, exec, cliphist list | anyrun --plugins ${
+          inputs.anyrun.packages.${pkgs.system}.stdin
+        }/lib/libstdin.so | cliphist decode | wl-copy"
 
         #SwayOSD
         ", XF86AudioMute, exec, swayosd --output-volume mute-toggle"
@@ -161,9 +163,7 @@
         ", XF86MonBrightnessDown,exec,swayosd --brightness lower"
       ];
 
-      bindl = [
-        ", Caps_Lock, exec, swayosd --caps-lock"
-      ];
+      bindl = [ ", Caps_Lock, exec, swayosd --caps-lock" ];
     };
   };
 }

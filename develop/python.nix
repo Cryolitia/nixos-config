@@ -15,9 +15,8 @@
       pygobject3
       pyudev
       networkx
-    ]) ++ (with pkgs; [
-      python310
     ])
+    ++ (with pkgs; [ python310 ])
   );
 
   LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
@@ -35,5 +34,4 @@
   postShellHook = ''
     ln -sf PYTHONPATH/* ${pkgs.virtualenv}/lib/python3.10/site-packages
   '';
-
 })

@@ -1,14 +1,14 @@
-{... }:
+{ ... }:
 
 {
 
   programs.dconf.enable = true;
 
   specialisation."GnomeNvidia".configuration = {
-      imports = [
-        ./nvidia.nix
-        ../../../graphic/desktop/gnome.nix
-      ];
+    imports = [
+      ./nvidia.nix
+      ../../../graphic/desktop/gnome.nix
+    ];
   };
 
   #specialisation."GnomeNoNvidia".configuration = {
@@ -24,5 +24,4 @@
   #      ../../../graphic/desktop/hyprland.nix
   #    ];
   #};
-
 }

@@ -1,9 +1,8 @@
 { ... }:
 
 {
-  imports =
-    [
-      ./bluetooth.nix
-      ./ap.nix
-    ];
+  imports = [
+    ./bluetooth.nix
+    ./ap.nix
+  ];
 }

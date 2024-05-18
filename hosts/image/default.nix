@@ -2,18 +2,22 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ../../common
-      ../../hardware
-      ../../graphic/software
-      ../../graphic/desktop/gnome.nix
-      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ../../common
+    ../../hardware
+    ../../graphic/software
+    ../../graphic/desktop/gnome.nix
+    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
+  ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -35,6 +39,5 @@
 
   # For test https://github.com/NixOS/nixpkgs/pull/271342
   hardware.cpu.amd.ryzen-smu.enable = true;
-  environment.systemPackages =  [ pkgs.ryzenadj ];
-
+  environment.systemPackages = [ pkgs.ryzenadj ];
 }
