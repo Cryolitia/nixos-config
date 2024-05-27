@@ -55,34 +55,41 @@
 
   #system.autoUpgrade.enable = true;
 
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 7d";
-    dates = "daily";
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+      dates = "daily";
+    };
+    optimise = {
+      automatic = true;
+      dates = [ "03:45" ];
+    };
+
+    settings = {
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      substituters = [ "https://mirrors.cernet.edu.cn/nix-channels/store" ];
+      extra-substituters = [ "https://cache.nixos.org/" ];
+    };
   };
-  nix.optimise.automatic = true;
-  nix.optimise.dates = [ "03:45" ];
 
   security.sudo.wheelNeedsPassword = false;
 
-  nix.settings = {
-
-    trusted-users = [
-      "root"
-      "@wheel"
-    ];
-
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-
-    substituters = [ "https://mirrors.cernet.edu.cn/nix-channels/store" ];
-
-    extra-substituters = [ "https://cache.nixos.org/" ];
+  boot = {
+    loader.systemd-boot.configurationLimit = 3;
+    tmp.cleanOnBoot = true;
+    kernel.sysctl = {
+      "kernel.sysrq" = 1;
+    };
+    kernelParams = [ "bdev_allow_write_mounted=0" ];
   };
-
-  boot.loader.systemd-boot.configurationLimit = 3;
 
   programs.ssh = {
     kexAlgorithms = [
@@ -98,13 +105,7 @@
 
   #time.hardwareClockInLocalTime = true;
 
-  boot.tmp.cleanOnBoot = true;
-
   zramSwap.enable = true;
-
-  boot.kernel.sysctl = {
-    "kernel.sysrq" = 1;
-  };
 
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", ATTRS{idProduct}=="320d", MODE="0666", GROUP="plugdev"

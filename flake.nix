@@ -31,7 +31,8 @@
   inputs = {
     # NixOS 官方软件源，这里使用 nixos-unstable 分支
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "git+file:///home/cryolitia/nixpkgs/?rev=4e26cbf00562cde8ab0de100ddfc99bd41c354ac";
+    #nixpkgs.url = "github:nixos/nixpkgs/03512cb12855d2aca13cce32e4dd3d622018cd4d";
+    #nixpkgs.url = "git+file:///home/cryolitia/nixpkgs/?rev=20efb828a7c2961bb848429e2b6f1af9982d24c9";
 
     # home-manager，用于管理用户配置
     home-manager = {

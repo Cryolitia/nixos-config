@@ -46,6 +46,7 @@ in
           vue.volar
           github.vscode-github-actions
           editorconfig.editorconfig
+          jock.svg
         ])
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {

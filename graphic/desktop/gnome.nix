@@ -84,23 +84,20 @@
     ];
   };
 
-  nixpkgs.config.packageOverrides = p: {
-    gnome = p.gnome // {
-      mutter = pkgs.nur-cryolitia.mutter-text-input-v1;
-      gnome-shell =
-        (p.gnome.gnome-shell.override { mutter = pkgs.nur-cryolitia.mutter-text-input-v1; }).overrideAttrs
-          (oldAttrs: {
-            patches = oldAttrs.patches ++ [
-              (p.fetchpatch {
-                url = "https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3318.patch";
-                hash = "sha256-MWeEaTeL9wkFW/MolG/N8+vMkEi9KTKdwJqqSaNzxF8=";
-              })
-            ];
-          });
-      gnome-control-center = p.gnome.gnome-control-center.override {
+  nixpkgs.config.packageOverrides = prev: {
+    gnome = prev.gnome.overrideScope' (
+      gfinal: gprev: {
         mutter = pkgs.nur-cryolitia.mutter-text-input-v1;
-      };
-    };
+        gnome-shell = prev.gnome.gnome-shell.overrideAttrs (oldAttrs: {
+          patches = oldAttrs.patches ++ [
+            (prev.fetchpatch {
+              url = "https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3318.patch";
+              hash = "sha256-MWeEaTeL9wkFW/MolG/N8+vMkEi9KTKdwJqqSaNzxF8=";
+            })
+          ];
+        });
+      }
+    );
   };
 
   programs.nautilus-open-any-terminal = {

@@ -6,6 +6,7 @@
     ../../common/software
     ./chrome.nix
     ../../hardware/yubikey.nix
+    ./font.nix
   ];
 
   # List packages installed in system profile. To search, run:
@@ -44,32 +45,6 @@
     enable = true;
     tunMode = true;
     package = pkgs.clash-verge-rev;
-  };
-
-  fonts = {
-    packages = with pkgs; [
-      sarasa-gothic
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-      source-han-serif
-      source-han-sans
-      noto-fonts-emoji
-      shanggu-fonts
-    ];
-
-    fontconfig = {
-      defaultFonts = {
-        emoji = [
-          "JetBrainsMono Nerd Font"
-          "Noto Color Emoji"
-        ];
-        monospace = [
-          "Sarasa Mono SC"
-          "JetBrainsMono Nerd Font Mono"
-        ];
-        sansSerif = [ "Sarasa Gothic SC" ];
-        serif = [ "Source Han Serif SC" ];
-      };
-    };
   };
 
   services.xserver.excludePackages = [ pkgs.xterm ];

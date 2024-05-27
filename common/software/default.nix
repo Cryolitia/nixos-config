@@ -27,6 +27,8 @@
     nix-output-monitor
     nixfmt-rfc-style
     gnumake
+    smartmontools
+    gdb
   ];
 
   programs.git = {

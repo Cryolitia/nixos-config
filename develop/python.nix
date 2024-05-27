@@ -15,6 +15,9 @@
       pygobject3
       pyudev
       networkx
+      jieba
+      #pkuseg
+      #wordcloud
     ])
     ++ (with pkgs; [ python310 ])
   );
