@@ -91,6 +91,7 @@ in
       "editor.unicodeHighlight.allowedLocales" = {
         zh-hans = true;
       };
+      "github.copilot.editor.enableAutoCompletions" = true;
     };
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;

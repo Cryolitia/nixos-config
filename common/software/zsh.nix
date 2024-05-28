@@ -9,10 +9,13 @@
   programs.zsh = {
     enable = true;
     ohMyZsh = {
+      enable = true;
       plugins = [
-        "git"
-        "cp"
         "colorize"
+        "bgnotify"
+        "sudo"
+        "virtualenv"
+        "zsh-interactive-cd"
       ];
     };
     promptInit = ''
