@@ -10,8 +10,7 @@ jobs:
         arch:
           - x86_64
           # - aarch64
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
+
     runs-on: ubuntu-latest
     steps:
     - name: Free Disk Space (Ubuntu)
@@ -29,17 +28,21 @@ jobs:
         large-packages: true
         docker-images: true
         swap-storage: true
+
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Install nix
-      uses: cachix/install-nix-action@v23
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+    - uses: DeterminateSystems/flake-checker-action@main
+
+    - name: Print flake metadata
+      run: nix flake metadata --accept-flake-config
     - name: Build x86_64 ISO
       if: ${{ matrix.arch == 'x86_64' }}
       run: nix build .#iso --accept-flake-config
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        path: |
+          result/**/*.iso

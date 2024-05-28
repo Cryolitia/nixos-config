@@ -85,7 +85,7 @@
   };
 
   nixpkgs.config.packageOverrides = prev: {
-    gnome = prev.gnome.overrideScope' (
+    gnome = prev.gnome.overrideScope (
       gfinal: gprev: {
         mutter = pkgs.nur-cryolitia.mutter-text-input-v1;
         gnome-shell = prev.gnome.gnome-shell.overrideAttrs (oldAttrs: {
