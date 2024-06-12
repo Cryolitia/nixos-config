@@ -9,7 +9,5 @@
     ../../../common/software/transmission.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    nur-cryolitia.gpd-linux-controls
-  ];
+  environment.systemPackages = with pkgs; [ nur-cryolitia.gpd-linux-controls ];
 }

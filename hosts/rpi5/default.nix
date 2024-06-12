@@ -9,6 +9,9 @@
     ../../common
   ];
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
+
   networking.hostName = "rpi-nixos";
 
   services.openssh.enable = true;
@@ -26,6 +29,7 @@
   fileSystems."/mnt/NAS" = {
     device = "/dev/disk/by-uuid/cd1d85fa-f4f7-4d16-898c-0231b324401d";
     fsType = "btrfs";
+    options = [ "space_cache=v2" ];
   };
 
   nix.extraOptions = ''

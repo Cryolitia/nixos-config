@@ -3,6 +3,6 @@
 {
   imports = [
     ./bluetooth.nix
-    ./ap.nix
+    # ./ap.nix
   ];
 }

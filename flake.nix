@@ -164,7 +164,7 @@
             with inputs;
             [
 
-              ./hosts/rpi4
+              ./hosts/rpi5
               # ./common/distribute.nix
 
               vscode-server.nixosModules.default
@@ -173,7 +173,7 @@
 
               nur.nixosModules.nur
 
-              nixos-hardware.nixosModules.raspberry-pi-4
+              nixos-hardware.nixosModules.raspberry-pi-5
 
               home-manager.nixosModules.home-manager
               {
@@ -183,7 +183,7 @@
                 home-manager.extraSpecialArgs = {
                   inherit inputs;
                 };
-                home-manager.users.cryolitia = import ./hosts/rpi4/home.nix;
+                home-manager.users.cryolitia = import ./hosts/rpi5/home.nix;
               }
             ]
           );
