@@ -3,7 +3,7 @@
 {
   imports = [
     ../../../common/software
-    #./homeassistant.nix
+    ./homeassistant.nix
     ./syncthing.nix
     ./samba.nix
     ./qbittorrent.nix
@@ -16,5 +16,6 @@
   environment.systemPackages = with pkgs; [
     libraspberrypi
     gphotos-sync
+    raspberrypi-eeprom
   ];
 }

@@ -35,6 +35,7 @@
     typst
     typst-lsp
     warp-terminal
+    sequoia-wot
   ];
 
   programs.kdeconnect.enable = true;

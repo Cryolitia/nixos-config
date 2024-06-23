@@ -33,7 +33,7 @@ let
         ""
         ""
       ];
-  compare = a: b: simplify (toLower a) < simplify (toLower b);
+  #compare = a: b: simplify (toLower a) < simplify (toLower b);
   namesSorted = sort (a: b: a.key < b.key) (
     map (
       n:
@@ -49,11 +49,7 @@ let
     ) (attrNames maintainers)
   );
   before =
-    {
-      name,
-      line,
-      key,
-    }:
+    { key }:
     foldl' (
       acc: n: if n.key < key && (acc == null || n.key > acc.key) then n else acc
     ) null namesSorted;

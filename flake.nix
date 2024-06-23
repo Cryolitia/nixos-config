@@ -31,7 +31,7 @@
   inputs = {
     # NixOS 官方软件源，这里使用 nixos-unstable 分支
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "github:nixos/nixpkgs/03512cb12855d2aca13cce32e4dd3d622018cd4d";
+    #nixpkgs.url = "github:peat-psuwit/nixpkgs/fd6ef0d76a5832a46c49c89bbb1e72f461914ab7";
     #nixpkgs.url = "git+file:///home/cryolitia/nixpkgs/?rev=20efb828a7c2961bb848429e2b6f1af9982d24c9";
 
     # home-manager，用于管理用户配置
@@ -84,14 +84,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
+      # url = "github:nix-community/nixvim/nixos-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     jetbrains-plugins.url = "github:Cryolitia/nix-jetbrains-plugins";
+
+    systems.url = "github:nix-systems/default";
   };
 
   outputs =
     inputs:
     let
-      system = "x86_64-linux";
       commonModule = import ./common/module.nix { inherit inputs; };
+      eachSystem = inputs.nixpkgs.lib.genAttrs (import inputs.systems);
     in
     builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」" {
       # nixosConfigurations.[name].config.system.build.toplevel
@@ -190,9 +199,9 @@
         };
       };
 
-      packages.x86_64-linux = {
+      packages = eachSystem (system: {
         iso = inputs.nixos-generators.nixosGenerate {
-          system = "x86_64-linux";
+          inherit system;
           modules =
             commonModule
             ++ (with inputs; [
@@ -214,45 +223,50 @@
             inherit inputs;
           };
         };
-      };
 
-      devShells."${system}" = rec {
+        neovim = import ./develop/neovim.nix { nixvim = inputs.nixvim; };
+      });
 
-        pkgs-unfree = import inputs.nixpkgs {
-          config = {
-            allowUnfree = true;
-            cudaSupport = false;
+      devShells = eachSystem (
+        system:
+        let
+          pkgs-unfree = import inputs.nixpkgs {
+            config = {
+              allowUnfree = true;
+              cudaSupport = false;
+            };
+            inherit system;
           };
-          inherit system;
-        };
 
-        pkgs-cuda = import inputs.nixpkgs {
-          config = {
-            allowUnfree = true;
-            cudaSupport = true;
-            # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
-            cudaCapabilities = [ "8.6" ];
-            cudaEnableForwardCompat = false;
+          pkgs-cuda = import inputs.nixpkgs {
+            config = {
+              allowUnfree = true;
+              cudaSupport = true;
+              # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
+              cudaCapabilities = [ "8.6" ];
+              cudaEnableForwardCompat = false;
+            };
+            inherit system;
           };
-          inherit system;
-        };
 
-        pkgs-rust = import inputs.nixpkgs {
-          config = {
-            allowUnfree = true;
-            cudaSupport = false;
+          pkgs-rust = import inputs.nixpkgs {
+            config = {
+              allowUnfree = true;
+              cudaSupport = false;
+            };
+            inherit system;
+            overlays = [ (import inputs.rust-overlay) ];
           };
-          inherit system;
-          overlays = [ (import inputs.rust-overlay) ];
-        };
+        in
+        {
+          gcc = import ./develop/gcc.nix { pkgs = pkgs-unfree; };
 
-        gcc = import ./develop/gcc.nix { pkgs = pkgs-unfree; };
+          cuda = import ./develop/cuda.nix { pkgs = pkgs-cuda; };
 
-        cuda = import ./develop/cuda.nix { pkgs = pkgs-cuda; };
+          rust = import ./develop/rust.nix { pkgs = pkgs-rust; };
 
-        rust = import ./develop/rust.nix { pkgs = pkgs-rust; };
-
-        python = import ./develop/python.nix { pkgs = pkgs-unfree; };
-      };
+          python = import ./develop/python.nix { pkgs = pkgs-unfree; };
+        }
+      );
     };
 }

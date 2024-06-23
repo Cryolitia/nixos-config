@@ -29,6 +29,7 @@
     gnumake
     smartmontools
     gdb
+    udftools
   ];
 
   programs.git = {

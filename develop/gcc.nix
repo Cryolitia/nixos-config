@@ -13,10 +13,10 @@ in
     gdb
     #opencv
     #onnxruntime
-    #eigen
-    #zlib
-    #asio
-    #libcpr
+    eigen
+    zlib
+    asio
+    libcpr
     #python310Packages.pybind11
   ]; # ++ cuda.cuda-native-redist;
 

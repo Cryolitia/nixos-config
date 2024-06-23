@@ -26,7 +26,7 @@
   services.openssh.enable = true;
 
   nixpkgs.overlays = [
-    (final: super: {
+    (_: super: {
       zfs = super.zfs.overrideAttrs (_: {
         meta.platforms = [ ];
       });
