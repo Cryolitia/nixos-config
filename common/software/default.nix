@@ -42,4 +42,8 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+  programs.nixvim = {
+    enable = true;
+  } // (import ../../develop/neovim.nix);
 }

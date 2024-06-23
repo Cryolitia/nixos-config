@@ -27,7 +27,6 @@ in
     cursor-theme = "Adwaita";
     icon-theme = "Tela";
     clock-show-weekday = true;
-    font-name = "更纱黑体 SC 11";
     document-font-name = "Source Han Serif 11";
     monospace-font-name = "JetBrainsMono Nerd Font Mono 10";
     titlebar-font = "更纱黑体 SC Bold 11";

@@ -112,7 +112,7 @@
           };
 
           modules =
-            commonModule
+            (commonModule (import ./hosts/gpd/home.nix))
             ++ (with inputs; [
 
               ./hosts/gpd
@@ -122,17 +122,6 @@
               # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
               nur-cryolitia.nixosModules.gpd-fan-driver
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = false;
-                home-manager.backupFileExtension = "backup";
-                home-manager.extraSpecialArgs = {
-                  inherit inputs;
-                };
-                home-manager.users.cryolitia = import ./hosts/gpd/home.nix;
-              }
             ]);
         };
 
@@ -143,24 +132,13 @@
           };
 
           modules =
-            commonModule
+            (commonModule (import ./hosts/surface-go/home.nix))
             ++ (with inputs; [
 
               ./hosts/surface-go
               ./common/distribute.nix
 
               nixos-hardware.nixosModules.microsoft-surface-go
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = false;
-                home-manager.backupFileExtension = "backup";
-                home-manager.extraSpecialArgs = {
-                  inherit inputs;
-                };
-                home-manager.users.cryolitia = import ./hosts/surface-go/home.nix;
-              }
             ]);
         };
 
@@ -169,9 +147,9 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = (
-            with inputs;
-            [
+          modules =
+            (commonModule (import ./hosts/rpi5/home.nix))
+            ++ (with inputs; [
 
               ./hosts/rpi5
               # ./common/distribute.nix
@@ -180,51 +158,22 @@
 
               { services.vscode-server.enable = true; }
 
-              nur.nixosModules.nur
-
               nixos-hardware.nixosModules.raspberry-pi-5
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = false;
-                home-manager.backupFileExtension = "backup";
-                home-manager.extraSpecialArgs = {
-                  inherit inputs;
-                };
-                home-manager.users.cryolitia = import ./hosts/rpi5/home.nix;
-              }
-            ]
-          );
+            ]);
         };
       };
 
       packages = eachSystem (system: {
         iso = inputs.nixos-generators.nixosGenerate {
           inherit system;
-          modules =
-            commonModule
-            ++ (with inputs; [
-              ./hosts/image
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = false;
-                home-manager.backupFileExtension = "backup";
-                home-manager.extraSpecialArgs = {
-                  inherit inputs;
-                };
-                home-manager.users.cryolitia = import ./hosts/image/home.nix;
-              }
-            ]);
+          modules = (commonModule (import ./hosts/image/home.nix)) ++ (with inputs; [ ./hosts/image ]);
           format = "install-iso";
           specialArgs = {
             inherit inputs;
           };
         };
 
-        neovim = import ./develop/neovim.nix { nixvim = inputs.nixvim; };
+        neovim = inputs.nixvim.legacyPackages.x86_64-linux.makeNixvim (import ./develop/neovim.nix);
       });
 
       devShells = eachSystem (

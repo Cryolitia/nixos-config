@@ -1,6 +1,4 @@
-{ nixvim, ... }:
-
-nixvim.legacyPackages.x86_64-linux.makeNixvim {
+{
   clipboard.providers.wl-copy.enable = true;
 
   colorschemes.nord.enable = true;
