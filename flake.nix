@@ -174,6 +174,23 @@
         };
 
         neovim = inputs.nixvim.legacyPackages.x86_64-linux.makeNixvim (import ./develop/neovim.nix);
+
+        linux_rpi5 = (import inputs.nixpkgs { inherit system; }).linuxKernel.kernels.linux_rpi4.override {
+          rpiVersion = 5;
+          argsOverride.defconfig = "bcm2712_defconfig";
+        };
+
+        pkgsCross.aarch64-multiplatform.linux_rpi5 =
+          (import inputs.nixpkgs {
+            inherit system;
+            crossSystem = {
+              config = "aarch64-unknown-linux-gnu";
+            };
+          }).linuxKernel.kernels.linux_rpi4.override
+            {
+              rpiVersion = 5;
+              argsOverride.defconfig = "bcm2712_defconfig";
+            };
       });
 
       devShells = eachSystem (
