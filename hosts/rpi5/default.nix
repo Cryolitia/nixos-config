@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -35,4 +35,17 @@
   nix.extraOptions = ''
     extra-platforms = aarch64-linux
   '';
+
+  boot.kernelPatches = [
+    {
+      name = "Disable DEBUG_INFO";
+      patch = null;
+      extraConfig = ''
+        DEBUG_INFO n
+        DEBUG_KERNEL n
+        DEBUG_INFO_NONE y
+        DRM n
+      '';
+    }
+  ];
 }

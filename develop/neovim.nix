@@ -52,7 +52,7 @@
     treesitter.enable = true;
     treesitter-context.enable = true;
     trouble.enable = true;
-    wilder.enable = true;
+    #wilder.enable = true;
     which-key.enable = true;
   };
 }

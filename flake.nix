@@ -173,7 +173,7 @@
           };
         };
 
-        neovim = inputs.nixvim.legacyPackages.x86_64-linux.makeNixvim (import ./develop/neovim.nix);
+        neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./develop/neovim.nix);
 
         linux_rpi5 = (import inputs.nixpkgs { inherit system; }).linuxKernel.kernels.linux_rpi4.override {
           rpiVersion = 5;
