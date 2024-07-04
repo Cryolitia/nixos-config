@@ -26,7 +26,7 @@ in
         hash = "sha256-U3YAecGltY8vo9Xv/h7TUjlZCyiIQdgSIp705VstvWk=";
       };
     })
-    texlive.combined.scheme-full
+    # texlive.combined.scheme-full
     android-tools
     wpsoffice
     obs-studio
@@ -37,6 +37,8 @@ in
     nodePackages.nodejs
     discord
     yesplaymusic
+    kuro
+    # lutris
 
     androidStudioPackages.beta
     jetbrains-with-plugins.idea-ultimate

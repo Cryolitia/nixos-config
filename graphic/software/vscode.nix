@@ -27,8 +27,8 @@ in
           jnoortheen.nix-ide
           github.vscode-pull-request-github
           brunnerh.insert-unicode
-          tecosaur.latex-utilities
-          james-yu.latex-workshop
+          #tecosaur.latex-utilities
+          #james-yu.latex-workshop
           davidanson.vscode-markdownlint
           equinusocio.vsc-material-theme
           equinusocio.vsc-material-theme-icons
