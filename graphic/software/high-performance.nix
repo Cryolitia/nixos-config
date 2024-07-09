@@ -39,6 +39,10 @@ in
     yesplaymusic
     kuro
     # lutris
+    scrcpy
+    nixpkgs-review
+    element-desktop
+    distrobox
 
     androidStudioPackages.beta
     jetbrains-with-plugins.idea-ultimate
@@ -58,10 +62,7 @@ in
     "electron-19.1.9"
   ];
 
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-  };
+  virtualisation.podman.enable = true;
 
   services.flatpak.enable = true;
   xdg.portal.enable = true;

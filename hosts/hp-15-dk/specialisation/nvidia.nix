@@ -26,5 +26,5 @@ in
 
   nixpkgs.config.cudaSupport = true;
 
-  virtualisation.docker.enableNvidia = true;
+  virtualisation.podman.enableNvidia = true;
 }

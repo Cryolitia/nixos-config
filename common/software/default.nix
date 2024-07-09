@@ -30,6 +30,7 @@
     smartmontools
     gdb
     udftools
+    file
   ];
 
   programs.git = {

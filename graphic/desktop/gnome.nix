@@ -19,23 +19,23 @@
       gnome-text-editor
       gedit
       gnome-console
-    ])
-    ++ (with pkgs.gnome; [
       cheese # webcam tool
-      gnome-music
       epiphany # web browser
       geary # email reader
       evince # document viewer
-      gnome-characters
       totem # video player
+      gnome-calculator
+      simple-scan
+    ])
+    ++ (with pkgs.gnome; [
+      gnome-music
+      gnome-characters
       tali # poker game
       iagno # go game
       hitori # sudoku game
       atomix # puzzle game
-      gnome-calculator
       gnome-contacts
       gnome-maps
-      simple-scan
     ]);
 
   users.users.gdm.extraGroups = [
@@ -47,7 +47,7 @@
 
   environment.systemPackages =
     (with pkgs; [
-      gnome.gnome-tweaks
+      gnome-tweaks
       tela-icon-theme
       xdg-terminal-exec
       nautilus-open-any-terminal

@@ -13,5 +13,5 @@ in
     powerManagement.enable = true;
   };
 
-  virtualisation.docker.enableNvidia = true;
+  virtualisation.podman.enableNvidia = true;
 }
