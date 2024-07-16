@@ -111,4 +111,6 @@
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", ATTRS{idProduct}=="320d", MODE="0666", GROUP="plugdev"
   '';
+
+  environment.enableAllTerminfo = true;
 }

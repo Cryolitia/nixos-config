@@ -43,6 +43,7 @@ in
     nixpkgs-review
     element-desktop
     distrobox
+    vagrant
 
     androidStudioPackages.beta
     jetbrains-with-plugins.idea-ultimate

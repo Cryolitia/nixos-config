@@ -31,6 +31,8 @@
     gdb
     udftools
     file
+    man-pages
+    man-pages-posix
   ];
 
   programs.git = {
@@ -47,4 +49,11 @@
   programs.nixvim = {
     enable = true;
   } // (import ../../develop/neovim.nix);
+
+  programs.less = {
+    enable = true;
+    envVariables = {
+      LESS = "RFX";
+    };
+  };
 }
