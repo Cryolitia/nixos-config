@@ -44,8 +44,9 @@ in
     element-desktop
     distrobox
     vagrant
+    thunderbird
 
-    androidStudioPackages.beta
+    #androidStudioPackages.beta
     jetbrains-with-plugins.idea-ultimate
     jetbrains-with-plugins.pycharm-professional
     jetbrains-with-plugins.rust-rover

@@ -56,4 +56,5 @@
       LESS = "RFX";
     };
   };
+  environment.variables.LESS = "RFX";
 }

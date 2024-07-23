@@ -20,6 +20,7 @@
     enable = true;
     initExtra = ''
       source ~/.p10k.zsh
+      export SSH_AUTH_SOCK="/run/user/1000/gnupg/S.gpg-agent.ssh"
     '';
     history = {
       extended = true;
@@ -30,7 +31,7 @@
 
   programs.git = {
     enable = true;
-    userName = "Cryolitia";
+    userName = "Cryolitia PukNgae";
     userEmail = "Cryolitia@gmail.com";
     extraConfig = {
       core = {
@@ -97,6 +98,7 @@
   home.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE = 1;
     EDITOR = "nvim";
+    SSH_AUTH_SOCK = "/run/user/1000/gnupg/S.gpg-agent.ssh";
   };
 
   # Let Home Manager install and manage itself.
