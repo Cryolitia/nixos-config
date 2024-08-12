@@ -3,6 +3,11 @@
 
   colorschemes.nord.enable = true;
 
+  opts = {
+    number = true;
+    list = true;
+  };
+
   plugins = {
     airline.enable = true;
     autoclose.enable = true;

@@ -47,6 +47,7 @@ in
           github.vscode-github-actions
           editorconfig.editorconfig
           jock.svg
+          tomoki1207.pdf
         ])
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
