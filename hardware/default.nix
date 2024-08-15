@@ -6,8 +6,8 @@
     ./tpm.nix
   ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 }

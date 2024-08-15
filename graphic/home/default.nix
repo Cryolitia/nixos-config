@@ -23,7 +23,7 @@ in
       ./fcitx5.nix
     ]
     ++ lib.optionals osConfig.services.xserver.desktopManager.gnome.enable [ ./gnome ]
-    ++ lib.optionals osConfig.services.xserver.desktopManager.plasma6.enable [
+    ++ lib.optionals osConfig.services.desktopManager.plasma6.enable [
 
     ]
     ++ lib.optionals osConfig.programs.hyprland.enable [

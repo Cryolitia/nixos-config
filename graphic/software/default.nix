@@ -33,9 +33,10 @@
     libnotify
     mission-center
     typst
-    typst-lsp
+    #typst-lsp
     warp-terminal
     sequoia-wot
+    nur-cryolitia.get-lrc
   ];
 
   programs.kdeconnect.enable = true;

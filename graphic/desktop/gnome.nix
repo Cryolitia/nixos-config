@@ -60,7 +60,7 @@
       caffeine
       blur-my-shell
       night-theme-switcher
-      desktop-lyric
+      executor
     ]);
 
   programs.gpaste.enable = true;
@@ -73,7 +73,8 @@
   # ];
 
   i18n.inputMethod = {
-    enabled = "ibus";
+    enable = true;
+    type = "ibus";
     ibus.engines = with pkgs.ibus-engines; [
       (rime.override {
         rimeDataPkgs = import ../software/rime-data.nix {

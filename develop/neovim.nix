@@ -13,7 +13,7 @@
     autoclose.enable = true;
     barbar.enable = true;
     barbecue.enable = true;
-    chadtree.enable = true;
+    #chadtree.enable = true;
     cmp.enable = true;
     cmp-async-path.enable = true;
     cmp-buffer.enable = true;

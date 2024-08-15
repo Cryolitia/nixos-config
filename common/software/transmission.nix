@@ -5,5 +5,5 @@
     enable = true;
     openFirewall = true;
   };
-  systemd.services.transmission.wantedBy = lib.mkForce [];
+  systemd.services.transmission.wantedBy = lib.mkForce [ ];
 }

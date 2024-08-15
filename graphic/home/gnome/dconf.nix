@@ -92,6 +92,7 @@ in
       "freon@UshakovVasilii_Github.yahoo.com"
       "blur-my-shell@aunetx"
       "nightthemeswitcher@romainvigier.fr"
+      "executor@raujonas.github.io"
     ];
 
     favorite-apps = [
@@ -123,6 +124,25 @@ in
     apply-custom-theme = false;
     transparency-mode = "DYNAMIC";
     shortcut = [ ];
+  };
+
+  "org/gnome/shell/extensions/executor" = {
+    left-active = true;
+    center-active = false;
+    right-active = false;
+    left-index = 2;
+    left-commands-json = builtins.readFile (
+      (pkgs.formats.json { }).generate "gnome-shell-extension-executor-commands" {
+        commands = [
+          {
+            isActive = true;
+            command = "get_lrc yesplay --prefix \"\"";
+            interval = 1;
+            uuid = "3bec9d24-ac2b-4c43-994a-3012028e78b5";
+          }
+        ];
+      }
+    );
   };
 
   "org/gnome/shell/extensions/freon" = {
