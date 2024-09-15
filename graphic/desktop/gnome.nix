@@ -26,8 +26,6 @@
       totem # video player
       gnome-calculator
       simple-scan
-    ])
-    ++ (with pkgs.gnome; [
       gnome-music
       gnome-characters
       tali # poker game
@@ -43,7 +41,7 @@
     "video"
   ];
 
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  services.udev.packages = with pkgs; [ gnome-settings-daemon ];
 
   environment.systemPackages =
     (with pkgs; [

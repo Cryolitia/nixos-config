@@ -37,7 +37,6 @@ in
     nodePackages.nodejs
     discord
     yesplaymusic
-    kuro
     # lutris
     scrcpy
     nixpkgs-review
@@ -56,12 +55,6 @@ in
   boot.extraModulePackages = with config.boot.kernelPackages; [
     # required by obs-studio
     v4l2loopback
-  ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
-    "electron-19.0.7"
-    "electron-19.1.9"
   ];
 
   virtualisation.podman.enable = true;

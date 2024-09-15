@@ -48,4 +48,6 @@
       '';
     }
   ];
+
+  # environment.noXlibs = true;
 }
