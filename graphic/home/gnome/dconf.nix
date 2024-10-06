@@ -93,6 +93,7 @@ in
       "blur-my-shell@aunetx"
       "nightthemeswitcher@romainvigier.fr"
       "executor@raujonas.github.io"
+      "focused-window-dbus@flexagoon.com"
     ];
 
     favorite-apps = [

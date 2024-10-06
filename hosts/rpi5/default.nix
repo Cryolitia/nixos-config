@@ -38,7 +38,7 @@
 
   boot.kernelPatches = [
     {
-      name = "Disable DEBUG_INFO";
+      name = "Disable DEBUG_INFO and DRM";
       patch = null;
       extraConfig = ''
         DEBUG_INFO n

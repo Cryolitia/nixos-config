@@ -1,8 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
-    ./vscode.nix
     ../../common/software
     ./chrome.nix
     ../../hardware/yubikey.nix
@@ -12,6 +11,11 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    (import ./vscode.nix {
+      inherit pkgs;
+      vscode-extensions-input = inputs.nix-vscode-extensions;
+    })
+
     gparted
     telegram-desktop
     github-desktop

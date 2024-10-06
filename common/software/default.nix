@@ -33,6 +33,7 @@
     file
     man-pages
     man-pages-posix
+    jq
   ];
 
   programs.git = {

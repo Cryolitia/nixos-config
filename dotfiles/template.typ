@@ -4,21 +4,23 @@
     doc
   ) = {
     set page("a4")
-    set par(leading: 0.55em, first-line-indent: 1.8em, justify: true)
-    show par: set block(spacing: 0.55em)
-    show heading: set block(above: 1.4em, below: 1em)
+    set par(leading: 1.5em, first-line-indent: 1.8em, justify: true)
+    show par: set block(spacing: 1.5em)
+    show heading: set block(above: 2.4em, below: 0em)
 
     set text(font: (
-      "Sarasa Gothic CL",
+      "Source Han Serif",
       "JetBrainsMono NF"
-    ))
+    ), size: 12pt)
     show raw: text.with(font: ("等距更紗黑體 CL", "JetBrainsMono NF"))
     show heading: text.with(font: (
-      "Source Han Serif",
+      "Source Han Sans SC",
       "JetBrainsMono NF"
     ))
 
     set heading(numbering: "1.")
+    set list(indent: 2em)
+    set enum(indent: 2em)
 
     let fake_par = {
       v(0em)
@@ -37,9 +39,12 @@
     }
 
     if author != none {
+      v(1em)
       set align(right)
       text(font: ("Source Han Serif"), author)
     }
+
+    v(2em)
 
     doc
 }

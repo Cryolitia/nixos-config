@@ -12,8 +12,9 @@
     excludePackages = [ pkgs.xterm ];
   };
 
-  environment.gnome.excludePackages =
-    (with pkgs; [
+  environment.gnome.excludePackages = (
+    with pkgs;
+    [
       gnome-photos
       gnome-tour
       gnome-text-editor
@@ -34,7 +35,8 @@
       atomix # puzzle game
       gnome-contacts
       gnome-maps
-    ]);
+    ]
+  );
 
   users.users.gdm.extraGroups = [
     "gdm"
@@ -59,6 +61,7 @@
       blur-my-shell
       night-theme-switcher
       executor
+      focused-window-d-bus
     ]);
 
   programs.gpaste.enable = true;

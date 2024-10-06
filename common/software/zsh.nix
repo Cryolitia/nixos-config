@@ -10,11 +10,11 @@
     enable = true;
     ohMyZsh = {
       enable = true;
-      package = pkgs.oh-my-zsh.overrideAttrs(oldAttrs: {
-        patches = (oldAttrs.patches or []) ++ [
+      package = pkgs.oh-my-zsh.overrideAttrs (oldAttrs: {
+        patches = (oldAttrs.patches or [ ]) ++ [
           (pkgs.fetchpatch {
-            url = "https://github.com/Cryolitia/ohmyzsh/commit/8318d3de95d2f2fb77ac70995fddae7cd4d5d23e.patch";
-            hash = "sha256-v3SPIZX5ZXmnqtjD6vM+FQUuJp8u71PqO6uYUOrR0Wc=";
+            url = "https://github.com/Cryolitia/ohmyzsh/commit/c0d0af0dced4b7ff90297541833c7b365fef054d.patch";
+            hash = "sha256-w/yRoyYvO8ePdpQAJ34cTiJkk7aVlK8i8+JLbEIJePY=";
           })
         ];
       });
@@ -26,9 +26,11 @@
         "zsh-interactive-cd"
       ];
     };
-    promptInit = ''
+    interactiveShellInit = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       export ZSH_COLORIZE_TOOL=chroma
+      export bgnotify_threshold=10
+      export bgnotify_extraargs=-e
     '';
 
     autosuggestions.enable = true;

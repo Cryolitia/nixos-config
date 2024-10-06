@@ -10,16 +10,15 @@
       "https://mirrors.cernet.edu.cn/nix-channels/store"
       # "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
-    ];
-    extra-substituters = [
-      "https://cache.nixos.org/"
+
       "https://nix-community.cachix.org"
       "https://cryolitia.cachix.org"
       "https://cuda-maintainers.cachix.org"
       "https://anyrun.cachix.org"
       "https://ezkea.cachix.org"
     ];
-    extra-trusted-public-keys = [
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
@@ -174,6 +173,20 @@
         };
 
         neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./develop/neovim.nix);
+
+        vscode = (
+          import ./graphic/software/vscode.nix {
+            pkgs = import inputs.nixpkgs {
+              config = {
+                allowUnfree = true;
+                cudaSupport = false;
+              };
+              inherit system;
+              overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ];
+            };
+            vscode-extensions-input = inputs.nix-vscode-extensions;
+          }
+        );
 
         linux_rpi5 = (import inputs.nixpkgs { inherit system; }).linuxKernel.kernels.linux_rpi4.override {
           rpiVersion = 5;

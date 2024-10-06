@@ -91,6 +91,7 @@ in
         zh-hans = true;
       };
       "github.copilot.editor.enableAutoCompletions" = true;
+      "gitlens.ai.experimental.generateCommitMessage.enabled" = false;
     };
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;
@@ -118,7 +119,7 @@ in
     enable = true;
     font.name = "JetBrainsMono Nerd Font Mono";
     shellIntegration.enableZshIntegration = true;
-    theme = "Catppuccin-Frappe";
+    themeFile = "Catppuccin-Frappe";
     extraConfig = ''
       background_opacity 0.8
       wayland_titlebar_color background
