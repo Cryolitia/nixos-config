@@ -30,18 +30,14 @@
   inputs = {
     # NixOS 官方软件源，这里使用 nixos-unstable 分支
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "github:peat-psuwit/nixpkgs/fd6ef0d76a5832a46c49c89bbb1e72f461914ab7";
-    #nixpkgs.url = "git+file:///home/cryolitia/nixpkgs/?rev=20efb828a7c2961bb848429e2b6f1af9982d24c9";
 
     # home-manager，用于管理用户配置
     home-manager = {
       url = "github:nix-community/home-manager";
-      # url = "github:Cryolitia/home-manager/bb035c01b9f9cfa397b16803073c7fe5c2f4262b";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    # nixos-hardware.url = github:Cryolitia/nixos-hardware/gpd;
 
     nur.url = "github:nix-community/NUR";
 

@@ -19,8 +19,7 @@
     gparted
     telegram-desktop
     github-desktop
-    # config.nur.repos.Freed-Wu.netease-cloud-music
-    go-musicfox
+    #go-musicfox
     nixd
     nixpkgs-fmt
     libsForQt5.okular

@@ -61,9 +61,6 @@
 
   services.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
 
-  # hardware.cpu.amd.ryzen_smu.enable = true;
-  # programs.ryzen_monitor_ng.enable = true;
-
   hardware.cpu.amd.ryzen-smu.enable = true;
 
   services.udev.extraRules = ''

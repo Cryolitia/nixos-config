@@ -7,7 +7,6 @@ in
     python
     venvShellHook
     virtualenv
-
     networkx
     numpy
     pillow

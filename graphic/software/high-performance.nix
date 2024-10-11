@@ -36,7 +36,7 @@ in
     nodePackages.pnpm
     nodePackages.nodejs
     discord
-    yesplaymusic
+    #yesplaymusic
     # lutris
     scrcpy
     nixpkgs-review
@@ -44,13 +44,18 @@ in
     distrobox
     vagrant
     thunderbird
-
+    config.nur.repos.xddxdd.netease-cloud-music
     #androidStudioPackages.beta
     jetbrains-with-plugins.idea-ultimate
     jetbrains-with-plugins.pycharm-professional
     jetbrains-with-plugins.rust-rover
     jetbrains-with-plugins.clion
   ];
+
+  # config.nur.repos.xddxdd.netease-cloud-music
+  nixpkgs.config.permittedInsecurePackages = [
+                "openssl-1.1.1w"
+              ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     # required by obs-studio
