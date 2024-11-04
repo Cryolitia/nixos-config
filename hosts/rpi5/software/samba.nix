@@ -4,18 +4,18 @@
   services.samba-wsdd.enable = true;
   services.samba = {
     enable = true;
-    securityType = "user";
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = smbnix
-      netbios name = smbnix
-      security = user 
-      use sendfile = yes
-      #max protocol = smb2
-      guest account = nobody
-      map to guest = bad user
-    '';
-    shares = {
+    settings = {
+      glogal = {
+        workgroup = "WORKGROUP";
+        "server string" = "smbnix";
+        "netbios name" = "smbnix";
+        security = "user";
+        "use sendfile" = "yes";
+        # "max protocol" = "smb2";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
+
       NAS = {
         path = "/mnt/NAS";
         browseable = "yes";
