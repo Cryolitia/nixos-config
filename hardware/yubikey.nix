@@ -4,8 +4,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    yubikey-manager-qt
-    yubikey-manager
+    # https://github.com/NixOS/nixpkgs/pull/353230/files
+    #yubikey-manager-qt
+    #yubikey-manager
     pam_u2f
     pamtester
   ];

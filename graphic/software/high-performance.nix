@@ -42,7 +42,7 @@ in
     nixpkgs-review
     element-desktop
     distrobox
-    vagrant
+    #vagrant
     thunderbird
     config.nur.repos.xddxdd.netease-cloud-music
     #androidStudioPackages.beta
@@ -54,8 +54,8 @@ in
 
   # config.nur.repos.xddxdd.netease-cloud-music
   nixpkgs.config.permittedInsecurePackages = [
-                "openssl-1.1.1w"
-              ];
+    "openssl-1.1.1w"
+  ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     # required by obs-studio

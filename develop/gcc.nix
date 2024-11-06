@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 let
-
   cuda = import ../common/software/cuda.nix { inherit pkgs; };
 in
 (pkgs.mkShell {
@@ -21,7 +20,6 @@ in
   ]; # ++ cuda.cuda-native-redist;
 
   shellHook = ''
-    cd ~
     exec zsh
   '';
 })

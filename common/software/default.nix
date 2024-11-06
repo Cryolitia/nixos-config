@@ -18,7 +18,7 @@
     htop
     bat
     btop
-    yazi
+    #yazi https://github.com/NixOS/nixpkgs/issues/353119
     zellij
     usbutils
     pciutils

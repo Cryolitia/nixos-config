@@ -92,7 +92,7 @@ in
       "freon@UshakovVasilii_Github.yahoo.com"
       "blur-my-shell@aunetx"
       "nightthemeswitcher@romainvigier.fr"
-      "executor@raujonas.github.io"
+      #"executor@raujonas.github.io"
       "focused-window-dbus@flexagoon.com"
     ];
 

@@ -37,6 +37,11 @@
       core = {
         autocrlf = "input";
       };
+      # smtp4dev
+      sendemail = {
+        smtpServer = "localhost";
+        smtpServerPort = 25;
+      };
     };
   };
 

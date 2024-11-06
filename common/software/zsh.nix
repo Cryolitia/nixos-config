@@ -13,8 +13,8 @@
       package = pkgs.oh-my-zsh.overrideAttrs (oldAttrs: {
         patches = (oldAttrs.patches or [ ]) ++ [
           (pkgs.fetchpatch {
-            url = "https://github.com/Cryolitia/ohmyzsh/commit/c0d0af0dced4b7ff90297541833c7b365fef054d.patch";
-            hash = "sha256-w/yRoyYvO8ePdpQAJ34cTiJkk7aVlK8i8+JLbEIJePY=";
+            url = "https://github.com/Cryolitia/ohmyzsh/commit/1243bd5b829c113fdd293c047168305cbc0aa1f4.patch";
+            hash = "sha256-/tMtclOrdKyXkqNmNI0d0sJehCbX/VxJazMkv5swHaI=";
           })
         ];
       });

@@ -26,5 +26,5 @@ in
 
   nixpkgs.config.cudaSupport = true;
 
-  virtualisation.podman.enableNvidia = true;
+  hardware.nvidia-container-toolkit.enable = true;
 }

@@ -4,7 +4,7 @@
   programs.steam = {
     enable = true;
     package = pkgs.steam.override {
-      steam = pkgs.steamPackages.steam.overrideAttrs (oldAttrs: {
+      steam-unwrapped = pkgs.steam-unwrapped.overrideAttrs (oldAttrs: {
         postInstall =
           oldAttrs.postInstall
           + ''
