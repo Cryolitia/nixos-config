@@ -5,12 +5,11 @@
   nix.distributedBuilds = true;
   nix.buildMachines = [
     {
-      hostName = "192.168.50.97";
+      hostName = "gpd.lan";
       sshUser = "cryolitia";
       sshKey = "/home/cryolitia/.ssh/id_ed25519";
       systems = [
         "x86_64-linux"
-        "aarch64-linux"
       ];
       supportedFeatures = [
         "benchmark"
@@ -19,6 +18,22 @@
       ];
       protocol = "ssh-ng";
       maxJobs = 16;
+      speedFactor = 2;
+    }
+    {
+      hostName = "kp920.lan";
+      sshUser = "cryolitia";
+      sshKey = "/home/cryolitia/.ssh/id_ed25519";
+      systems = [
+        "aarch64-linux"
+      ];
+      supportedFeatures = [
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
+      protocol = "ssh-ng";
+      maxJobs = 8;
       speedFactor = 2;
     }
   ];

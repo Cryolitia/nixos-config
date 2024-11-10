@@ -14,10 +14,10 @@
   #};
 
   specialisation."GnomeNvidia".configuration = {
-   imports = [
-     #../../../graphic/desktop/gnome.nix
-     ./nvidia.nix
-   ];
+    imports = [
+      #../../../graphic/desktop/gnome.nix
+      ./nvidia.nix
+    ];
   };
 
   #specialisation."Hyprland".configuration = {

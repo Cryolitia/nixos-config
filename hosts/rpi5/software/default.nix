@@ -7,7 +7,7 @@
     ./syncthing.nix
     ./samba.nix
     ./qbittorrent.nix
-    ./netdata.nix
+    ../../../common/software/netdata.nix
     ./vlmcsd.nix
   ];
 

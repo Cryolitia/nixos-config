@@ -16,6 +16,7 @@
       "https://cuda-maintainers.cachix.org"
       "https://anyrun.cachix.org"
       "https://ezkea.cachix.org"
+      "http://kp920.lan:5000"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -24,6 +25,7 @@
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
+      "kp920.lan:vpIXoG5z4ia1wdYJNDa6CYb7VpxVuk2BykLyAqaAm7c="
     ];
   };
 
@@ -97,7 +99,7 @@
       commonModule = import ./common/module.nix { inherit inputs; };
       eachSystem = inputs.nixpkgs.lib.genAttrs (import inputs.systems);
     in
-    builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」" {
+    builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」" rec {
       # nixosConfigurations.[name].config.system.build.toplevel
       nixosConfigurations = {
         cryolitia-gpd-nixos = inputs.nixpkgs.lib.nixosSystem rec {
@@ -147,13 +149,30 @@
             ++ (with inputs; [
 
               ./hosts/rpi5
-              # ./common/distribute.nix
+              ./common/distribute.nix
 
               vscode-server.nixosModules.default
 
               { services.vscode-server.enable = true; }
 
               nixos-hardware.nixosModules.raspberry-pi-5
+            ]);
+        };
+
+        kp920-nixos = inputs.nixpkgs.lib.nixosSystem rec {
+          system = "aarch64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules =
+            (commonModule (import ./hosts/kp920/home.nix))
+            ++ (with inputs; [
+
+              ./hosts/kp920
+
+              vscode-server.nixosModules.default
+
+              { services.vscode-server.enable = true; }
             ]);
         };
       };
@@ -243,5 +262,10 @@
           python = import ./develop/python.nix { pkgs = pkgs-unfree; };
         }
       );
+
+      hydraJobs = {
+        rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
+        kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
+      };
     };
 }

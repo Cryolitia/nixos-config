@@ -4,7 +4,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./hardware
     ./software
     ../../common
   ];
@@ -12,7 +11,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
-  networking.hostName = "rpi-nixos";
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  networking.hostName = "kp920-nixos";
 
   services.openssh.enable = true;
 
@@ -24,28 +25,34 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
-
-  fileSystems."/mnt/NAS" = {
-    device = "/dev/disk/by-uuid/cd1d85fa-f4f7-4d16-898c-0231b324401d";
-    fsType = "btrfs";
-    options = [ "space_cache=v2" ];
-  };
+  system.stateVersion = "24.11"; # Did you read the comment?
 
   nix.extraOptions = ''
     extra-platforms = aarch64-linux
   '';
 
-  boot.kernelPatches = [
-    {
-      name = "Disable DEBUG_INFO and DRM";
-      patch = null;
-      extraConfig = ''
-        DEBUG_INFO n
-        DEBUG_KERNEL n
-        DEBUG_INFO_NONE y
-        DRM n
-      '';
-    }
-  ];
+  services.nix-serve = {
+    enable = true;
+    openFirewall = true;
+    secretKeyFile = "/var/lib/nix-serve-private";
+  };
+
+  users.users.ziyao = {
+    isNormalUser = true;
+    uid = 1023;
+    description = "ziyao233";
+    shell = pkgs.bashInteractive;
+    extraGroups = [
+      "wheel"
+      "video"
+      "networkmanager"
+      "docker"
+      "input"
+      "i2c"
+      "plugdev"
+    ]; # Enable ‘sudo’ for the user.
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEZ7Jy+zBbNGrypUWx+H6DySweWKJMHGG/+HhhTeXd2"
+    ];
+  };
 }
