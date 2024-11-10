@@ -7,7 +7,7 @@
 
 with lib;
 {
-  environment.systemPackages = mkMerge [
+  environment.systemPackages = mkIf pkgs.stdenv.hostPlatform.isx86_64 (mkMerge [
     (mkIf (elem "nvidia" config.services.xserver.videoDrivers) (
       with pkgs;
       [
@@ -35,5 +35,5 @@ with lib;
         })
       ]
     ))
-  ];
+  ]);
 }
