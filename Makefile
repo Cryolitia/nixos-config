@@ -1,7 +1,10 @@
-.PHONY: boot-nom, boot, build-nom, build, build-no-cache, remote, clean
+.PHONY: boot-nom, switch, boot, build-nom, build, build-no-cache, remote, clean
 
 boot-nom:
 	sudo nixos-rebuild boot --flake .# --log-format internal-json -v --accept-flake-config |& nom --json
+
+switch:
+	sudo nixos-rebuild switch --flake .# --log-format internal-json -v --accept-flake-config |& nom --json
 
 boot:
 	sudo nixos-rebuild boot --flake .# -v -L

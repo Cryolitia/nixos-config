@@ -19,13 +19,7 @@ in
 
   environment.systemPackages = with pkgs; [
     firefox
-    (wechat-uos.override {
-      uosLicense = pkgs.fetchurl {
-        # https://github.com/NixOS/nixpkgs/pull/305929
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/license.tar.gz?h=wechat-uos-bwrap";
-        hash = "sha256-U3YAecGltY8vo9Xv/h7TUjlZCyiIQdgSIp705VstvWk=";
-      };
-    })
+    wechat-uos
     # texlive.combined.scheme-full
     android-tools
     wpsoffice
@@ -44,7 +38,6 @@ in
     distrobox
     #vagrant
     thunderbird
-    config.nur.repos.xddxdd.netease-cloud-music
     #androidStudioPackages.beta
     jetbrains-with-plugins.idea-ultimate
     jetbrains-with-plugins.pycharm-professional

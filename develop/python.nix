@@ -11,27 +11,27 @@ let
       pillow
       matplotlib
       virtualenv
+      tqdm
+      requests
+      inquirerpy
     ]
   );
 in
-{
-  default = (
-    pkgs.mkShell {
-      buildInputs = [
-        pythonWithPackages
-      ];
+pkgs.mkShell {
+  buildInputs = with pkgs; [
+    pythonWithPackages
+    lzip
+  ];
 
-      LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
+  LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
 
-      shellHook = ''
-        ${pythonWithPackages}/bin/python3 --version
-        export PYTHONHOME=${pythonWithPackages}
-        export PATH=${pythonWithPackages}/bin:$PATH
+  shellHook = ''
+    ${pythonWithPackages}/bin/python3 --version
+    export PYTHONHOME=${pythonWithPackages}
+    export PATH=${pythonWithPackages}/bin:$PATH
 
-        rm -rf $PWD/env
-        ln -sv ${pythonWithPackages} $PWD/env
-        exec zsh
-      '';
-    }
-  );
+    rm -rf $PWD/env
+    ln -sv ${pythonWithPackages} $PWD/env
+    exec zsh
+  '';
 }

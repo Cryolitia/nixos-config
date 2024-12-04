@@ -37,12 +37,13 @@ in
       m4ns0ur.base64
       uctakeoff.vscode-counter
       rust-lang.rust-analyzer
-      nvarner.typst-lsp
+      myriad-dreamin.tinymist
       vue.volar
       github.vscode-github-actions
       editorconfig.editorconfig
       jock.svg
       tomoki1207.pdf
       mrmlnc.vscode-scss
+      curlybrackets.markdown-word-count
     ]);
 })

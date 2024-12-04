@@ -36,7 +36,7 @@
     libnotify
     mission-center
     typst
-    typst-lsp
+    tinymist
     warp-terminal
     sequoia-wot
     nur-cryolitia.get-lrc

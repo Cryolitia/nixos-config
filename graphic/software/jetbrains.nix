@@ -4,7 +4,7 @@ let
     "github-copilot"
     "statistic"
     "material-theme-ui-lite"
-    "chinese-simplified-language-pack----"
+    #"chinese-simplified-language-pack----"
   ];
   addPlugins = (inputs.jetbrains-plugins.import pkgs).addPlugins;
 in

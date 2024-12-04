@@ -3,7 +3,7 @@
 {
   imports = [
     ../../../common/software
-    # ./syncthing.nix
+    ./syncthing.nix
     # ./samba.nix
     ./hydra.nix
     ../../../common/software/netdata.nix

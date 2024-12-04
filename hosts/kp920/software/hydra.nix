@@ -9,7 +9,7 @@
     useSubstitutes = true;
   };
 
-  systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";  # REF: <https://github.com/NixOS/nix/issues/4178#issuecomment-738886808>
+  systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true"; # REF: <https://github.com/NixOS/nix/issues/4178#issuecomment-738886808>
 
   nix.extraOptions = ''
     allowed-uris = https://github.com/ github: https://api.github.com/

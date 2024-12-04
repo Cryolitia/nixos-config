@@ -3,7 +3,7 @@
   fonts = {
     packages = with pkgs; [
       sarasa-gothic
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      nerd-fonts.jetbrains-mono
       source-han-serif
       source-han-sans
       noto-fonts-emoji
