@@ -3,7 +3,7 @@
 home-config: [
   { nixpkgs.overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ]; }
 
-  inputs.nur.nixosModules.nur
+  inputs.nur.modules.nixos.default
   inputs.nixvim.nixosModules.nixvim
 
   inputs.home-manager.nixosModules.home-manager

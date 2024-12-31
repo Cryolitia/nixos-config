@@ -1,9 +1,9 @@
 { pkgs, config }:
 
-with config.nur.repos.linyinfeng.rimePackages;
+with pkgs.nur.repos.linyinfeng.rimePackages;
 (
   (withRimeDeps [ rime-ice ])
-  ++ (with config.nur.repos; [
+  ++ (with pkgs.nur.repos; [
     pkgs.rime-data
     linyinfeng.rimePackages.rime-emoji
     xddxdd.rime-moegirl

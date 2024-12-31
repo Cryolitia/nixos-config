@@ -48,18 +48,9 @@
 
   programs.clash-verge = {
     enable = true;
-    tunMode = true;
     package = pkgs.clash-verge-rev;
   };
-
-  systemd.services.clash-verge-rev = {
-    enable = true;
-    serviceConfig = {
-      ExecStart = "${pkgs.clash-verge-rev}/bin/clash-verge-service";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
-
+  
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   #environment.sessionVariables.NIXOS_OZONE_WL = "1";

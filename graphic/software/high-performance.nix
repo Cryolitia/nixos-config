@@ -45,7 +45,7 @@ in
     jetbrains-with-plugins.clion
   ];
 
-  # config.nur.repos.xddxdd.netease-cloud-music
+  # pkgs.nur.repos.xddxdd.netease-cloud-music
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w"
   ];

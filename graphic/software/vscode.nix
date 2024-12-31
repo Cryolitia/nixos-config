@@ -45,5 +45,6 @@ in
       tomoki1207.pdf
       mrmlnc.vscode-scss
       curlybrackets.markdown-word-count
+      ms-vscode.hexeditor
     ]);
 })

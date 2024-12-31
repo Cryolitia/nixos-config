@@ -41,7 +41,10 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nur-cryolitia = {
       url = "github:Cryolitia/nur-packages";

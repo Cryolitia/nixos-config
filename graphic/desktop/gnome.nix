@@ -62,6 +62,9 @@
       night-theme-switcher
       executor
       focused-window-d-bus
+
+      # # fcitx5
+      # kimpanel
     ]);
 
   programs.gpaste.enable = true;
