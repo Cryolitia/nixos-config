@@ -6,7 +6,7 @@ in
 {
 
   "org/gnome/desktop/background" = {
-    picture-uri = "${../../background}/1.jpg";
+    picture-uri = "${../../background}/5.jpg";
     picture-uri-dark = "${../../background}/4.jpeg";
     primary-color = "#000000000000";
     secondary-color = "#000000000000";
@@ -127,24 +127,24 @@ in
     shortcut = [ ];
   };
 
-  "org/gnome/shell/extensions/executor" = {
-    left-active = true;
-    center-active = false;
-    right-active = false;
-    left-index = 2;
-    left-commands-json = builtins.readFile (
-      (pkgs.formats.json { }).generate "gnome-shell-extension-executor-commands" {
-        commands = [
-          {
-            isActive = true;
-            command = "get_lrc yesplay --prefix \"\"";
-            interval = 1;
-            uuid = "3bec9d24-ac2b-4c43-994a-3012028e78b5";
-          }
-        ];
-      }
-    );
-  };
+  # "org/gnome/shell/extensions/executor" = {
+  #   left-active = true;
+  #   center-active = false;
+  #   right-active = false;
+  #   left-index = 2;
+  #   left-commands-json = builtins.readFile (
+  #     (pkgs.formats.json { }).generate "gnome-shell-extension-executor-commands" {
+  #       commands = [
+  #         {
+  #           isActive = true;
+  #           command = "get_lrc yesplay --prefix \"\"";
+  #           interval = 1;
+  #           uuid = "3bec9d24-ac2b-4c43-994a-3012028e78b5";
+  #         }
+  #       ];
+  #     }
+  #   );
+  # };
 
   "org/gnome/shell/extensions/freon" = {
     hot-sensors = [

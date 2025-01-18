@@ -86,6 +86,7 @@
           inherit pkgs;
         };
       })
+      libpinyin
     ];
   };
 
