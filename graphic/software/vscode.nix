@@ -24,11 +24,10 @@ in
       jnoortheen.nix-ide
       github.vscode-pull-request-github
       brunnerh.insert-unicode
-      #tecosaur.latex-utilities
-      #james-yu.latex-workshop
       davidanson.vscode-markdownlint
       equinusocio.vsc-material-theme
-      equinusocio.vsc-material-theme-icons
+      # FIXME
+      #pungrumpy.vsc-material-theme-icons
       esbenp.prettier-vscode
       medo64.code-point
       s-nlf-fh.glassit

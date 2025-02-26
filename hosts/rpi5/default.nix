@@ -1,10 +1,10 @@
-{ pkgs, lib, ... }:
+{ ... }:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./hardware
+    ./hardware/bluetooth.nix
     ./software
     ../../common
   ];
@@ -16,7 +16,7 @@
 
   services.openssh.enable = true;
 
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -38,14 +38,12 @@
 
   boot.kernelPatches = [
     {
-      name = "Disable DEBUG_INFO and DRM";
+      name = "Disable unused";
+      features = {
+        wireless = false;
+        virtualisation = false;
+      };
       patch = null;
-      extraConfig = ''
-        DEBUG_INFO n
-        DEBUG_KERNEL n
-        DEBUG_INFO_NONE y
-        DRM n
-      '';
     }
   ];
 }

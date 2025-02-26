@@ -33,9 +33,13 @@
     })
   ];
 
-  hardware.pulseaudio.enable = lib.mkForce false;
+  services.pulseaudio.enable = lib.mkForce false;
 
   environment.sessionVariables.POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = "true";
+
+  systemd.user.services.activate-linux.serviceConfig.ExecStart = lib.mkForce ''
+    ${lib.getExe pkgs.activate-linux} -x 300 -y 80 -t "Activate NixOS" -m "Contact Cryolitia to activate NixOS"
+  '';
 
   # For test https://github.com/NixOS/nixpkgs/pull/271342
   # hardware.cpu.amd.ryzen-smu.enable = true;

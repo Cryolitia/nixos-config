@@ -4,6 +4,7 @@
   services.samba-wsdd.enable = true;
   services.samba = {
     enable = true;
+    openFirewall = true;
     settings = {
       glogal = {
         workgroup = "WORKGROUP";

@@ -13,14 +13,16 @@
     xwayland.enable = true;
   };
 
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-hyprland
+  ];
+
   environment.systemPackages = (
     with pkgs;
     [
       inputs.anyrun.packages.${system}.anyrun-with-all-plugins
       waybar
       dunst
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
       pipewire
       wireplumber
       libsForQt5.polkit-kde-agent

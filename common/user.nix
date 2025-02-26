@@ -14,6 +14,7 @@
       "input"
       "i2c"
       "plugdev"
+      "dialout"
     ]; # Enable ‘sudo’ for the user.
     hashedPassword = "$y$j9T$CzLinqTi.Iyd4DDfAfYME0$IQKBC7wm20lYQWbH0bYnU5U0GB0JdRPZv67Tce3p6N2";
     openssh.authorizedKeys.keys = [

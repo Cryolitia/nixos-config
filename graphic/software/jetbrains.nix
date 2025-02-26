@@ -13,7 +13,7 @@ in
   idea-ultimate = addPlugins pkgs.jetbrains.idea-ultimate (
     common-plugins
     ++ [
-      # "nixidea" 
+      # "nixidea"
     ]
   );
   pycharm-professional = addPlugins pkgs.jetbrains.pycharm-professional common-plugins;

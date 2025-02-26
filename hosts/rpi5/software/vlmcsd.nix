@@ -1,8 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  environment.systemPackages =   [ pkgs.nur.repos.pborzenkov.vlmcsd ];
-
   systemd.services.vlmcsd = {
     after = [ "network.target" ];
     description = "vlmcsd";

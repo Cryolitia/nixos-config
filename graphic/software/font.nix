@@ -9,6 +9,7 @@
       noto-fonts-emoji
       shanggu-fonts
       lxgw-wenkai
+      arphic-ukai
     ];
 
     fontconfig = {

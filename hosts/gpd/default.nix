@@ -66,7 +66,8 @@
     };
   };
 
-  services.displayManager.sddm.settings.General.GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
+  services.displayManager.sddm.settings.General.GreeterEnvironment =
+    "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
 
   hardware.cpu.amd.ryzen-smu.enable = true;
 
@@ -88,10 +89,12 @@
     enable = true;
     openFirewall = true;
     capSysAdmin = true;
-    autoStart = false;
+    # autoStart = false;
   };
 
   services.nixseparatedebuginfod.enable = true;
 
   hardware.xone.enable = true;
+
+  hardware.sensor.iio.enable = true;
 }

@@ -3,19 +3,20 @@
 {
   imports = [
     ../../../common/software
+    ../../../common/software/netdata.nix
     ./homeassistant.nix
     ./syncthing.nix
     ./samba.nix
     ./qbittorrent.nix
-    ../../../common/software/netdata.nix
+    ./hydra.nix
     ./vlmcsd.nix
   ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    libraspberrypi
     gphotos-sync
+    libraspberrypi
     raspberrypi-eeprom
   ];
 }

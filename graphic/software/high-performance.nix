@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   inputs,
   ...
@@ -43,7 +44,23 @@ in
     jetbrains-with-plugins.pycharm-professional
     jetbrains-with-plugins.rust-rover
     jetbrains-with-plugins.clion
+    snipaste
   ];
+
+  systemd.user.services.snipaste = {
+    wantedBy = [ "graphical-session.target" ];
+    path = [ pkgs.snipaste ];
+    serviceConfig = {
+      ExecStartPre = ''
+        ${pkgs.coreutils-full}/bin/sleep 30
+      '';
+      ExecStart = ''
+        ${lib.getExe pkgs.snipaste}
+      '';
+      Restart = "on-failure";
+      RestartSec = 30;
+    };
+  };
 
   # pkgs.nur.repos.xddxdd.netease-cloud-music
   nixpkgs.config.permittedInsecurePackages = [
@@ -58,6 +75,4 @@ in
   virtualisation.podman.enable = true;
 
   services.flatpak.enable = true;
-  xdg.portal.enable = true;
-  xdg.portal.config.common.default = "*";
 }

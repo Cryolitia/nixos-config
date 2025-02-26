@@ -11,6 +11,7 @@
       ExecStart = ''
         ${pkgs.qbittorrent-nox}/bin/qbittorrent-nox \
           --profile="/mnt/NAS/Data/" \
+          --torrenting-port=55555
       '';
       # To prevent "Quit & shutdown daemon" from working; we want systemd to
       # manage it!
@@ -32,4 +33,9 @@
   users.groups.qbittorrent = {
     gid = null;
   };
+
+  networking.firewall.allowedTCPPorts = [
+    8080
+    55555
+  ];
 }

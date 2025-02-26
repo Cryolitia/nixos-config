@@ -16,7 +16,7 @@
       "https://cuda-maintainers.cachix.org"
       "https://anyrun.cachix.org"
       "https://ezkea.cachix.org"
-      "http://kp920.lan:5000"
+      # "http://kp920.lan:5000"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -25,7 +25,7 @@
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
-      "kp920.lan:vpIXoG5z4ia1wdYJNDa6CYb7VpxVuk2BykLyAqaAm7c="
+      # "kp920.lan:vpIXoG5z4ia1wdYJNDa6CYb7VpxVuk2BykLyAqaAm7c="
     ];
   };
 
@@ -268,7 +268,7 @@
 
       hydraJobs = {
         rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
-        kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
+        # kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
       };
     };
 }

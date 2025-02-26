@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -6,18 +6,23 @@
     ./hardware-configuration.nix
     ./software
     ../../common
+    ./hardware/bluetooth.nix
+    ../../hardware/sound.nix
+    #./kernel
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.kernelPackages = pkgs.linuxPackages;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = false;
+  };
 
   networking.hostName = "kp920-nixos";
 
   services.openssh.enable = true;
 
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -55,4 +60,13 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEZ7Jy+zBbNGrypUWx+H6DySweWKJMHGG/+HhhTeXd2"
     ];
   };
+
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      item = "nofile";
+      type = "-";
+      value = "32768";
+    }
+  ];
 }

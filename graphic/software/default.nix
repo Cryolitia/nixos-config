@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -6,6 +11,7 @@
     ./chrome.nix
     ../../hardware/yubikey.nix
     ./font.nix
+    ./activate-linux.nix
   ];
 
   # List packages installed in system profile. To search, run:
@@ -50,8 +56,19 @@
     enable = true;
     package = pkgs.clash-verge-rev;
   };
-  
+
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   #environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  xdg.portal = {
+    enable = true;
+    config = lib.mkDefault {
+      common = {
+        default = lib.mkDefault [
+          "gtk"
+        ];
+      };
+    };
+  };
 }
