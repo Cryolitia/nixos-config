@@ -15,5 +15,14 @@ builtins.warn "Remember to update HomeAssistant image" {
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 8123 ];
+  networking.firewall.allowedTCPPorts = [
+    # Web UI
+    8123
+
+    # SSDP
+    40000
+
+    # HomeKit
+    21064
+  ];
 }

@@ -11,4 +11,6 @@
       DynamicUser = true;
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 1134 ];
 }
