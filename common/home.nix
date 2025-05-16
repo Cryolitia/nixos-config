@@ -18,7 +18,7 @@
 
   programs.zsh = {
     enable = true;
-    initExtra = ''
+    initContent = ''
       source ~/.p10k.zsh
       export SSH_AUTH_SOCK="/run/user/1000/gnupg/S.gpg-agent.ssh"
     '';

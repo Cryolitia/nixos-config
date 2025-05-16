@@ -2,7 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
+let
+  pkgs-patched = (
+    import inputs.nixpkgs-patched {
+      system = pkgs.system;
+    }
+  );
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -55,6 +62,7 @@
       preserveArgvZero = true;
       matchCredentials = true;
       fixBinary = true;
+      interpreter = "${pkgs-patched.pkgsStatic.qemu-user}/bin/qemu-aarch64";
     };
 
     # https://github.com/felixonmars/archriscv-packages/blob/7c270ecef6a84edd6031b357b7bd1f6be2d6d838/devtools-riscv64/z-archriscv-qemu-riscv64.conf
@@ -63,6 +71,7 @@
       preserveArgvZero = true;
       matchCredentials = true;
       fixBinary = true;
+      interpreter = "${pkgs-patched.pkgsStatic.qemu-user}/bin/qemu-riscv64";
     };
   };
 
@@ -95,6 +104,7 @@
   services.nixseparatedebuginfod.enable = true;
 
   hardware.xone.enable = true;
+  hardware.xpad-noone.enable = true;
 
   hardware.sensor.iio.enable = true;
 }

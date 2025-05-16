@@ -24,7 +24,6 @@
 
     gparted
     telegram-desktop
-    github-desktop
     #go-musicfox
     nixd
     nixpkgs-fmt
@@ -44,7 +43,6 @@
     typst
     tinymist
     warp-terminal
-    sequoia-wot
     nur-cryolitia.get-lrc
   ];
 

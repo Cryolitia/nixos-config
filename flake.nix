@@ -7,7 +7,7 @@
       "flakes"
     ];
     substituters = [
-      "https://mirrors.cernet.edu.cn/nix-channels/store"
+      "https://mirrors.mirrorz.org/nix-channels/store"
       # "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
 
@@ -32,6 +32,8 @@
   inputs = {
     # NixOS 官方软件源，这里使用 nixos-unstable 分支
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixpkgs-patched.url = "github:cryolitia/nixpkgs/nixos-unstable";
 
     # home-manager，用于管理用户配置
     home-manager = {
@@ -105,7 +107,7 @@
     builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」" rec {
       # nixosConfigurations.[name].config.system.build.toplevel
       nixosConfigurations = {
-        cryolitia-gpd-nixos = inputs.nixpkgs.lib.nixosSystem rec {
+        cryolitia-gpd-nixos = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
@@ -125,7 +127,7 @@
             ]);
         };
 
-        cryolitia-surface = inputs.nixpkgs.lib.nixosSystem rec {
+        cryolitia-surface = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
@@ -142,7 +144,7 @@
             ]);
         };
 
-        rpi-nixos = inputs.nixpkgs.lib.nixosSystem rec {
+        rpi-nixos = inputs.nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {
             inherit inputs;
@@ -162,7 +164,7 @@
             ]);
         };
 
-        kp920-nixos = inputs.nixpkgs.lib.nixosSystem rec {
+        kp920-nixos = inputs.nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {
             inherit inputs;

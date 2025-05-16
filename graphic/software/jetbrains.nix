@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 let
   common-plugins = [
-    "github-copilot"
+    # "github-copilot"
     "statistic"
     "material-theme-ui-lite"
     #"chinese-simplified-language-pack----"
@@ -17,6 +17,8 @@ in
     ]
   );
   pycharm-professional = addPlugins pkgs.jetbrains.pycharm-professional common-plugins;
-  rust-rover = addPlugins pkgs.jetbrains.rust-rover [ "github-copilot" ];
+  rust-rover = addPlugins pkgs.jetbrains.rust-rover [
+    # "github-copilot"
+  ];
   clion = addPlugins pkgs.jetbrains.clion common-plugins;
 }

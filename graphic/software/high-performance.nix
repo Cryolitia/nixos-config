@@ -31,13 +31,12 @@ in
     nodePackages.pnpm
     nodePackages.nodejs
     discord
-    #yesplaymusic
+    # yesplaymusic
     # lutris
     scrcpy
     nixpkgs-review
     element-desktop
     distrobox
-    #vagrant
     thunderbird
     #androidStudioPackages.beta
     jetbrains-with-plugins.idea-ultimate
