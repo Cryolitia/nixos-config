@@ -34,6 +34,8 @@
     man-pages
     man-pages-posix
     jq
+    mtr
+    parted
   ];
 
   programs.git = {
