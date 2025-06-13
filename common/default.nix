@@ -35,7 +35,7 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
+  programs.mtr.enable = true;
 
   # List services that you want to enable:
 
@@ -77,6 +77,8 @@
         "flakes"
       ];
 
+      nix-path = lib.mapAttrsToList (name: path: "${name}=${path}") inputs;
+
       substituters = [
         "https://mirrors.mirrorz.org/nix-channels/store"
         # "https://mirrors.bfsu.edu.cn/nix-channels/store"
@@ -91,7 +93,24 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="
       ];
+
+      fallback = true;
+
+      # Disable the built-in flake registry to speed up evaluation
+      flake-registry = "";
     };
+
+    # This is important. It locks nixpkgs registry used in nix shell
+    # to the same of flakes. Saves time.
+    registry = (
+      { pkgs.flake = inputs.self; } // lib.mapAttrs (names: flakes: { flake = flakes; }) inputs
+    );
+
+    # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
+    channel.enable = false; # remove nix-channel related tools & configs, we use flakes instead.
+
+    daemonIOSchedClass = lib.mkDefault "idle";
+    daemonCPUSchedPolicy = lib.mkDefault "idle";
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -121,21 +140,20 @@
 
   zramSwap.enable = true;
 
+  # Sony phone
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", ATTRS{idProduct}=="320d", MODE="0666", GROUP="plugdev"
   '';
 
   environment.enableAllTerminfo = true;
 
-  # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
-  nix.channel.enable = false; # remove nix-channel related tools & configs, we use flakes instead.
-
-  # but NIX_PATH is still used by many useful tools, so we set it to the same value as the one used by this flake.
-  # Make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
-  environment.etc."nix/inputs/nixpkgs".source = "${inputs.nixpkgs}";
-  # https://github.com/NixOS/nix/issues/9574
-  nix.settings.nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
-
   services.fwupd.enable = true;
+
+  # avoid hanging other services
+  systemd.services.nix-daemon.serviceConfig.Slice = "-.slice";
+  # avoid tmpfs overflow
+  systemd.tmpfiles.rules = [ "D /nix/tmp 0755 root root -" ];
+  systemd.services.nix-daemon.environment.TMPDIR = "/nix/tmp";
+  # always use the daemon
+  environment.variables.NIX_REMOTE = "daemon";
 }

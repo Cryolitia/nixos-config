@@ -1,7 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./zsh.nix ];
+  imports = [
+    ./zsh.nix
+    ./kmscon.nix
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -34,8 +37,10 @@
     man-pages
     man-pages-posix
     jq
-    mtr
+    nexttrace
     parted
+    podman-compose
+    (import ./nixfmt.nix { inherit pkgs; })
   ];
 
   programs.git = {
@@ -64,4 +69,16 @@
   # iperf3
   networking.firewall.allowedTCPPorts = [ 5201 ];
   networking.firewall.allowedUDPPorts = [ 5201 ];
+
+  virtualisation.podman = {
+    autoPrune = {
+      enable = true; # Periodically prune Podman Images not in use.
+      dates = "weekly";
+      flags = [ "--all" ];
+    };
+    defaultNetwork.settings = {
+      dns_enabled = true; # Enable DNS resolution in the podman network.
+    };
+  };
+  #networking.firewall.allowedUDPPorts = [ 53 ];
 }

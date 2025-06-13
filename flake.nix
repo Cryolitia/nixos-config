@@ -7,8 +7,8 @@
       "flakes"
     ];
     substituters = [
-      "https://mirrors.mirrorz.org/nix-channels/store"
-      # "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      #"https://mirrors.mirrorz.org/nix-channels/store"
+      "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
 
       "https://nix-community.cachix.org"
@@ -266,6 +266,15 @@
 
           python = import ./develop/python.nix { pkgs = pkgs-unfree; };
         }
+      );
+
+      formatter = eachSystem (
+        system:
+        (import ./common/software/nixfmt.nix {
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+          };
+        })
       );
 
       hydraJobs = {

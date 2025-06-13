@@ -27,6 +27,14 @@
         "force user" = "cryolitia";
         "valid users" = "cryolitia";
       };
+
+      Movie = {
+        path = "/mnt/NAS/Movie";
+        browseable = "yes";
+        "read only" = "yes";
+        "guest ok" = "yes";
+        "force user" = "nobody";
+      };
     };
   };
 }

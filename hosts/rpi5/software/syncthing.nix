@@ -4,7 +4,7 @@
   services.syncthing = {
     enable = true;
     guiAddress = "0.0.0.0:8384";
-    configDir = "/mnt/NAS/Data/syncthing";
+    configDir = "/var/lib/data/syncthing";
     overrideDevices = false;
     openDefaultPorts = true;
     settings.folders = {

@@ -10,7 +10,7 @@
     serviceConfig = {
       ExecStart = ''
         ${pkgs.qbittorrent-nox}/bin/qbittorrent-nox \
-          --profile="/mnt/NAS/Data/" \
+          --profile="/var/lib/data" \
           --torrenting-port=55555
       '';
       # To prevent "Quit & shutdown daemon" from working; we want systemd to

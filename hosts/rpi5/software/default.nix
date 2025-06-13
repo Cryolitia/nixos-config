@@ -10,6 +10,8 @@
     ./qbittorrent.nix
     ./hydra.nix
     ./vlmcsd.nix
+    ./wavelog.nix
+    ./rsnapshot.nix
   ];
 
   # List packages installed in system profile. To search, run:

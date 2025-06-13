@@ -45,5 +45,6 @@ in
       mrmlnc.vscode-scss
       curlybrackets.markdown-word-count
       ms-vscode.hexeditor
+      filipjonckers.adif-syntax-highlighting
     ]);
 })
