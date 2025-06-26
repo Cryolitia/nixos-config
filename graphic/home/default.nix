@@ -22,7 +22,7 @@ in
       ../../common/home.nix
       ./fcitx5.nix
     ]
-    ++ lib.optionals osConfig.services.xserver.desktopManager.gnome.enable [ ./gnome ]
+    ++ lib.optionals osConfig.services.desktopManager.gnome.enable [ ./gnome ]
     ++ lib.optionals osConfig.services.desktopManager.plasma6.enable [
 
     ]

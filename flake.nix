@@ -192,7 +192,7 @@
           };
         };
 
-        neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./develop/neovim.nix);
+        neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
 
         vscode = (
           import ./graphic/software/vscode.nix {

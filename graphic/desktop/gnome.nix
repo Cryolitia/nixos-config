@@ -3,13 +3,15 @@
 {
   system.nixos.tags = [ "Gnome" ];
 
-  services.xserver = {
-    enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      xkb.layout = "cn";
+      xkb.variant = "";
+      excludePackages = [ pkgs.xterm ];
+    };
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
-    xkb.layout = "cn";
-    xkb.variant = "";
-    excludePackages = [ pkgs.xterm ];
   };
 
   environment.gnome.excludePackages = (
@@ -97,12 +99,12 @@
 
   xdg.portal = {
     extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
+      #xdg-desktop-portal-gnome
     ];
     config = {
       common = {
         default = [
-          "gnome"
+          "gtk"
         ];
         "org.freedesktop.impl.portal.Secret" = [
           "gnome-keyring"

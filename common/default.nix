@@ -133,6 +133,7 @@
     pubkeyAcceptedKeyTypes = [
       "ssh-ed25519"
       "ssh-rsa"
+      "ecdsa-sha2-nistp256"
     ];
   };
 

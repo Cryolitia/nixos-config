@@ -39,11 +39,12 @@ in
     distrobox
     thunderbird
     #androidStudioPackages.beta
-    jetbrains-with-plugins.idea-ultimate
-    jetbrains-with-plugins.pycharm-professional
-    jetbrains-with-plugins.rust-rover
-    jetbrains-with-plugins.clion
+    #jetbrains-with-plugins.idea-ultimate
+    #jetbrains-with-plugins.pycharm-professional
+    #jetbrains-with-plugins.rust-rover
+    #jetbrains-with-plugins.clion
     snipaste
+    localsend
   ];
 
   systemd.user.services.snipaste = {

@@ -17,7 +17,7 @@ in
 
 assert check == "all good!";
 
-lib.mkIf osConfig.services.xserver.desktopManager.gnome.enable {
+lib.mkIf osConfig.services.desktopManager.gnome.enable {
 
   dconf.settings = import ./dconf.nix {
     inherit lib;
