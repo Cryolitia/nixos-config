@@ -16,25 +16,33 @@
 
   boot.initrd.availableKernelModules = [
     "nvme"
+    "hisi_sas_v3_hw"
+    "ahci"
+    "ohci_pci"
+    "ehci_pci"
     "xhci_pci"
+    "usbhid"
+    "uas"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/79c4adec-6420-418e-9ce6-cbaad717e277";
+    device = "/dev/disk/by-uuid/ac09d1aa-2f21-43dc-a162-7d1a88620c1e";
     fsType = "btrfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/70DA-0D4B";
+    device = "/dev/disk/by-uuid/F3D3-5E30";
     fsType = "vfat";
     options = [
       "fmask=0022"
       "dmask=0022"
     ];
   };
+
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -43,6 +51,10 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp125s0f0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp125s0f1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp4s0f0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp4s0f1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp6s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

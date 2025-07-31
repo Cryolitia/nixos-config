@@ -7,6 +7,11 @@
     notificationSender = "hydra@localhost";
     buildMachinesFiles = [ ];
     useSubstitutes = true;
+    extraConfig = ''
+      <git-input>
+        timeout = 3600
+      </git-input>
+    '';
   };
 
   networking.firewall.allowedTCPPorts = [ 3000 ];

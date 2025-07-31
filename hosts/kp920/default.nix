@@ -8,14 +8,18 @@
     ../../common
     ./hardware/bluetooth.nix
     ../../hardware/sound.nix
-    #./kernel
+    # ./kernel
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages;
-
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = false;
+  boot = {
+    kernelPackages = pkgs.linuxPackages;
+    kernelParams = [
+      "initcall_blacklist=hisi_ddrc_pmu_module_init"
+    ];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = false;
+    };
   };
 
   networking.hostName = "kp920-nixos";
