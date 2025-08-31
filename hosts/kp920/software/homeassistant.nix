@@ -6,12 +6,15 @@ builtins.warn "Remember to update HomeAssistant image" {
       volumes = [ "/var/lib/data/HomeAssistant:/config" ];
       environment.TZ = "Asia/Shanghai";
       # https://github.com/home-assistant/core/pkgs/container/home-assistant/versions?filters%5Bversion_type%5D=tagged
-      image = "ghcr.io/home-assistant/home-assistant:2025.5.3"; # Warning: if the tag does not change, the image will not be updated
+      image = "ghcr.io/home-assistant/home-assistant:2025.8.3"; # Warning: if the tag does not change, the image will not be updated
       extraOptions = [
         "--network=host"
         #        "--device=/dev/ttyACM0:/dev/ttyACM0"  # Example, change this to match your own hardware
       ];
       autoStart = true;
+      capabilities = {
+        NET_RAW = true;
+      };
     };
   };
 

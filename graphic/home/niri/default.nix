@@ -114,13 +114,13 @@ lib.optionals osConfig.programs.niri.enable {
         "Mod+K".action = focus-workspace-down;
 
         "Mod+Ctrl+Left".action = move-column-left;
-        "Mod+Ctrl+Down".action = move-workspace-down;
-        "Mod+Ctrl+Up".action = move-workspace-up;
+        "Mod+Ctrl+Down".action = move-column-to-workspace-down;
+        "Mod+Ctrl+Up".action = move-column-to-workspace-up;
         "Mod+Ctrl+Right".action = move-column-right;
 
         "Mod+Ctrl+J".action = move-column-left;
-        "Mod+Ctrl+I".action = move-workspace-up;
-        "Mod+Ctrl+K".action = move-workspace-down;
+        "Mod+Ctrl+I".action = move-column-to-workspace-up;
+        "Mod+Ctrl+K".action = move-column-to-workspace-down;
         "Mod+Ctrl+L".action = move-column-right;
 
         "Mod+Home".action = focus-column-first;
@@ -148,11 +148,8 @@ lib.optionals osConfig.programs.niri.enable {
 
         "Mod+Page_Down".action = focus-workspace-down;
         "Mod+Page_Up".action = focus-workspace-up;
-        "Mod+Ctrl+Page_Down".action = move-column-to-workspace-down;
-        "Mod+Ctrl+Page_Up".action = move-column-to-workspace-up;
-
-        "Mod+Shift+Page_Down".action = move-workspace-down;
-        "Mod+Shift+Page_Up".action = move-workspace-up;
+        "Mod+Ctrl+Page_Down".action = move-workspace-down;
+        "Mod+Ctrl+Page_Up".action = move-workspace-up;
 
         "Mod+O".action = focus-window-up;
         "Mod+M".action = focus-window-down;

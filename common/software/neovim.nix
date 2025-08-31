@@ -6,7 +6,7 @@
   opts = {
     number = true;
     list = true;
-    colorcolumn= "72";
+    colorcolumn = "72";
   };
 
   plugins = {

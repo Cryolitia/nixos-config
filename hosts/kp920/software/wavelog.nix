@@ -16,7 +16,7 @@
     };
 
     wavelog-main = {
-      image = "ghcr.io/wavelog/wavelog:2.0.4";
+      image = "ghcr.io/wavelog/wavelog:2.1";
       dependsOn = [ "wavelog-db" ];
       environment = {
         CI_ENV = "docker";

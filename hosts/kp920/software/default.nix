@@ -17,11 +17,11 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    gphotos-sync
+    #gphotos-sync
   ];
 
   services.iperf3 = {
     enable = true;
     openFirewall = true;
-  }
+  };
 }
