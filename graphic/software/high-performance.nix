@@ -26,7 +26,7 @@ in
     wpsoffice
     obs-studio
     config.boot.kernelPackages.perf
-    libsForQt5.kleopatra
+    kdePackages.kleopatra
     keepassxc
     nodePackages.pnpm
     nodePackages.nodejs

@@ -27,7 +27,7 @@
     #go-musicfox
     nixd
     nixpkgs-fmt
-    libsForQt5.okular
+    kdePackages.okular
     hugo
     kitty
     nordic
@@ -42,12 +42,10 @@
     mission-center
     typst
     tinymist
-    warp-terminal
     nur-cryolitia.get-lrc
   ];
 
   programs.kdeconnect.enable = true;
-  # security.pam.services.cryolitia.enableKwallet = true;
   services.gnome.gnome-keyring.enable = true;
 
   programs.clash-verge = {

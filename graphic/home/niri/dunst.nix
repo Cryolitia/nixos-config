@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   services.dunst = {
     enable = true;
     iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
+      package = pkgs.adwaita-icon-theme;
       name = "Adawaita";
     };
     settings = {
@@ -36,6 +36,17 @@
         frame_color = "#4C566A";
         timeout = 0;
       };
+    };
+  };
+
+  systemd.user.services.dunst = {
+    Install = {
+      WantedBy = lib.mkForce [ "niri.service" ];
+    };
+
+    Unit = {
+      PartOf = lib.mkForce [ "niri.service" ];
+      After = lib.mkForce [ "niri.service" ];
     };
   };
 }

@@ -1,6 +1,6 @@
-.PHONY: boot-nom, switch, boot, build-nom, build, build-no-cache, remote, clean
+.PHONY: boot-nom, switch, boot, build-nom, build, build-no-cache, remote, clean, fmt
 
-boot-nom:
+boot-nom: fmt
 	sudo nixos-rebuild boot --flake .# --log-format internal-json -v --accept-flake-config |& nom --json
 
 switch:
@@ -26,3 +26,6 @@ clean:
 	nix-env --delete-generations +1
 	sudo nix-collect-garbage -d
 	nix-collect-garbage -d
+
+fmt:
+	nix fmt -- --tree-root .

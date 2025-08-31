@@ -5,6 +5,7 @@ home-config: [
 
   inputs.nur.modules.nixos.default
   inputs.nixvim.nixosModules.nixvim
+  inputs.niri.nixosModules.niri
 
   inputs.home-manager.nixosModules.home-manager
   {

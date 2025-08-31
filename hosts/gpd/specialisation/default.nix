@@ -4,25 +4,14 @@
 
   programs.dconf.enable = true;
 
-  #specialisation."Gnome".configuration = {
   imports = [
     ../../../graphic/desktop/gnome.nix
-    #./nvidia.nix
-    # ../../../graphic/desktop/kde.nix
-    # ../../../graphic/desktop/hyprland.nix
+    ../../../graphic/desktop/niri.nix
   ];
-  #};
 
-  specialisation."GnomeNvidia".configuration = {
+  specialisation."Nvidia".configuration = {
     imports = [
-      #../../../graphic/desktop/gnome.nix
       ./nvidia.nix
     ];
   };
-
-  #specialisation."Hyprland".configuration = {
-  #    imports = [
-  #      ../../../graphic/desktop/hyprland.nix
-  #    ];
-  #};
 }

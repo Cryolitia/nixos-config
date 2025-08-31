@@ -37,7 +37,7 @@ in
   #  fsType = "btrfs";
   #};
 
-  services.logind.lidSwitchExternalPower = "lock";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "lock";
 
   services.openssh.enable = true;
 

@@ -1,0 +1,24 @@
+{
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        dpi-aware = true;
+        termianl = "kitty";
+      };
+      colors = {
+        background = "303446dd";
+        text = "c6d0f5ff";
+        prompt = "b5bfe2ff";
+        placeholder = "838ba7ff";
+        input = "c6d0f5ff";
+        match = "81c8beff";
+        selection = "626880ff";
+        selection-text = "c6d0f5ff";
+        selection-match = "81c8beff";
+        counter = "838ba7ff";
+        border = "81c8beff";
+      };
+    };
+  };
+}

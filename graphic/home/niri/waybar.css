@@ -1,0 +1,230 @@
+@define-color snow1 #eceff4;
+@define-color snow2 #e5e9f0;
+@define-color snow3 #d8dee9;
+@define-color night1 #2e3440;
+@define-color night2 #3b4252;
+@define-color night3 #434c5e;
+@define-color night4 #4c566a;
+@define-color frost1 #8fbcbb;
+@define-color frost2 #88c0d0;
+@define-color frost3 #81a1c1;
+@define-color frost4 #5e81ac;
+@define-color aurora1 #bf616a;
+@define-color aurora2 #d08770;
+@define-color aurora3 #ebcb8b;
+@define-color aurora4 #a3be8c;
+@define-color aurora5 #b48ead;
+
+* {
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: "Unifont", "JetBrainsMono Nerd Font Mono";
+  font-size: 16px;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+}
+
+#waybar {
+  background: transparent;
+  color: #eceff4;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#workspaces {
+  background: #2e3440;
+  border: 2px solid #8fbcbb;
+  border-radius: 5px 5px 5px 5px;
+  font-weight: bold;
+  font-style: normal;
+  opacity: 0.8;
+  color: #eceff4;
+}
+
+#workspaces button {
+  border-radius: 3px 3px 3px 3px;
+  padding: 0px 6px;
+  margin: 3px 2px;
+  color: #eceff4;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.8;
+}
+
+#workspaces button.active {
+  color: #eceff4;
+  background: #81a1c1;
+  padding: 0px 6px;
+  margin: 3px 2px;
+  border-radius: 3px 3px 3px 3px;
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+}
+
+#workspaces button:hover {
+  opacity: 0.7;
+}
+
+#workspaces button.empty {
+  color: #d8dee9;
+  opacity: 0.4;
+}
+
+#workspaces button.visible {
+  color: #e5e9f0;
+  transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.focused {
+  color: #eceff4;
+  background: #88c0d0;
+  transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.urgent {
+  background-color: #bf616a;
+}
+
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
+#taskbar {
+  background: #2e3440;
+  border: 2px solid #8fbcbb;
+  border-radius: 5px 5px 5px 5px;
+  padding: 0rem 2rem;
+  opacity: 0.8;
+}
+
+#clock,
+#window,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#keyboard-state,
+#mpd {
+  color: #eceff4;
+  background: #2e3440;
+  border: 2px solid #8fbcbb;
+  border-radius: 5px 5px 5px 5px;
+  padding: 0rem 6px;
+  opacity: 0.8;
+
+}
+
+#window,
+#workspaces {
+  margin: 0 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+window#waybar.empty #window,
+#taskbar.empty {
+  color: transparent;
+  background: transparent;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  opacity: 0;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: #a3be8c;
+}
+
+@keyframes blink {
+  to {
+    background-color: #eceff4;
+    color: #2e3440;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: #bf616a;
+  color: #2e3440;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#network.disconnected {
+  background-color: #bf616a;
+  color: #2e3440;
+}
+
+#pulseaudio.muted {
+  background-color: #ebcb8b;
+  color: #2e3440;
+}
+
+#wireplumber.muted {
+  background-color: #bf616a;
+  color: #2e3440;
+}
+
+#temperature.critical {
+  background-color: #bf616a;
+  color: #2e3440;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #bf616a;
+}
+
+#idle_inhibitor.activated {
+  background-color: #88c0d0;
+  color: #2e3440;
+}
+
+#mpd.disconnected {
+  background-color: #bf616a;
+}
+
+#mpd.stopped {
+  background-color: #d08770;
+}
+
+#mpd.paused {
+  background-color: #ebcb8b;
+}
+
+#keyboard-state {
+  padding: 0 0px;
+  margin: 0 5px;
+  min-width: 16px;
+  border-radius: 5px;
+}
+
+#keyboard-state > label {
+  padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+  color: #2e3440;
+  background: #88c0d0;
+}

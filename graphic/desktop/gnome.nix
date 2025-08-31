@@ -65,8 +65,8 @@
       executor
       focused-window-d-bus
 
-      # # fcitx5
-      # kimpanel
+      # fcitx5
+      kimpanel
     ]);
 
   programs.gpaste.enable = true;
@@ -74,42 +74,42 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # imports = [
-  #   ../software/fcitx5.nix
-  # ];
+  imports = [
+    ../software/fcitx5.nix
+  ];
 
-  i18n.inputMethod = {
-    enable = true;
-    type = "ibus";
-    ibus.engines = with pkgs.ibus-engines; [
-      (rime.override {
-        rimeDataPkgs = import ../software/rime-data.nix {
-          inherit config;
-          inherit pkgs;
-        };
-      })
-      libpinyin
-    ];
-  };
+  # i18n.inputMethod = {
+  #   enable = true;
+  #   type = "ibus";
+  #   ibus.engines = with pkgs.ibus-engines; [
+  #     (rime.override {
+  #       rimeDataPkgs = import ../software/rime-data.nix {
+  #         inherit config;
+  #         inherit pkgs;
+  #       };
+  #     })
+  #     libpinyin
+  #   ];
+  # };
 
   programs.nautilus-open-any-terminal = {
     enable = true;
     terminal = "kitty";
   };
 
-  xdg.portal = {
-    extraPortals = with pkgs; [
-      #xdg-desktop-portal-gnome
-    ];
-    config = {
-      common = {
-        default = [
-          "gtk"
-        ];
-        "org.freedesktop.impl.portal.Secret" = [
-          "gnome-keyring"
-        ];
-      };
-    };
-  };
+  # xdg.portal = {
+  #   extraPortals = with pkgs; [
+  #     #xdg-desktop-portal-gnome
+  #   ];
+  #   config = {
+  #     common = {
+  #       default = [
+  #         "gtk"
+  #       ];
+  #       "org.freedesktop.impl.portal.Secret" = [
+  #         "gnome-keyring"
+  #       ];
+  #     };
+  #   };
+  # };
 }

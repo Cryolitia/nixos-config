@@ -56,7 +56,8 @@
 
   programs.nixvim = {
     enable = true;
-  } // (import ./neovim.nix);
+  }
+  // (import ./neovim.nix);
 
   programs.less = {
     enable = true;

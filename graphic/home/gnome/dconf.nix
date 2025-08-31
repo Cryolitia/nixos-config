@@ -94,11 +94,11 @@ in
       "nightthemeswitcher@romainvigier.fr"
       #"executor@raujonas.github.io"
       "focused-window-dbus@flexagoon.com"
+      "kimpanel@kde.org"
     ];
 
     favorite-apps = [
       "kitty.desktop"
-      "dev.warp.Warp.desktop"
       "google-chrome.desktop"
       "code.desktop"
     ];

@@ -17,19 +17,12 @@ let
   rimeIce = ../../dotfiles/rime/rime_ice.custom.yaml;
 in
 {
-  imports =
-    [
-      ../../common/home.nix
-      ./fcitx5.nix
-    ]
-    ++ lib.optionals osConfig.services.desktopManager.gnome.enable [ ./gnome ]
-    ++ lib.optionals osConfig.services.desktopManager.plasma6.enable [
-
-    ]
-    ++ lib.optionals osConfig.programs.hyprland.enable [
-      ./hyprland
-      inputs.anyrun.homeManagerModules.default
-    ];
+  imports = [
+    ../../common/home.nix
+    ./fcitx5.nix
+  ]
+  ++ lib.optionals osConfig.services.desktopManager.gnome.enable [ ./gnome ]
+  ++ lib.optionals osConfig.programs.niri.enable [ ./niri ];
 
   home.sessionVariables = {
     GTK_THEME = "Arc-Dark";
@@ -92,6 +85,10 @@ in
       };
       "github.copilot.editor.enableAutoCompletions" = true;
       "gitlens.ai.experimental.generateCommitMessage.enabled" = false;
+
+      "[css]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
     };
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;

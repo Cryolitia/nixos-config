@@ -20,4 +20,7 @@
       "fan1"
     ];
   };
+
+  programs.waybar.settings.mainBar.temperature.hwmon-path =
+    "/sys/devices/virtual/thermal/thermal_zone0/temp";
 }

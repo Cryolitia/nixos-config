@@ -14,8 +14,8 @@
       "https://nix-community.cachix.org"
       "https://cryolitia.cachix.org"
       "https://cuda-maintainers.cachix.org"
-      "https://anyrun.cachix.org"
       "https://ezkea.cachix.org"
+      "https://niri.cachix.org"
       # "http://kp920.lan:5000"
     ];
     trusted-public-keys = [
@@ -23,8 +23,8 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
-      "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       # "kp920.lan:vpIXoG5z4ia1wdYJNDa6CYb7VpxVuk2BykLyAqaAm7c="
     ];
   };
@@ -66,11 +66,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -96,6 +91,8 @@
     jetbrains-plugins.url = "github:Cryolitia/nix-jetbrains-plugins";
 
     systems.url = "github:nix-systems/default";
+
+    niri.url = "github:sodiboo/niri-flake";
   };
 
   outputs =

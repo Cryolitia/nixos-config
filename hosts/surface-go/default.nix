@@ -29,19 +29,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  # specialisation = {
-  #   "Gnome".configuration = {
-  #     imports = [
-  #       ../../graphic/desktop/gnome.nix
-  #     ];
-  #   };
-  #   "Hyprland".configuration = {
-  #     imports = [
-  #       ../../graphic/desktop/hyprland.nix
-  #     ];
-  #   };
-  # };
-
   environment.systemPackages = with pkgs; [
     wpsoffice
     moonlight-qt
