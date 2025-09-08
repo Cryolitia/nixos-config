@@ -6,11 +6,11 @@
       # 使用鼠标滚轮翻页
       WheelForPaging=True
       # 字体
-      Font="更紗黑體 UI CL 10"
+      Font="更紗黑體 UI CL 14"
       # 菜单字体
-      MenuFont="更紗黑體 UI TC 10"
+      MenuFont="更紗黑體 UI TC 14"
       # 托盘字体
-      TrayFont="更紗黑體 UI TC Bold 10"
+      TrayFont="更紗黑體 UI TC Bold 14"
       # 托盘标签轮廓颜色
       TrayOutlineColor=#000000
       # 托盘标签文本颜色

@@ -42,6 +42,9 @@
         smtpServer = "localhost";
         smtpServerPort = 25;
       };
+      pull = {
+        ff = "only";
+      };
     };
   };
 

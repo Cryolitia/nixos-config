@@ -32,11 +32,6 @@ in
 
   networking.hostName = "cryolitia-gpd-nixos"; # Define your hostname.
 
-  #fileSystems."/mnt/Data" = {
-  #  device = "/dev/disk/by-uuid/c8388a09-ca0a-43a9-b92a-fe9e83f8fc90";
-  #  fsType = "btrfs";
-  #};
-
   services.logind.settings.Login.HandleLidSwitchExternalPower = "lock";
 
   services.openssh.enable = true;

@@ -10,6 +10,7 @@
       shanggu-fonts
       lxgw-wenkai
       arphic-ukai
+      dinish
     ];
 
     fontconfig = {

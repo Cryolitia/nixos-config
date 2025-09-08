@@ -17,6 +17,7 @@ lib.optionals osConfig.programs.niri.enable {
     ./hyprlock.nix
     ./clipse.nix
     ./fuzzel.nix
+    ./nm-applet.nix
   ];
 
   programs.niri = {
@@ -24,6 +25,10 @@ lib.optionals osConfig.programs.niri.enable {
       environment = {
         "NIXOS_OZONE_WL" = "1";
         "DISPLAY" = ":0";
+      };
+
+      outputs = {
+        "eDP-1".scale = 2;
       };
 
       window-rules = [
@@ -56,6 +61,15 @@ lib.optionals osConfig.programs.niri.enable {
             y = 10;
             relative-to = "top-right";
           };
+        }
+        {
+          matches = [
+            {
+              app-id = "code";
+            }
+          ];
+          opacity = 0.85;
+          draw-border-with-background = false;
         }
       ];
 
@@ -207,8 +221,9 @@ lib.optionals osConfig.programs.niri.enable {
         "Alt+Print".action = screenshot-window;
 
         "Mod+Shift+E".action = quit;
-        "Mod+P".action.spawn = "hyprlock";
-        "Mod+Shift+P".action = power-off-monitors;
+        "Mod+P".action = sh "systemd-run -u hyprlock --service-type=exec --user hyprlock --grace 0";
+        "Mod+Shift+P".action =
+          sh "systemd-run -u hyprlock --service-type=exec --user hyprlock --grace 15 && sleep 5 && niri msg action power-off-monitors";
       };
     };
   };

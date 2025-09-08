@@ -12,7 +12,7 @@
         follow = "mouse";
         font = "Source Han Serif SC 12";
         format = ''<small>%a</small>\n<b>%s</b>\n%b'';
-        browser = "/usr/bin/env xdg-open";
+        browser = lib.getExe' pkgs.xdg-utils "xdg-open";
         corner_radius = 10;
         mouse_left_click = "do_action, close_current";
         mouse_middle_click = "close_all";

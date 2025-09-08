@@ -3,8 +3,8 @@
     enable = true;
     settings = {
       main = {
-        dpi-aware = true;
-        termianl = "kitty";
+        dpi-aware = false;
+        terminal = "kitty";
       };
       colors = {
         background = "303446dd";

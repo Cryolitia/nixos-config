@@ -21,7 +21,7 @@
     htop
     bat
     btop
-    #yazi https://github.com/NixOS/nixpkgs/issues/353119
+    yazi
     zellij
     usbutils
     pciutils
@@ -40,6 +40,10 @@
     nexttrace
     parted
     podman-compose
+    wiremix
+    bluetui
+    appimage-run
+    fastfetch
     (import ./nixfmt.nix { inherit pkgs; })
   ];
 
@@ -82,4 +86,6 @@
     };
   };
   #networking.firewall.allowedUDPPorts = [ 53 ];
+
+  programs.nexttrace.enable = true;
 }
