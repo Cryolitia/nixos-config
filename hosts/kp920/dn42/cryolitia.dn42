@@ -1,0 +1,26 @@
+$TTL	3600
+cryolitia.dn42. IN SOA ns1.cryolitia.dn42. cryolitia.gmail.com. (
+		2025091101     ; Serial
+		      3600     ; Refresh
+		        30     ; Retry
+		   2419200     ; Expire
+		      3600 )   ; minimum
+
+; name servers - NS records
+@	IN	NS	ns1.cryolitia.dn42.
+
+; name servers - AAAA records
+@		IN	AAAA	fdd2:4372:796f::
+ns1		IN	AAAA	fdd2:4372:796f::1
+site-01		IN	AAAA	fdd2:4372:796f:1000::
+site-02		IN	AAAA	fdd2:4372:796f:2000::
+
+root.site-01	IN	AAAA	fdd2:4372:796f::
+kp920.site-01	IN	AAAA	fdd2:4372:796f::1
+kp920		IN	CNAME	kp920.site-01.cryolitia.dn42
+
+
+@		IN	TXT	"https://github.com/Cryolitia"
+PGP		IN	TXT	"1C3C6547538D7152310C0EEA84DD0C0130A54DF7"
+SSH		IN	TXT	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN2mmQ5YQrQyUSYRNvRKTgYiTSdPt3wtCdiY0YBD7+X9 openpgp:0xA2647D3C"
+

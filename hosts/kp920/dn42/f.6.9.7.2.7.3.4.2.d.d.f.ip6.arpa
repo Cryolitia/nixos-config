@@ -1,0 +1,20 @@
+$TTL	3600
+f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa. IN SOA ns1.cryolitia.dn42. cryolitia.gmail.com. (
+		2025091101     ; Serial
+		      3600     ; Refresh
+		        30     ; Retry
+		   2419200     ; Expire
+		      3600 )   ; minimum
+
+; name servers - NS records
+@		IN	NS	ns1.cryolitia.dn42.
+
+; name servers - AAAA records
+0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0		IN	PTR	cryolitia.dn42.
+0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0		IN	PTR	root.site-01.cryolitia.dn42.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0		IN	PTR	ns1.cryolitia.dn42.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0		IN	PTR	kp920.cryolitia.dn42.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0		IN	PTR	kp920.site-01.cryolitia.dn42.
+
+0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1		IN	PTR	site-01.cryolitia.dn42.
+0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2		IN	PTR	site-02.cryolitia.dn42.
