@@ -1,4 +1,6 @@
+$ORIGIN f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa.
 $TTL	3600
+
 f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa. IN SOA ns1.cryolitia.dn42. cryolitia.gmail.com. (
 		2025091101     ; Serial
 		      3600     ; Refresh
@@ -18,3 +20,19 @@ f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa. IN SOA ns1.cryolitia.dn42. cryolitia.gmail.com
 
 0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1		IN	PTR	site-01.cryolitia.dn42.
 0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2		IN	PTR	site-02.cryolitia.dn42.
+
+$ORIGIN 0.0.0.0.0.0.0.0.0.0.0.f.f.f.f.f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa.
+$GENERATE 0-9 0.0.0.0.${0,1,n} IN PTR local.${0,4,x}.ptp.cryolitia.dn42.
+$GENERATE 0-9 1.0.0.0.${0,1,n} IN PTR remote.${0,4,x}.ptp.cryolitia.dn42.
+
+$ORIGIN 0.0.0.0.0.0.0.0.0.0.f.f.f.f.f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa.
+$GENERATE 16-153 0.0.0.0.${0,2,n} IN PTR local.${0,4,x}.ptp.cryolitia.dn42.
+$GENERATE 16-153 1.0.0.0.${0,2,n} IN PTR remote.${0,4,x}.ptp.cryolitia.dn42.
+
+$ORIGIN 0.0.0.0.0.0.0.0.0.f.f.f.f.f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa.
+$GENERATE 256-2457 0.0.0.0.${0,3,n} IN PTR local.${0,4,x}.ptp.cryolitia.dn42.
+$GENERATE 256-2457 1.0.0.0.${0,3,n} IN PTR remote.${0,4,x}.ptp.cryolitia.dn42.
+
+$ORIGIN 0.0.0.0.0.0.0.0.f.f.f.f.f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa.
+$GENERATE 4096-14745 0.0.0.0.${0,4,n} IN PTR local.${0,4,x}.ptp.cryolitia.dn42.
+$GENERATE 4096-14745 1.0.0.0.${0,4,n} IN PTR remote.${0,4,x}.ptp.cryolitia.dn42.
