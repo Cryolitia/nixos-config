@@ -44,10 +44,12 @@ lib.optionals osConfig.programs.niri.enable {
         {
           matches = [
             {
-              app-id = "clipse";
+              app-id = "floating";
             }
           ];
           open-floating = true;
+          default-column-width.proportion = 0.5;
+          default-window-height.proportion = 0.5;
         }
         {
           matches = [
@@ -105,7 +107,7 @@ lib.optionals osConfig.programs.niri.enable {
           repeat = false;
         };
         "Mod+V" = {
-          action = sh "kitty --class clipse clipse";
+          action = sh "kitty --class floating clipse";
         };
         "Mod+D" = {
           action.spawn = "fuzzel";

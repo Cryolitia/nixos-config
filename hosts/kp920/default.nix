@@ -12,10 +12,10 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "initcall_blacklist=hisi_ddrc_pmu_module_init"
-      "arm64.nompam=1"
+      "arm64.nompam"
     ];
     loader = {
       systemd-boot.enable = true;

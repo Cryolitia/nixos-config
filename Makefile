@@ -1,6 +1,6 @@
 .PHONY: boot-nom, switch, boot, build-nom, build, build-no-cache, remote, clean, fmt
 
-boot-nom: fmt
+boot-nom: fmt deadnix
 	sudo nixos-rebuild boot --flake .# --log-format internal-json -v --accept-flake-config |& nom --json
 
 switch:
@@ -27,5 +27,11 @@ clean:
 	sudo nix-collect-garbage -d
 	nix-collect-garbage -d
 
+	echo "Current GC root:"
+	ls /nix/var/nix/gcroots/auto/ -al
+
 fmt:
 	nix fmt -- --tree-root .
+
+deadnix:
+	nix run nixpkgs#deadnix . -vL

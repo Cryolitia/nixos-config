@@ -18,6 +18,7 @@ site-02		IN	AAAA	fdd2:4372:796f:2000::
 root.site-01	IN	AAAA	fdd2:4372:796f::
 kp920.site-01	IN	AAAA	fdd2:4372:796f::1
 kp920		IN	CNAME	kp920.site-01.cryolitia.dn42
+pve.site-01    IN      AAAA    fdd2:4372:796f::2
 
 $GENERATE 0-3999 local.${0,4,d}.ptp IN AAAA fdd2:4372:796f:ffff::${0,4,d}:0
 $GENERATE 0-3999 remote.${0,4,d}.ptp IN AAAA fdd2:4372:796f:ffff::${0,4,d}:1

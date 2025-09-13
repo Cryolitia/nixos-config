@@ -10,6 +10,7 @@
     ./user.nix
     #./dns.nix
     ./software
+    ./dn42
   ];
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

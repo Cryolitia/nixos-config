@@ -93,6 +93,11 @@
     systems.url = "github:nix-systems/default";
 
     niri.url = "github:sodiboo/niri-flake";
+
+    kernel-q6a = {
+      url = "github:nascs/kernel?ref=work-6.15.y";
+      flake = false;
+    };
   };
 
   outputs =
@@ -124,43 +129,6 @@
             ]);
         };
 
-        cryolitia-surface = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-
-          modules =
-            (commonModule (import ./hosts/surface-go/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/surface-go
-              ./common/distribute.nix
-
-              nixos-hardware.nixosModules.microsoft-surface-go
-            ]);
-        };
-
-        rpi-nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules =
-            (commonModule (import ./hosts/rpi5/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/rpi5
-              ./common/distribute.nix
-
-              vscode-server.nixosModules.default
-
-              { services.vscode-server.enable = true; }
-
-              nixos-hardware.nixosModules.raspberry-pi-5
-            ]);
-        };
-
         kp920-nixos = inputs.nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {
@@ -179,49 +147,62 @@
         };
       };
 
-      packages = eachSystem (system: {
-        iso = inputs.nixos-generators.nixosGenerate {
-          inherit system;
-          modules = (commonModule (import ./hosts/image/home.nix)) ++ (with inputs; [ ./hosts/image ]);
-          format = "install-iso";
-          specialArgs = {
-            inherit inputs;
-          };
-        };
-
-        neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
-
-        vscode = (
-          import ./graphic/software/vscode.nix {
-            pkgs = import inputs.nixpkgs {
-              config = {
-                allowUnfree = true;
-                cudaSupport = false;
-              };
-              inherit system;
-              overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ];
-            };
-            vscode-extensions-input = inputs.nix-vscode-extensions;
-          }
-        );
-
-        linux_rpi5 = (import inputs.nixpkgs { inherit system; }).linuxKernel.kernels.linux_rpi4.override {
-          rpiVersion = 5;
-          argsOverride.defconfig = "bcm2712_defconfig";
-        };
-
-        pkgsCross.aarch64-multiplatform.linux_rpi5 =
-          (import inputs.nixpkgs {
+      packages = eachSystem (
+        system:
+        let
+          pkgs = (import inputs.nixpkgs { inherit system; });
+        in
+        {
+          iso = inputs.nixos-generators.nixosGenerate {
             inherit system;
-            crossSystem = {
-              config = "aarch64-unknown-linux-gnu";
+            modules = (commonModule (import ./hosts/image/home.nix)) ++ (with inputs; [ ./hosts/image ]);
+            format = "install-iso";
+            specialArgs = {
+              inherit inputs;
             };
-          }).linuxKernel.kernels.linux_rpi4.override
-            {
-              rpiVersion = 5;
-              argsOverride.defconfig = "bcm2712_defconfig";
-            };
-      });
+          };
+
+          neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
+
+          vscode = (
+            import ./graphic/software/vscode.nix {
+              pkgs = import inputs.nixpkgs {
+                config = {
+                  allowUnfree = true;
+                  cudaSupport = false;
+                };
+                inherit system;
+                overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ];
+              };
+              vscode-extensions-input = inputs.nix-vscode-extensions;
+            }
+          );
+
+          linux_rpi5 = pkgs.linuxKernel.kernels.linux_rpi4.override {
+            rpiVersion = 5;
+            argsOverride.defconfig = "bcm2712_defconfig";
+          };
+
+          pkgsCross.aarch64-multiplatform.linux_rpi5 =
+            (import inputs.nixpkgs {
+              inherit system;
+              crossSystem = {
+                config = "aarch64-unknown-linux-gnu";
+              };
+            }).linuxKernel.kernels.linux_rpi4.override
+              {
+                rpiVersion = 5;
+                argsOverride.defconfig = "bcm2712_defconfig";
+              };
+
+          linux_q6a = pkgs.buildLinux {
+            defconf = "qcom_module_defconfig";
+            version = "6.15.7-q6a";
+            modDirVersion = "6.15.7";
+            src = inputs.kernel-q6a;
+          };
+        }
+      );
 
       devShells = eachSystem (
         system:

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   programs.waybar = {
     enable = true;
@@ -28,6 +28,7 @@
           "idle_inhibitor"
           "pulseaudio"
           "network"
+          "bluetooth"
           "cpu"
           "memory"
           "temperature"
@@ -39,6 +40,7 @@
         "niri/workspaces" = {
           all-outputs = false;
           on-click = "activate";
+          active-first = false;
         };
         "niri/window" = {
           separate-outputs = true;
@@ -49,7 +51,7 @@
           icon-size = 16;
           tooltip = true;
           tooltip-format = "{title}";
-          active-first = true;
+          active-first = false;
           on-click = "activate";
         };
         keyboard-state = {
@@ -62,7 +64,7 @@
           };
         };
         mpris = {
-          format = "{status_icon} {player}= {title}-{artist}-{album}";
+          format = "{status_icon} {player} {title}-{artist}-{album}";
           format-stopped = "";
           format-alt = "{status_icon} {player}= {title}";
           status-icons = {
@@ -141,8 +143,18 @@
           format-disconnected = "Disconnected ⚠";
           format-alt = "{ifname}= {ipaddr}/{cidr}";
         };
+        bluetooth = {
+          "format" = " {status}";
+          "format-disabled" = ""; # an empty format will hide the module
+          "format-connected" = " {num_connections} connected";
+          "tooltip-format" = "{controller_alias}\t{controller_address}";
+          "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+          "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
+          on-click = "${lib.getExe pkgs.kitty} --class floating ${lib.getExe pkgs.bluetui}";
+        };
+
         pulseaudio = {
-          # "scroll-step"= 1; # %; can be a float
+          scroll-step = 5; # %; can be a float
           format = "{volume}% {icon} {format_source}";
           format-bluetooth = "{volume}% {icon} {format_source}";
           format-bluetooth-muted = "󰝟 {icon} {format_source}";
@@ -160,7 +172,7 @@
               ""
             ];
           };
-          on-click = "pavucontrol";
+          on-click = "${lib.getExe pkgs.kitty} --class floating ${lib.getExe pkgs.wiremix}";
         };
       };
     };

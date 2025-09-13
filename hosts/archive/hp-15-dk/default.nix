@@ -10,16 +10,24 @@
     ./hardware-configuration.nix
     ../../common
     ../../hardware
-    ../../graphic/software
-    # ../../graphic/software/waydroid.nix
-    ../../graphic/desktop/gnome.nix
+    ./software
+    ./specialisation
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    consoleMode = "2";
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "cryolitia-surface"; # Define your hostname.
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
+  boot.supportedFilesystems = [ "ntfs" ];
+
+  networking.hostName = "cryolitia-nixos"; # Define your hostname.
+
+  services.logind.lidSwitchExternalPower = "lock";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -29,8 +37,22 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  environment.systemPackages = with pkgs; [
-    wpsoffice
-    moonlight-qt
-  ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  systemd.services.HPLidKeyCode = {
+    description = "Prevent HP laptop to toggle airplane mode when lip close.";
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "no";
+      ExecStart = "${pkgs.kbd}/bin/setkeycodes e057 240 e058 240";
+    };
+    wantedBy = [
+      "rescue.target"
+      "multi-user.target"
+      "graphical.target"
+    ];
+  };
+
+  services.displayManager.sddm.settings.General.GreeterEnvironment =
+    "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
 }

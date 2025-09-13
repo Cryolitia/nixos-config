@@ -43,7 +43,8 @@ window#waybar.hidden {
   color: #eceff4;
 }
 
-#workspaces button {
+#workspaces button,
+#taskbar button {
   border-radius: 3px 3px 3px 3px;
   padding: 0px 6px;
   margin: 3px 2px;
@@ -100,6 +101,17 @@ window#waybar.hidden {
   border-radius: 5px 5px 5px 5px;
   padding: 0px 2px;
   opacity: 0.8;
+  transition: all 0.3s ease-in-out;
+}
+
+#taskbar button.active {
+  background: #5e81ac;
+  transition: all 0.3s ease-in-out;
+}
+
+#taskbar button.fullscreen {
+  background: #d08770;
+  transition: all 0.3s ease-in-out;
 }
 
 #clock,
@@ -119,6 +131,8 @@ window#waybar.hidden {
 #idle_inhibitor,
 #scratchpad,
 #keyboard-state,
+#bluetooth,
+#mpris,
 #mpd {
   color: #eceff4;
   background: #2e3440;
@@ -126,7 +140,6 @@ window#waybar.hidden {
   border-radius: 5px 5px 5px 5px;
   padding: 0px 6px;
   opacity: 0.8;
-
 }
 
 #window,
@@ -137,6 +150,15 @@ window#waybar.hidden {
 
 window#waybar.empty #window,
 #taskbar.empty {
+  color: transparent;
+  background: transparent;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  opacity: 0;
+}
+
+#mpris.empty {
   color: transparent;
   background: transparent;
   border: none;
@@ -214,8 +236,6 @@ window#waybar.empty #window,
 }
 
 #keyboard-state {
-  padding: 0 0px;
-  margin: 0 5px;
   min-width: 16px;
   border-radius: 5px;
 }

@@ -44,6 +44,7 @@
     bluetui
     appimage-run
     fastfetch
+    dig
     (import ./nixfmt.nix { inherit pkgs; })
   ];
 
