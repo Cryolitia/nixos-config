@@ -23,11 +23,11 @@
     '';
     zones."cryolitia.dn42" = {
       master = true;
-      file = "${./cryolitia.dn42}";
+      file = "${../../../common/dn42}/cryolitia.dn42";
     };
     zones."f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa" = {
       master = true;
-      file = "${./f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa}";
+      file = "${../../../common/dn42}/f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa";
     };
   };
 

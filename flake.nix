@@ -124,43 +124,6 @@
             ]);
         };
 
-        cryolitia-surface = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-
-          modules =
-            (commonModule (import ./hosts/surface-go/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/surface-go
-              ./common/distribute.nix
-
-              nixos-hardware.nixosModules.microsoft-surface-go
-            ]);
-        };
-
-        rpi-nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules =
-            (commonModule (import ./hosts/rpi5/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/rpi5
-              ./common/distribute.nix
-
-              vscode-server.nixosModules.default
-
-              { services.vscode-server.enable = true; }
-
-              nixos-hardware.nixosModules.raspberry-pi-5
-            ]);
-        };
-
         kp920-nixos = inputs.nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {

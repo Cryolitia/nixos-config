@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 {
 
   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
@@ -16,6 +21,7 @@
     xwayland-satellite-stable
     clipse
     fuzzel
+    playerctl
   ];
 
   system.nixos.tags = [ "Niri" ];
@@ -27,7 +33,7 @@
       xkb.variant = "";
       excludePackages = [ pkgs.xterm ];
     };
-    displayManager.gdm.enable = true;
+    displayManager.gdm.enable = lib.mkDefault true;
   };
 
   imports = [
