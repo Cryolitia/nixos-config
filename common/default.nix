@@ -158,4 +158,11 @@
   systemd.services.nix-daemon.environment.TMPDIR = "/nix/tmp";
   # always use the daemon
   environment.variables.NIX_REMOTE = "daemon";
+
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (subject.isInGroup("wheel"))
+        return polkit.Result.YES;
+    });
+  '';
 }

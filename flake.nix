@@ -16,7 +16,7 @@
       "https://cuda-maintainers.cachix.org"
       "https://ezkea.cachix.org"
       "https://niri.cachix.org"
-      # "http://kp920.lan:5000"
+      "http://kp920.cryolitia.dn42:5000"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -25,7 +25,7 @@
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
-      # "kp920.lan:vpIXoG5z4ia1wdYJNDa6CYb7VpxVuk2BykLyAqaAm7c="
+      "kp920.cryolitia.dn42:M68UcYMNX/2yWXFwDb21jAregdcIsF3uIrSmXldX70k="
     ];
   };
 
@@ -145,6 +145,23 @@
               { services.vscode-server.enable = true; }
             ]);
         };
+
+        q6a-nixos = inputs.nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules =
+            (commonModule (import ./hosts/q6a/home.nix))
+            ++ (with inputs; [
+
+              ./hosts/q6a
+
+              vscode-server.nixosModules.default
+
+              { services.vscode-server.enable = true; }
+            ]);
+        };
       };
 
       packages = eachSystem (
@@ -195,12 +212,7 @@
                 argsOverride.defconfig = "bcm2712_defconfig";
               };
 
-          linux_q6a = pkgs.buildLinux {
-            defconf = "qcom_module_defconfig";
-            version = "6.15.7-q6a";
-            modDirVersion = "6.15.7";
-            src = inputs.kernel-q6a;
-          };
+          linux_q6a = import ./hosts/q6a/kernel.nix { inherit pkgs inputs; };
         }
       );
 
@@ -256,8 +268,9 @@
       );
 
       hydraJobs = {
-        rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
-        # kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
+        # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
+        kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
+        q6a = nixosConfigurations.q6a-nixos.config.system.build.toplevel;
       };
     };
 }

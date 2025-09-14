@@ -45,6 +45,7 @@
     enable = true;
     openFirewall = true;
     secretKeyFile = "/var/lib/nix-serve-private";
+    bindAddress = "*";
   };
 
   users.users.ziyao = {
