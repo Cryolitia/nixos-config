@@ -27,7 +27,12 @@
       "systemd.setenv=SYSTEMD_SULOGIN_FORCE=1"
     ];
 
-    initrd.systemd.emergencyAccess = true;
+    initrd = {
+      systemd.emergencyAccess = true;
+      availableKernelModules = [
+        "usb_storage"
+      ];
+    };
   };
 
   hardware = {

@@ -122,7 +122,6 @@
               ./hosts/gpd
 
               nixos-hardware.nixosModules.gpd-win-max-2-2023
-
               # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
               nur-cryolitia.nixosModules.gpd-fan-driver
@@ -151,16 +150,7 @@
           specialArgs = {
             inherit inputs;
           };
-          modules =
-            (commonModule (import ./hosts/q6a/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/q6a
-
-              vscode-server.nixosModules.default
-
-              { services.vscode-server.enable = true; }
-            ]);
+          modules = import ./hosts/q6a/module.nix { inherit inputs; };
         };
       };
 
@@ -177,6 +167,15 @@
             specialArgs = {
               inherit inputs;
             };
+          };
+
+          q6a-image = inputs.nixos-generators.nixosGenerate {
+            system = "aarch64-linux";
+            format = "raw-efi";
+            specialArgs = {
+              inherit inputs;
+            };
+            modules = import ./hosts/q6a/module.nix { inherit inputs; };
           };
 
           neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
@@ -270,7 +269,7 @@
       hydraJobs = {
         # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
         kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
-        q6a = nixosConfigurations.q6a-nixos.config.system.build.toplevel;
+        q6a = packages."aarch64-linux".q6a-image;
       };
     };
 }
