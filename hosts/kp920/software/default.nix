@@ -12,6 +12,7 @@
     ./vlmcsd.nix
     ./wavelog.nix
     ./rsnapshot.nix
+    ./gatus.nix
   ];
 
   # List packages installed in system profile. To search, run:
