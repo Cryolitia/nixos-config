@@ -67,6 +67,26 @@
     ];
   };
 
+  users.users.yukari = {
+    isNormalUser = true;
+    uid = 1024;
+    description = "yukari";
+    shell = pkgs.bashInteractive;
+    extraGroups = [
+      "wheel"
+      "video"
+      "networkmanager"
+      "docker"
+      "input"
+      "i2c"
+      "plugdev"
+    ]; # Enable ‘sudo’ for the user.
+    hashedPassword = "$y$j9T$EGb7ThXBnx23/EoU2wMO.0$DVdXLz2Kav0R5j6YUr.ndmhVDeZ7e6TLH6VRy2NU/J4";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBIE+fnfiCeMjA74rEV6DCDg/gdgTJBtOKpW/RTYhpmc"
+    ];
+  };
+
   fileSystems."/mnt/NAS" = {
     device = "/dev/disk/by-uuid/cd1d85fa-f4f7-4d16-898c-0231b324401d";
     fsType = "btrfs";
