@@ -1,4 +1,4 @@
-{ pkgs, config }:
+{ pkgs, ... }:
 
 with pkgs.nur.repos.linyinfeng.rimePackages;
 (

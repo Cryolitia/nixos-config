@@ -22,4 +22,6 @@
   nix.extraOptions = ''
     allowed-uris = https://github.com/ github: https://api.github.com/
   '';
+
+  me.cryolitia.services.nginx.external."hydra" = 3000;
 }

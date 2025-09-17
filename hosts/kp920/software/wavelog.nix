@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ ... }:
 
-{
+builtins.warn "Remember to update wavelog image" {
   virtualisation.oci-containers.containers = {
     wavelog-db = {
       image = "mariadb:11.3";

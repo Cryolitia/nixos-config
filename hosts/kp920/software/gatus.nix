@@ -18,8 +18,5 @@ builtins.warn "Remember to update gatus image" {
     };
   };
 
-  networking.firewall.allowedTCPPorts = [
-    # Web UI
-    1081
-  ];
+  me.cryolitia.services.nginx.external."status" = 1081;
 }

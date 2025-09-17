@@ -1,6 +1,12 @@
-{ lib, ... }:
+{ lib, inputs, ... }:
 
 {
+
+  imports = [
+    inputs.nix-index-database.homeModules.nix-index
+  ];
+
+  programs.nix-index.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

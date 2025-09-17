@@ -1,7 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  services.netdata.enable = true;
+  services.netdata = {
+    enable = true;
+    package = pkgs.netdata.override {withCloudUi = true;};
+  };
 
-  networking.firewall.allowedTCPPorts = [ 19999 ];
+  me.cryolitia.services.nginx.external."netdata" = 19999;
 }

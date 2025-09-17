@@ -7,24 +7,29 @@ $TTL	3600
 		      3600 )   ; minimum
 
 ; name servers - NS records
-@	IN	NS	ns1
+@					IN	NS		ns1
 
 ; name servers - AAAA records
-@		IN	AAAA	fdd2:4372:796f::1
-ns1		IN	AAAA	fdd2:4372:796f::1
-site-01		IN	AAAA	fdd2:4372:796f:1000::
-site-02		IN	AAAA	fdd2:4372:796f:2000::
+@					IN	AAAA	fdd2:4372:796f::1
+ns1					IN	AAAA	fdd2:4372:796f::1
+site-01				IN	AAAA	fdd2:4372:796f:1000::
+site-02				IN	AAAA	fdd2:4372:796f:2000::
 
-root.site-01	IN	AAAA	fdd2:4372:796f::
-kp920.site-01	IN	AAAA	fdd2:4372:796f::1
-pve.site-01    IN      AAAA    fdd2:4372:796f:1001::1
+root.site-01		IN	AAAA	fdd2:4372:796f::
+kp920.site-01		IN	AAAA	fdd2:4372:796f::1
+pve.site-01    		IN	AAAA    fdd2:4372:796f:1001::1
 
-kp920		IN	CNAME	kp920.site-01
-root		IN	CNAME	root.site-01
+kp920				IN	CNAME	kp920.site-01
+*.kp920				IN	CNAME	kp920.site-01
+*.kp920.site-01		IN	CNAME	kp920.site-01
+
+root				IN	CNAME	root.site-01
 
 $GENERATE 0-3999 local.${0,4,d}.ptp IN AAAA fdd2:4372:796f:ffff::${0,4,d}:0
 $GENERATE 0-3999 remote.${0,4,d}.ptp IN AAAA fdd2:4372:796f:ffff::${0,4,d}:1
 
-@		IN	TXT	"https://github.com/Cryolitia"
-PGP		IN	TXT	"1C3C6547538D7152310C0EEA84DD0C0130A54DF7"
-SSH		IN	TXT	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN2mmQ5YQrQyUSYRNvRKTgYiTSdPt3wtCdiY0YBD7+X9 openpgp:0xA2647D3C"
+@					IN	TXT	"https://github.com/Cryolitia"
+PGP					IN	TXT	"1C3C6547538D7152310C0EEA84DD0C0130A54DF7"
+SSH					IN	TXT	"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN2mmQ5YQrQyUSYRNvRKTgYiTSdPt3wtCdiY0YBD7+X9 openpgp:0xA2647D3C"
+
+*					IN	CNAME	kp920.site-01

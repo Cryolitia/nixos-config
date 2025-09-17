@@ -4,6 +4,7 @@
   imports = [
     ./zsh.nix
     ./kmscon.nix
+    ../services/nginx.nix
   ];
 
   # List packages installed in system profile. To search, run:
