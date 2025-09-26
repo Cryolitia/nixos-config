@@ -87,6 +87,25 @@
     ];
   };
 
+  users.users.cmiki = {
+    isNormalUser = true;
+    uid = 1025;
+    description = "Noa Virellia";
+    shell = pkgs.fish;
+    extraGroups = [
+      "wheel"
+      "video"
+      "networkmanager"
+      "docker"
+      "input"
+      "i2c"
+      "plugdev"
+    ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOz0CMmkGSXv4H77rmrmvadltAlwAZeVimxGoUAfArs"
+    ];
+  };
+
   fileSystems."/mnt/NAS" = {
     device = "/dev/disk/by-uuid/cd1d85fa-f4f7-4d16-898c-0231b324401d";
     fsType = "btrfs";
