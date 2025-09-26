@@ -18,8 +18,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     (import ./vscode.nix {
-      inherit pkgs;
-      vscode-extensions-input = inputs.nix-vscode-extensions;
+      inherit pkgs inputs;
     })
 
     gparted

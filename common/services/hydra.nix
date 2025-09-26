@@ -14,7 +14,7 @@
     '';
   };
 
-  networking.firewall.allowedTCPPorts = [ 3000 ];
+  # networking.firewall.allowedTCPPorts = [ 3000 ];
 
   # REF: https://github.com/NixOS/nix/issues/4178#issuecomment-738886808
   systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";

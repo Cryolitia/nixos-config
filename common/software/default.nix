@@ -87,7 +87,7 @@
       dns_enabled = true; # Enable DNS resolution in the podman network.
     };
   };
-  #networking.firewall.allowedUDPPorts = [ 53 ];
+  # networking.firewall.allowedUDPPorts = [ 53 ];
 
   programs.nexttrace.enable = true;
 }

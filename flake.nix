@@ -16,7 +16,7 @@
       "https://cuda-maintainers.cachix.org"
       "https://ezkea.cachix.org"
       "https://niri.cachix.org"
-      "http://kp920.cryolitia.dn42:5000"
+      "http://cache.kp920.cryolitia.dn42"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -195,7 +195,6 @@
                 inherit system;
                 overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ];
               };
-              vscode-extensions-input = inputs.nix-vscode-extensions;
             }
           );
 

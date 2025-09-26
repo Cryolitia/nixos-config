@@ -13,6 +13,8 @@
     ./wavelog.nix
     ./rsnapshot.nix
     ./gatus.nix
+    ./code-server.nix
+    ./dashy.nix
   ];
 
   services.nginx.enable = true;

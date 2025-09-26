@@ -35,7 +35,8 @@
   };
 
   networking.firewall.allowedTCPPorts = [
-    8080
+    #8080
     55555
   ];
+  me.cryolitia.services.nginx.internal."qbt" = 8080;
 }

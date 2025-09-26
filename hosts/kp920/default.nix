@@ -23,11 +23,13 @@
     };
   };
 
-  networking.hostName = "kp920-nixos";
+  networking = {
+    hostName = "kp920-nixos";
+    tempAddresses = "disabled";
+    firewall.enable = true;
+  };
 
   services.openssh.enable = true;
-
-  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -43,10 +45,12 @@
 
   services.nix-serve = {
     enable = true;
-    openFirewall = true;
+    openFirewall = false;
+    port = 5000;
     secretKeyFile = "/var/lib/nix-serve-private";
     bindAddress = "*";
   };
+  me.cryolitia.services.nginx.external."cache" = 5000;
 
   users.users.ziyao = {
     isNormalUser = true;
@@ -105,6 +109,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOz0CMmkGSXv4H77rmrmvadltAlwAZeVimxGoUAfArs"
     ];
   };
+
+  programs.fish.enable = true;
 
   fileSystems."/mnt/NAS" = {
     device = "/dev/disk/by-uuid/cd1d85fa-f4f7-4d16-898c-0231b324401d";
