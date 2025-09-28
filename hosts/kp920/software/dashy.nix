@@ -73,6 +73,12 @@
               url = "https://keyserver.ubuntu.com/pks/lookup?op=vindex&search=0x84dd0c0130a54df7";
             }
           ];
+          widgets = [
+            {
+              type = "github-profile-stats";
+              options.username = "cryolitia";
+            }
+          ];
         }
         {
           name = "Public";
@@ -102,6 +108,12 @@
               description = pkgs.netdata.meta.description;
               icon = "hl-netdata";
               url = "//netdata.cryolitia.dn42";
+            })
+            (lib.optional config.services.iperf3.enable {
+              title = "iperf3";
+              description = pkgs.iperf3.meta.description;
+              icon = "mdi-speedometer";
+              url = "//guide.cryolitia.dn42/iperf.html";
             })
           ];
         }
@@ -147,6 +159,12 @@
                 icon = "si-proxmox";
                 url = "https://pve.site-01.cryolitia.dn42";
               }
+              {
+                title = "Internal Services";
+                description = "Printer, NAS, and more...";
+                icon = "mdi-nas";
+                url = "//guide.kp920.internal/internal.html";
+              }
             ]
           ];
         }
@@ -186,6 +204,18 @@
               title = "AirEngine 5762S-11";
               icon = "si-huawei";
               url = "http://ap.internal";
+            }
+            {
+              title = "Huawei Kunpeng 920";
+              icon = "si-huawei";
+              url = "kp920.cryolitia.dn42";
+              target = "clipboard";
+            }
+          ];
+          widgets = [
+            {
+              type = "image";
+              options.imagePath = "https://raw.githubusercontent.com/Cryolitia/Cryolitia.github.io/refs/heads/main/content/post/gallery/20250731_234121%7E2.JPG";
             }
           ];
         }
