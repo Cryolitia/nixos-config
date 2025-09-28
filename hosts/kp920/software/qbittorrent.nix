@@ -1,37 +1,35 @@
 { pkgs, ... }:
 
 {
-
-  systemd.services.qbittorrent = {
-    after = [ "network.target" ];
-    description = "qBittorrent Daemon";
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.qbittorrent-nox ];
-    serviceConfig = {
-      ExecStart = ''
-        ${pkgs.qbittorrent-nox}/bin/qbittorrent-nox \
-          --profile="/var/lib/data" \
-          --torrenting-port=55555
-      '';
-      # To prevent "Quit & shutdown daemon" from working; we want systemd to
-      # manage it!
-      Restart = "on-success";
-      User = "qbittorrent";
-      Group = "qbittorrent";
-      UMask = "0002";
+  services.qbittorrent = {
+    enable = true;
+    webuiPort = 8080;
+    torrentingPort = 55555;
+    profileDir = "/var/lib/data";
+    serverConfig = {
+      Core.AutoDeleteAddedTorrentFile = "Never";
+      LegalNotice.Accepted = true;
+      Preferences = {
+        Connection.ResolvePeerCountries = true;
+        WebUI = {
+          Address = "*";
+          AlternativeUIEnabled = true;
+          AuthSubnetWhitelist = "127.0.0.0/8";
+          AuthSubnetWhitelistEnabled = true;
+          CSRFProtection = true;
+          ClickjackingProtection = true;
+          SecureCookie = true;
+          SessionTimeout = 3600;
+          UseUPnP = true;
+          Username = "admin";
+          Password_PBKDF2 = "@ByteArray(Z5LYf9hf54dMXJVuMSvlJQ==:JZaCXatfev4IxjXnRyCteNPtsD+Jj+lo9GdoFRV2Qe9rEp4VIKKILt31fKgItCrlevsjmL3sGIH1OCTRdMavhg==)";
+          MaxAuthenticationFailCount = 5;
+          Port = 8080;
+          RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
+        };
+        General.Locale = "zh_CN";
+      };
     };
-  };
-
-  users.users.qbittorrent = {
-    group = "qbittorrent";
-    home = "/var/lib/qbittorrent";
-    createHome = true;
-    description = "qBittorrent Daemon user";
-    isSystemUser = true;
-  };
-
-  users.groups.qbittorrent = {
-    gid = null;
   };
 
   networking.firewall.allowedTCPPorts = [

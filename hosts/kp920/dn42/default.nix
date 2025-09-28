@@ -43,4 +43,12 @@
   networking.firewall.allowedUDPPorts = [ 53 ];
 
   networking.resolvconf.useLocalResolver = false;
+
+  services.nginx.virtualHosts."guide.*" = {
+    listenAddresses = [
+      "0.0.0.0"
+      "[::]"
+    ];
+    locations."/".root = "${pkgs.callPackage ./static-pages { }}/share/cryolitia-static-pages";
+  };
 }

@@ -22,6 +22,7 @@
     clipse
     fuzzel
     playerctl
+    wl-mirror
   ];
 
   system.nixos.tags = [ "Niri" ];
@@ -41,4 +42,6 @@
   ];
 
   security.pam.services.hyprlock = { };
+
+  xdg.portal.wlr.enable = true;
 }
