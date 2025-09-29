@@ -29,7 +29,6 @@
     lazygit
     lm_sensors
     nix-output-monitor
-    nixfmt-rfc-style
     gnumake
     smartmontools
     gdb
@@ -43,7 +42,6 @@
     podman-compose
     wiremix
     bluetui
-    appimage-run
     fastfetch
     dig
     (import ./nixfmt.nix { inherit pkgs; })
@@ -90,4 +88,9 @@
   # networking.firewall.allowedUDPPorts = [ 53 ];
 
   programs.nexttrace.enable = true;
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 }

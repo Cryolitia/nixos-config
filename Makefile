@@ -3,7 +3,7 @@
 boot-nom: fmt deadnix
 	sudo nixos-rebuild boot --flake .# --log-format internal-json -v --accept-flake-config |& nom --json
 
-switch:
+switch: fmt
 	sudo nixos-rebuild switch --flake .# --log-format internal-json -v --accept-flake-config |& nom --json
 
 boot:

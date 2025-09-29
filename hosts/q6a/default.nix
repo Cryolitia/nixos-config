@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
@@ -13,9 +14,13 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackagesFor (import ./kernel.nix { inherit pkgs inputs; });
+    kernelPackages = pkgs.linuxPackagesFor (import ./kernel.nix { inherit pkgs inputs lib; });
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        installDeviceTree = true;
+        edk2-uefi-shell.enable = true;
+      };
       efi.canTouchEfiVariables = false;
       timeout = 5;
     };
@@ -24,15 +29,20 @@
       "earlycon"
       "keep_bootcon"
       "systemd.setenv=SYSTEMD_SULOGIN_FORCE=1"
+      "loglevel=8"
     ];
 
     initrd = {
       systemd.emergencyAccess = true;
       availableKernelModules = [
         "usb_storage"
+        "nvme"
+        "xhci_hcd"
       ];
     };
   };
+
+  systemd.enableEmergencyMode = true;
 
   hardware = {
     firmware = with pkgs; [
