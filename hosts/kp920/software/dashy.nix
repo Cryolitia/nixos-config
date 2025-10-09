@@ -152,6 +152,12 @@
               icon = "hl-qbittorrent";
               url = "//qbt.kp920.internal";
             })
+            (lib.optional (builtins.hasAttr "sdr.*" config.services.nginx.virtualHosts) {
+              title = "OpenWebRX";
+              description = pkgs.openwebrx.meta.description;
+              icon = "hl-openwebrx-plus";
+              url = "//sdr.cryolitia.dn42";
+            })
             [
               {
                 title = "Proxmox VE";
@@ -214,28 +220,20 @@
           ];
           widgets = [
             {
+              type = "embed";
+              options = {
+                css = ".coinmarketcap-currency-widget { color: var(--widget-text-color); }";
+                html = "<div class=\"coinmarketcap-currency-widget\"><span>Welcome! From: </span><span id=\"ip\"></span></div>";
+                script = "fetch('/whoami').then(response => response.text()).then(data => { document.getElementById('ip').textContent = data;});";
+              };
+            }
+            {
               type = "image";
               options.imagePath = "https://raw.githubusercontent.com/Cryolitia/Cryolitia.github.io/refs/heads/main/content/post/gallery/20250731_234121%7E2.JPG";
             }
           ];
         }
       ];
-    };
-  };
-
-  services.nginx.virtualHosts."${config.services.dashy.virtualHost.domain}" = {
-    listenAddresses = [
-      "0.0.0.0"
-      "[::]"
-    ];
-    locations."/" = {
-      extraConfig = ''
-        allow 127.0.0.1;
-        allow ::1;
-        allow 192.168.0.0/16;
-        allow fd00::/7;
-        deny all;
-      '';
     };
   };
 }

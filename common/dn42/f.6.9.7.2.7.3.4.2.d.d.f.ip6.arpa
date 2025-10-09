@@ -21,6 +21,8 @@ f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa. IN SOA ns1.cryolitia.dn42. cryolitia.gmail.com
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0		IN	PTR	kp920.site-01.cryolitia.dn42.
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0		IN	PTR	pve.site-01.cryolitia.dn42.
 
+0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.f.f		IN	PTR	zerotier.cryolitia.dn42.
+
 
 $ORIGIN 0.0.0.0.0.0.0.0.0.0.0.f.f.f.f.f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa.
 $GENERATE 0-9 0.0.0.0.${0,1,n} IN PTR local.${0,4,x}.ptp.cryolitia.dn42.

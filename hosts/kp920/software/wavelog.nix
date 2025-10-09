@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 let
   version = (lib.importJSON ../../../version.json).wavelog;
 in
