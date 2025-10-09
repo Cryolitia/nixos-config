@@ -11,6 +11,7 @@ let
   whitelistAddress = [
     "fdd2:4372:796f::/48"
     "fdd0:5ad7:5f56::/48" # YukariChiba
+    "fdcb:dded:cbcc::/48" # Kagura
   ];
   generateVirtualHostConfig = (
     {
@@ -34,14 +35,14 @@ let
             # required when the server wants to use HTTP Authentication
             proxy_pass_header Authorization;
           ''
+          + (lib.optionalString (extraConfig != null) extraConfig)
           + ''
             allow 127.0.0.1;
             allow ::1;
             allow 192.168.0.0/16;
             allow fd00::/7;
             deny all;
-          ''
-          + (lib.optionalString (extraConfig != null) extraConfig);
+          '';
         };
       }
     ) zoneCfg)
@@ -73,7 +74,9 @@ in
             + lib.concatStringsSep "\n" (
               lib.map (x: "deny ${x};") blacklistAddress ++ lib.map (x: "allow ${x};") whitelistAddress
             )
-            + "\n";
+            + ''
+              deny fd00::/7;
+            '';
         })
         // (generateVirtualHostConfig { zoneCfg = cfg.external; });
     };

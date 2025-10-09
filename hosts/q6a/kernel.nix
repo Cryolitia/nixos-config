@@ -11,6 +11,7 @@ pkgs.buildLinux {
   defconfig = "qcom_module_defconfig";
   version = "6.15.7-q6a";
   modDirVersion = "6.15.7";
+
   src = pkgs.fetchFromGitHub {
     inherit (version)
       owner
