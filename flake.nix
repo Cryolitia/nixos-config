@@ -94,11 +94,6 @@
 
     niri.url = "github:sodiboo/niri-flake";
 
-    kernel-q6a = {
-      url = "github:nascs/kernel?ref=work-6.15.y";
-      flake = false;
-    };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -215,7 +210,7 @@
                 argsOverride.defconfig = "bcm2712_defconfig";
               };
 
-          linux_q6a = import ./hosts/q6a/kernel.nix { inherit pkgs inputs; };
+          linux_q6a = import ./hosts/q6a/kernel.nix { inherit pkgs; };
         }
       );
 

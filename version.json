@@ -1,0 +1,33 @@
+{
+    "dnsmasq-china-list": {
+        "branch": "master",
+        "hash": "sha256-G880uMoQJOQ86RaFkATtNqq0MuLWEBPgPmng6jjop3g=",
+        "owner": "felixonmars",
+        "repo": "dnsmasq-china-list",
+        "rev": "90b4e849885e1ef8f2904d1c1932793a5ef5caa5",
+        "type": "github"
+    },
+    "gatus": {
+        "latest": "v5.26.0",
+        "type": "container",
+        "url": "ghcr.io/twin/gatus"
+    },
+    "home-assistant": {
+        "latest": "2025.10.1",
+        "type": "container",
+        "url": "ghcr.io/home-assistant/home-assistant"
+    },
+    "kernel-q6a": {
+        "branch": "work-6.15.y",
+        "hash": "sha256-pbN9lPnISmf9anAc2b3WvU4JP1lhC1wX9x+naLhSlXw=",
+        "owner": "nascs",
+        "repo": "kernel",
+        "rev": "72207accdb58c44534e0a0e33ad4cc87f4cb48cd",
+        "type": "github"
+    },
+    "wavelog": {
+        "latest": "2.1.1",
+        "type": "container",
+        "url": "ghcr.io/wavelog/wavelog"
+    }
+}

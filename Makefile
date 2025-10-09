@@ -35,3 +35,7 @@ fmt:
 
 deadnix:
 	nix run nixpkgs#deadnix . -vL
+
+update:
+	nix flake update
+	./update.py
