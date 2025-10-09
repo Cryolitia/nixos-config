@@ -241,23 +241,6 @@
         "type": "github"
       }
     },
-    "kernel-q6a": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1755584508,
-        "narHash": "sha256-pbN9lPnISmf9anAc2b3WvU4JP1lhC1wX9x+naLhSlXw=",
-        "owner": "nascs",
-        "repo": "kernel",
-        "rev": "72207accdb58c44534e0a0e33ad4cc87f4cb48cd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nascs",
-        "ref": "work-6.15.y",
-        "repo": "kernel",
-        "type": "github"
-      }
-    },
     "niri": {
       "inputs": {
         "niri-stable": "niri-stable",
@@ -697,7 +680,6 @@
         "aagl": "aagl",
         "home-manager": "home-manager",
         "jetbrains-plugins": "jetbrains-plugins",
-        "kernel-q6a": "kernel-q6a",
         "niri": "niri",
         "nix-index-database": "nix-index-database",
         "nix-vscode-extensions": "nix-vscode-extensions",

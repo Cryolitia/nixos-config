@@ -1,7 +1,5 @@
 {
   pkgs,
-  inputs,
-  lib,
   ...
 }:
 
@@ -14,7 +12,7 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackagesFor (import ./kernel.nix { inherit pkgs inputs lib; });
+    kernelPackages = pkgs.linuxPackagesFor (import ./kernel.nix { inherit pkgs; });
     loader = {
       systemd-boot = {
         enable = true;
