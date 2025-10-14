@@ -12,7 +12,6 @@ if __name__ == "__main__":
         for name, info in versions.items():
             if info.get("type") == "container":
                 print(f"Checking {name}")
-                import subprocess
                 completed = subprocess.run(
                     f"skopeo inspect docker://{info['url']}:latest",
                     shell=True,
@@ -20,9 +19,14 @@ if __name__ == "__main__":
                     text=True
                 )
                 data = json.loads(completed.stdout)
-                tag = data.get("Labels").get("org.opencontainers.image.version")
-                versions[name]["latest"] = tag
-                print(f"  Latest version: {tag}\n")
+                if "ghcr.io" in info["url"]:
+                    tag = data.get("Labels").get("org.opencontainers.image.version")
+                    versions[name]["latest"] = tag
+                    print(f"  Latest version: {tag}\n")
+                else:
+                    digest = data.get("Digest")
+                    versions[name]["digest"] = digest
+                    print(f"  Latest digest: {digest}\n")
             if info.get("type") == "github":
                 print(f"Checking {name}")
                 completed = subprocess.run(

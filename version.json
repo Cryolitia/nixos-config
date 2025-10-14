@@ -1,10 +1,10 @@
 {
     "dnsmasq-china-list": {
         "branch": "master",
-        "hash": "sha256-G880uMoQJOQ86RaFkATtNqq0MuLWEBPgPmng6jjop3g=",
+        "hash": "sha256-V4Us9dkm08EeSJ0l5JcsEpxFeGkeUpsf9KuelvD9hUs=",
         "owner": "felixonmars",
         "repo": "dnsmasq-china-list",
-        "rev": "90b4e849885e1ef8f2904d1c1932793a5ef5caa5",
+        "rev": "22dacefa3550ac19b30da5ad30a4f3749e86a482",
         "type": "github"
     },
     "gatus": {
@@ -13,7 +13,7 @@
         "url": "ghcr.io/twin/gatus"
     },
     "home-assistant": {
-        "latest": "2025.10.1",
+        "latest": "2025.10.2",
         "type": "container",
         "url": "ghcr.io/home-assistant/home-assistant"
     },
@@ -24,6 +24,11 @@
         "repo": "kernel",
         "rev": "72207accdb58c44534e0a0e33ad4cc87f4cb48cd",
         "type": "github"
+    },
+    "owrx": {
+        "digest": "sha256:dd604b6473412de7251f78c023fa13c8ae77cb43f137c9036bfa34282eb53ad0",
+        "type": "container",
+        "url": "docker.io/slechev/openwebrxplus-softmbe"
     },
     "wavelog": {
         "latest": "2.1.1",
