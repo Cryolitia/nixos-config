@@ -29,6 +29,7 @@ pkgs.buildLinux {
   extraConfig = ''
     NOVA_CORE n
     COMPRESSED_INSTALL n
+    WLAN_VENDOR_AIC8800 n
   '';
 
   kernelPatches = [ ];

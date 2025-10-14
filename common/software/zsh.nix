@@ -10,14 +10,14 @@
     enable = true;
     ohMyZsh = {
       enable = true;
-      package = pkgs.oh-my-zsh.overrideAttrs (oldAttrs: {
-        patches = (oldAttrs.patches or [ ]) ++ [
-          (pkgs.fetchpatch {
-            url = "https://github.com/Cryolitia/ohmyzsh/commit/46bc7a50d967170e1a7d48252ba2ea62b38cdda4.patch";
-            hash = "sha256-M09w2JXVEx9QMR/kpGQoQSQp5ozWK9OaQ0ZBcKv/puw=";
-          })
-        ];
-      });
+      # package = pkgs.oh-my-zsh.overrideAttrs (oldAttrs: {
+      #   patches = (oldAttrs.patches or [ ]) ++ [
+      #     (pkgs.fetchpatch {
+      #       url = "https://github.com/Cryolitia/ohmyzsh/commit/46bc7a50d967170e1a7d48252ba2ea62b38cdda4.patch";
+      #       hash = "sha256-M09w2JXVEx9QMR/kpGQoQSQp5ozWK9OaQ0ZBcKv/puw=";
+      #     })
+      #   ];
+      # });
       plugins = [
         "colorize"
         "bgnotify"

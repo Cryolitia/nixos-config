@@ -1,23 +1,33 @@
 {
   pkgs,
+  config,
+  inputs,
   ...
 }:
-
+let
+  aic8800-firmware = pkgs.callPackage ./aic8800-firmware.nix { };
+in
 {
   imports = [
     # Include the results of the hardware scan.
     # ./hardware-configuration.nix
     ../../common
     ../../hardware/sound.nix
+    ./hardware-configuration.nix
+    ./owrx.nix
   ];
 
   boot = {
     kernelPackages = pkgs.linuxPackagesFor (import ./kernel.nix { inherit pkgs; });
     loader = {
       systemd-boot = {
-        enable = true;
+        # enable = true;
         installDeviceTree = true;
         edk2-uefi-shell.enable = true;
+      };
+      grub = {
+        enable = true;
+        device = "/dev/disk/by-label/ESP";
       };
       efi.canTouchEfiVariables = false;
       timeout = 5;
@@ -31,7 +41,6 @@
     ];
 
     initrd = {
-      systemd.emergencyAccess = true;
       availableKernelModules = [
         "usb_storage"
         "nvme"
@@ -40,11 +49,16 @@
     };
   };
 
+  console.earlySetup = true;
+
+  networking.firewall.allowedTCPPorts = [ 8073 ];
+
   systemd.enableEmergencyMode = true;
 
   hardware = {
     firmware = with pkgs; [
       linux-firmware
+      aic8800-firmware
     ];
     deviceTree = {
       enable = true;
@@ -69,4 +83,18 @@
   nix.extraOptions = ''
     extra-platforms = aarch64-linux
   '';
+
+  # Configure network connections interactively with nmcli or nmtui.
+  networking.networkmanager.enable = true;
+
+  virtualisation.podman.enable = true;
+
+  boot.extraModulePackages = [
+    ((config.boot.kernelPackages.callPackage ./aic8800.nix { }).usb)
+  ];
+
+  boot.kernelModules = [
+    "aic8800_fdrv"
+    "aic_load_fw"
+  ];
 }
