@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   inputs,
@@ -10,27 +11,27 @@ in
 {
   imports = [
     # Include the results of the hardware scan.
-    # ./hardware-configuration.nix
     ../../common
     ../../hardware/sound.nix
-    ./hardware-configuration.nix
     ./owrx.nix
+    ../../graphic/desktop/niri.nix
+    ../../graphic/software
   ];
 
   boot = {
     kernelPackages = pkgs.linuxPackagesFor (import ./kernel.nix { inherit pkgs; });
     loader = {
       systemd-boot = {
-        # enable = true;
+        enable = true;
         installDeviceTree = true;
         edk2-uefi-shell.enable = true;
       };
       grub = {
-        enable = true;
+        #enable = true;
         device = "/dev/disk/by-label/ESP";
       };
       efi.canTouchEfiVariables = false;
-      timeout = 5;
+      timeout = lib.mkDefault 5;
     };
     kernelParams = [
       "console=ttyMSM0,115200n8"
@@ -97,4 +98,26 @@ in
     "aic8800_fdrv"
     "aic_load_fw"
   ];
+
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 6 * 1024;
+    }
+  ];
+
+  services.sunshine = {
+    enable = true;
+    capSysAdmin = true;
+    openFirewall = true;
+  };
+
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "cryolitia";
+  };
+
+  boot.supportedFilesystems = {
+    zfs = lib.mkForce false;
+  };
 }

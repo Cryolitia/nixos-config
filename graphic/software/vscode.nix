@@ -13,5 +13,5 @@ in
       # commandLineArgs = "--disable-gpu";
     };
   };
-  vscodeExtensions = import ./vscodeExtensions.nix { inherit pkgs vscodeExtensions; };
+  vscodeExtensions = import ./vscodeExtensions.nix { inherit pkgs vscode-extensions; };
 })

@@ -49,6 +49,7 @@
     port = 5000;
     secretKeyFile = "/var/lib/nix-serve-private";
     bindAddress = "*";
+    package = pkgs.nix-serve-ng;
   };
   me.cryolitia.services.nginx.external."cache" = 5000;
 
@@ -126,4 +127,16 @@
       value = "32768";
     }
   ];
+
+  systemd.services."disable-enp3s0" = {
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = "yes";
+      ExecStart = "${pkgs.iproute2}/bin/ip link set enp3s0 down";
+    };
+  };
 }

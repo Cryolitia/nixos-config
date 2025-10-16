@@ -1,5 +1,9 @@
 { ... }:
 
 {
-  imports = [ ../../common/home.nix ];
+  imports = [
+    ../../common/home.nix
+    ../../graphic/home
+    ../../graphic/home/niri
+  ];
 }
