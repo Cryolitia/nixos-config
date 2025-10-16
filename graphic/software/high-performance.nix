@@ -16,6 +16,7 @@ in
     ./waydroid.nix
     ./.
     ../../common/libvirt.nix
+    ../../hardware/yubikey.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -45,7 +46,24 @@ in
     #jetbrains-with-plugins.clion
     snipaste
     localsend
+    telegram-desktop
+    kdePackages.okular
+    hugo
+    qq
+    mpv
+    vlc
+    typst
+    tinymist
+    nur-cryolitia.get-lrc
   ];
+
+  programs.kdeconnect.enable = true;
+
+  programs.clash-verge = {
+    enable = true;
+    package = pkgs.clash-verge-rev;
+    serviceMode = true;
+  };
 
   systemd.user.services.snipaste = {
     wantedBy = [ "graphical-session.target" ];

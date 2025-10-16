@@ -9,8 +9,8 @@ in
 
 pkgs.buildLinux {
   defconfig = "qcom_module_defconfig";
-  version = "6.15.7-q6a";
-  modDirVersion = "6.15.7";
+  version = "6.17.1-q6a";
+  modDirVersion = "6.17.1";
 
   src = pkgs.fetchFromGitHub {
     inherit (version)

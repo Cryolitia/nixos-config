@@ -30,6 +30,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     #gphotos-sync
+    distrobox
   ];
 
   services.iperf3 = {

@@ -16,7 +16,7 @@
       "https://cuda-maintainers.cachix.org"
       "https://ezkea.cachix.org"
       "https://niri.cachix.org"
-      "http://cache.kp920.cryolitia.dn42"
+      "http://cache.cryolitia.dn42"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -150,7 +150,9 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = import ./hosts/q6a/module.nix { inherit inputs; };
+          modules = (import ./hosts/q6a/module.nix { inherit inputs; }) ++ [
+            ./hosts/q6a/hardware-configuration.nix
+          ];
         };
       };
 
@@ -175,7 +177,15 @@
             specialArgs = {
               inherit inputs;
             };
-            modules = import ./hosts/q6a/module.nix { inherit inputs; };
+            modules = (import ./hosts/q6a/module.nix { inherit inputs; }) ++ [
+              "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+              (
+                { lib, ... }:
+                {
+                  hardware.enableAllHardware = lib.mkForce false;
+                }
+              )
+            ];
           };
 
           neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
