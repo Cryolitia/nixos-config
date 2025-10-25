@@ -57,7 +57,6 @@ let
     audit-enable yes
     audit-console yes
 
-
     server-tls 8.8.8.8
     server-tls 8.8.4.4
     server-tls [2001:4860:4860::8888]
@@ -67,8 +66,9 @@ let
     server-tls [2606:4700:4700::1111]
     server-tls [2606:4700:4700::1001]
 
-    server [fdd2:4372:796f::] -g internal -g cn -e
-    server 127.0.0.1:1053 -g DN42local -e
+    server [fdd2:4372:796f::] -g cn -e
+    server [fdd2:4372:796f::] -g internal -e
+    server 127.0.0.1 -g DN42local -e
     server [fd42:d42:d42:53::1] -g DN42 -e
     server [fd42:d42:d42:54::1] -g DN42 -e
 
@@ -76,15 +76,17 @@ let
     domain-set -name apple -file ${dnsmasq-china-list-pkgs}/share/dnsmasq-china-list/apple.china.conf
     domain-set -name google -file ${dnsmasq-china-list-pkgs}/share/dnsmasq-china-list/google.china.conf
 
-    domain-rules /*.internal/ -nameserver internal
-    domain-rules /crylt.dn42/ -nameserver DN42local
-    domain-rules /cryolitia.dn42/ -nameserver DN42local
+    force-AAAA-SOA yes
+
+    domain-rules /internal/ -nameserver internal -address -4
+    domain-rules /crylt.dn42/ -nameserver DN42local -address -6
+    domain-rules /cryolitia.dn42/ -nameserver DN42local -address -6
     domain-rules /f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa/ -nameserver DN42local
-    domain-rules /dn42/ -nameserver DN42
+    domain-rules /dn42/ -nameserver DN42 -address -6
     domain-rules /d.f.ip6.arpa/ -nameserver DN42
-    domain-rules /domain-set:cn/ -nameserver cn
-    domain-rules /domain-set:apple/ -nameserver cn
-    domain-rules /domain-set:google/ -nameserver cn
+    domain-rules /domain-set:cn/ -nameserver cn -address -6
+    domain-rules /domain-set:apple/ -nameserver cn -address -6
+    domain-rules /domain-set:google/ -nameserver cn -address -6
 
     ip-set -name nxdomain -file ${dnsmasq-china-list-pkgs}/share/dnsmasq-china-list/bogus-nxdomain.china.conf
     ip-rules ip-set:nxdomain -bogus-nxdomain

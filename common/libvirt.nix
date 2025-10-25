@@ -6,7 +6,6 @@
       enable = true;
       qemu = {
         swtpm.enable = true;
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
       extraConfig = ''
         unix_sock_group = "libvirtd"

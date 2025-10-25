@@ -12,6 +12,7 @@ let
     "fdd2:4372:796f::/48"
     "fdd0:5ad7:5f56::/48" # YukariChiba
     "fdcb:dded:cbcc::/48" # Kagura
+    "fd3f:a1f1:54ed:e00::/64" # Yuuta
   ];
   generateVirtualHostConfig = (
     {

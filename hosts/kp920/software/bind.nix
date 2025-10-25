@@ -3,10 +3,8 @@
 {
   services.bind = {
     enable = true;
-    listenOn = lib.mkForce [ "any" ];
-    listenOnIpv6 = lib.mkForce [ "any" ];
-    listenOnPort = lib.mkForce 1053;
-    listenOnIpv6Port = lib.mkForce 1053;
+    listenOn = lib.mkForce [ "127.0.0.1" ];
+    listenOnIpv6 = lib.mkForce [ ];
     extraOptions = ''
       allow-recursion { };
       recursion no;
