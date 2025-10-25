@@ -6,4 +6,6 @@
     ../../graphic/home
     ../../graphic/home/niri
   ];
+
+  programs.niri.settings.input.mod-key = "Alt";
 }

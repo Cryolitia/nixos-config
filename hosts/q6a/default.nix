@@ -120,4 +120,14 @@ in
   boot.supportedFilesystems = {
     zfs = lib.mkForce false;
   };
+
+  environment.systemPackages = with pkgs; [
+    wfview
+    gridtracker2
+    jtdx
+    tqsl
+    helvum
+    alsa-utils
+    gpredict
+  ];
 }

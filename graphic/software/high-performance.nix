@@ -13,7 +13,7 @@ let
 in
 {
   imports = [
-    ./waydroid.nix
+    # ./waydroid.nix
     ./.
     ../../common/libvirt.nix
     ../../hardware/yubikey.nix
@@ -55,6 +55,7 @@ in
     typst
     tinymist
     nur-cryolitia.get-lrc
+    moonlight-qt
   ];
 
   programs.kdeconnect.enable = true;

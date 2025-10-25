@@ -25,50 +25,10 @@ stdenv.mkDerivation (finalAttr: {
   nativeBuildInputs = kernel.moduleBuildDependencies ++ [ dpkg ];
 
   makeFlags = kernelModuleMakeFlags ++ [
-    "-C"
-    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
   ];
 
   outputs = [ "out" ] ++ varient;
-
-  patchPhase = ''
-    runHook prePatch
-
-    # Apply all patches in debian/patches
-    dpkg-source --before-build .
-
-    find ./src -name "Makefile" -exec echo Fixing... {} \; -exec sed -i 's/CONFIG_USE_FW_REQUEST ?= n/CONFIG_USE_FW_REQUEST ?= y/g' {} \;
-    find ./src -name "Makefile" -exec echo Fixing... {} \; -exec sed -i 's/CONFIG_USE_FW_REQUEST = n/CONFIG_USE_FW_REQUEST = y/g' {} \;
-    sed -i 's|fw_patch_table_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fw_patch_table_8800d80_u02.bin|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
-    sed -i 's|fw_adid_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fw_adid_8800d80_u02.bin|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
-    sed -i 's|fw_patch_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fw_patch_8800d80_u02.bin|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
-    sed -i 's|fmacfw_8800d80_u02.bin|aic8800_fw/USB/aic8800D80/fmacfw_8800d80_u02.bin|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
-    sed -i 's|aic_userconfig_8800d80.txt|aic8800_fw/USB/aic8800D80/aic_userconfig_8800d80.txt|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
-
-
-    sed -i 's|fw_patch_8800d80_u02_ext|aic8800_fw/USB/aic8800D80/fw_patch_8800d80_u02_ext|g' src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.h
-
-    substituteInPlace src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80.c \
-      --replace-fail 'char ext_patch_file_name[50];' 'char ext_patch_file_name[100];'
-
-    substituteInPlace src/USB/driver_fw/drivers/aic8800/aic_load_fw/aic_compat_8800d80x2.c \
-      --replace-fail 'char ext_patch_file_name[50];' 'char ext_patch_file_name[100];'
-
-    substituteInPlace src/USB/driver_fw/drivers/aic_btusb/aic_btusb.c \
-      --replace-fail 'char ext_patch_file_name[50];' 'char ext_patch_file_name[100];'
-
-    runHook postPatch
-  '';
-
-  buildPhase = ''
-    runHook preBuild
-
-    make $makeFlags M="$PWD"/src/PCIE/driver_fw/driver/aic8800/aic8800_fdrv
-    make $makeFlags M="$PWD"/src/SDIO/driver_fw/driver/aic8800
-    make $makeFlags M="$PWD"/src/USB/driver_fw/drivers/aic8800
-
-    runHook postBuild
-  '';
 
   installPhase = ''
     runHook preInstall
