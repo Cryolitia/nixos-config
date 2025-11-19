@@ -37,9 +37,11 @@
 
   programs.git = {
     enable = true;
-    userName = "Cryolitia PukNgae";
-    userEmail = "Cryolitia@gmail.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Cryolitia PukNgae";
+        email = "Cryolitia@gmail.com";
+      };
       core = {
         autocrlf = "input";
       };

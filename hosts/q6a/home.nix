@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -8,4 +8,9 @@
   ];
 
   programs.niri.settings.input.mod-key = "Alt";
+
+  programs.waybar.settings.mainBar.clock = {
+    interval = 1;
+    format = lib.mkForce "{:%FT%T%z}";
+  };
 }

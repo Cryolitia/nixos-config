@@ -37,6 +37,7 @@
       atomix # puzzle game
       gnome-contacts
       gnome-maps
+      orca
     ]
   );
 

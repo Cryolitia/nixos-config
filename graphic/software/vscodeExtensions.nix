@@ -5,6 +5,7 @@
   ms-vscode-remote.remote-ssh-edit
   github.copilot
   github.copilot-chat
+  #eamodio.gitlens
 ])
 ++ (with vscode-extensions.vscode-marketplace; [
   ms-ceintl.vscode-language-pack-zh-hans
@@ -13,12 +14,10 @@
   brunnerh.insert-unicode
   davidanson.vscode-markdownlint
   equinusocio.vsc-material-theme
-  # FIXME
-  #pungrumpy.vsc-material-theme-icons
+  pkief.material-icon-theme
   esbenp.prettier-vscode
   medo64.code-point
   s-nlf-fh.glassit
-  eamodio.gitlens
   twxs.cmake
   m4ns0ur.base64
   uctakeoff.vscode-counter

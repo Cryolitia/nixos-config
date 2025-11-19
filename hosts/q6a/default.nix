@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
@@ -129,5 +128,39 @@ in
     helvum
     alsa-utils
     gpredict
+    qsstv
+    slurp
+    gpsd
   ];
+
+  xdg.portal = {
+    enable = true;
+    config.niri = {
+      default = [ "gtk" ];
+      "org.freedesktop.impl.portal.Secret" = [
+        "gnome-keyring"
+      ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
+    };
+    wlr.enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
+    ];
+  };
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+    ];
+  };
+
+  services.gpsd = {
+    enable = true;
+    devices = [
+      "/dev/ttyACM1"
+    ];
+  };
 }

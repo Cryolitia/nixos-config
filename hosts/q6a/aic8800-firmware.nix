@@ -2,10 +2,9 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  fetchgit,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   name = "aic8800-firmware";
   version = "0-unstable";
 
@@ -37,4 +36,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ Cryolitia ];
     platforms = lib.platforms.linux;
   };
-})
+}

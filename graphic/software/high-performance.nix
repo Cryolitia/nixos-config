@@ -26,7 +26,7 @@ in
     android-tools
     wpsoffice
     obs-studio
-    config.boot.kernelPackages.perf
+    perf
     kdePackages.kleopatra
     keepassxc
     nodePackages.pnpm
