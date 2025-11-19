@@ -9,9 +9,9 @@
     ../../../graphic/desktop/niri.nix
   ];
 
-  specialisation."Nvidia".configuration = {
-    imports = [
-      ./nvidia.nix
-    ];
-  };
+  # specialisation."Nvidia".configuration = {
+  #   imports = [
+  #     ./nvidia.nix
+  #   ];
+  # };
 }

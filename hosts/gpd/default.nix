@@ -96,7 +96,7 @@ in
     # autoStart = false;
   };
 
-  services.nixseparatedebuginfod.enable = true;
+  services.nixseparatedebuginfod2.enable = true;
 
   hardware.xone.enable = true;
   hardware.xpad-noone.enable = true;

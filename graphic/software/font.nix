@@ -6,7 +6,7 @@
       nerd-fonts.jetbrains-mono
       source-han-serif
       source-han-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       shanggu-fonts
       lxgw-wenkai
       arphic-ukai

@@ -16,7 +16,7 @@
       "https://cuda-maintainers.cachix.org"
       "https://ezkea.cachix.org"
       "https://niri.cachix.org"
-      "http://cache.cryolitia.dn42"
+      #"http://cache.cryolitia.dn42"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="

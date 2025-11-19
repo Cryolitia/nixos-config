@@ -15,7 +15,7 @@ let
     "usb"
   ];
 in
-stdenv.mkDerivation (finalAttr: {
+stdenv.mkDerivation {
   name = "aic8800";
   version = aic8800-firmware.version;
   src = aic8800-firmware.src;
@@ -62,4 +62,4 @@ stdenv.mkDerivation (finalAttr: {
     maintainers = with lib.maintainers; [ Cryolitia ];
     platforms = lib.platforms.linux;
   };
-})
+}

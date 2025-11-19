@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
 
   cuda = import ../../../common/software/cuda.nix { inherit pkgs; };
