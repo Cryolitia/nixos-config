@@ -90,6 +90,12 @@ let
 
     ip-set -name nxdomain -file ${dnsmasq-china-list-pkgs}/share/dnsmasq-china-list/bogus-nxdomain.china.conf
     ip-rules ip-set:nxdomain -bogus-nxdomain
+
+    address /onion/#4
+    address /onion/fdd0:5ad7:5f56:1:be24:11ff:fe6a:4be1
+
+    address /steamcontent.com/#6
+    nameserver /steamcontent.com/cn
   '';
 in
 {
