@@ -8,6 +8,8 @@ home-config: [
   inputs.niri.nixosModules.niri
   inputs.nix-index-database.nixosModules.nix-index
 
+  { programs.nix-index-database.comma.enable = true; }
+
   inputs.home-manager.nixosModules.home-manager
   {
     home-manager.useGlobalPkgs = true;
