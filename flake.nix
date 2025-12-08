@@ -16,7 +16,7 @@
       "https://cuda-maintainers.cachix.org"
       "https://ezkea.cachix.org"
       "https://niri.cachix.org"
-      #"http://cache.cryolitia.dn42"
+      "http://cache.cryolitia.dn42"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -150,9 +150,16 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = (import ./hosts/q6a/module.nix { inherit inputs; }) ++ [
-            ./hosts/q6a/hardware-configuration.nix
-          ];
+          modules =
+            (commonModule (import ./hosts/q6a/home.nix))
+            ++ (with inputs; [
+
+              ./hosts/q6a
+
+              vscode-server.nixosModules.default
+
+              { services.vscode-server.enable = true; }
+            ]);
         };
       };
 
@@ -171,18 +178,21 @@
             };
           };
 
-          q6a-image = inputs.nixos-generators.nixosGenerate {
+          radxa-q6a-image = inputs.nixos-generators.nixosGenerate {
             system = "aarch64-linux";
             format = "raw-efi";
             specialArgs = {
               inherit inputs;
             };
-            modules = (import ./hosts/q6a/module.nix { inherit inputs; }) ++ [
-              "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            modules = [
+              "${inputs.nixpkgs}/nixos/modules/profiles/base.nix"
+              "${inputs.nixpkgs}/nixos/modules/profiles/installation-device.nix"
+              ./hosts/q6a/common.nix
               (
                 { lib, ... }:
                 {
                   hardware.enableAllHardware = lib.mkForce false;
+                    boot.supportedFilesystems.zfs = lib.mkForce false;
                 }
               )
             ];
@@ -278,7 +288,7 @@
       hydraJobs = {
         # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
         kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
-        q6a = packages."aarch64-linux".q6a-image;
+        q6a = packages."aarch64-linux".radxa-q6a-image;
       };
     };
 }

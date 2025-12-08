@@ -1,70 +1,33 @@
 {
   lib,
   pkgs,
-  config,
   ...
 }:
-let
-  aic8800-firmware = pkgs.callPackage ./aic8800-firmware.nix { };
-in
 {
   imports = [
     # Include the results of the hardware scan.
+    ./common.nix
+    ./hardware-configuration.nix
     ../../common
     ../../hardware/sound.nix
-    ./owrx.nix
     ../../graphic/desktop/niri.nix
     ../../graphic/software
+    ./hamradio.nix
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackagesFor (import ./kernel.nix { inherit pkgs; });
-    loader = {
-      systemd-boot = {
-        enable = true;
-        installDeviceTree = true;
-        edk2-uefi-shell.enable = true;
-      };
-      grub = {
-        #enable = true;
-        device = "/dev/disk/by-label/ESP";
-      };
-      efi.canTouchEfiVariables = false;
-      timeout = lib.mkDefault 5;
-    };
+    loader.timeout = lib.mkDefault 5;
+
     kernelParams = [
-      "console=ttyMSM0,115200n8"
-      "earlycon"
-      "keep_bootcon"
-      "systemd.setenv=SYSTEMD_SULOGIN_FORCE=1"
       "loglevel=8"
     ];
-
-    initrd = {
-      availableKernelModules = [
-        "usb_storage"
-        "nvme"
-        "xhci_hcd"
-      ];
-    };
   };
-
-  console.earlySetup = true;
 
   networking.firewall.allowedTCPPorts = [ 8073 ];
 
   systemd.enableEmergencyMode = true;
 
-  hardware = {
-    firmware = with pkgs; [
-      linux-firmware
-      aic8800-firmware
-    ];
-    deviceTree = {
-      enable = true;
-      name = "qcom/qcs6490-radxa-dragon-q6a.dtb";
-    };
-  };
+  hardware.uinput.enable = true;
 
   networking.hostName = "q6a-nixos";
 
@@ -89,15 +52,6 @@ in
 
   virtualisation.podman.enable = true;
 
-  boot.extraModulePackages = [
-    ((config.boot.kernelPackages.callPackage ./aic8800.nix { }).usb)
-  ];
-
-  boot.kernelModules = [
-    "aic8800_fdrv"
-    "aic_load_fw"
-  ];
-
   swapDevices = [
     {
       device = "/var/lib/swapfile";
@@ -116,21 +70,10 @@ in
     user = "cryolitia";
   };
 
-  boot.supportedFilesystems = {
-    zfs = lib.mkForce false;
-  };
-
   environment.systemPackages = with pkgs; [
-    wfview
-    gridtracker2
-    jtdx
-    tqsl
     helvum
     alsa-utils
-    gpredict
-    qsstv
     slurp
-    gpsd
   ];
 
   xdg.portal = {
@@ -154,13 +97,6 @@ in
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
-    ];
-  };
-
-  services.gpsd = {
-    enable = true;
-    devices = [
-      "/dev/ttyACM1"
     ];
   };
 }

@@ -37,7 +37,6 @@
     man-pages
     man-pages-posix
     jq
-    nexttrace
     parted
     podman-compose
     wiremix
@@ -85,7 +84,6 @@
       dns_enabled = true; # Enable DNS resolution in the podman network.
     };
   };
-  # networking.firewall.allowedUDPPorts = [ 53 ];
 
   programs.nexttrace.enable = true;
 
