@@ -288,7 +288,7 @@
       hydraJobs = {
         # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
         kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
-        q6a = packages."aarch64-linux".radxa-q6a-image;
+        q6a = nixosConfigurations.q6a-nixos.config.system.build.toplevel;
       };
     };
 }

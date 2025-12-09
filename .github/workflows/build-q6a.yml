@@ -1,0 +1,41 @@
+name: "Build Q6A Image"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    steps:
+    - name: Free Disk Space (Ubuntu)
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+        tool-cache: false
+        
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+    - uses: DeterminateSystems/flake-checker-action@main
+
+    - name: Print flake metadata
+      run: nix flake metadata --accept-flake-config
+    - name: Build Image
+      run: nix build .#radxa-q6a-image -vL --accept-flake-config
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        path: |
+          result/**/*.img
