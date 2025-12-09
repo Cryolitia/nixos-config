@@ -57,4 +57,7 @@ in
   environment.systemPackages = with pkgs; [
     fastfetch
   ];
+
+  # Configure network connections interactively with nmcli or nmtui.
+  networking.networkmanager.enable = true;
 }
