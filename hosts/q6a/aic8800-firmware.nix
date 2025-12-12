@@ -11,8 +11,8 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "deepin-community";
     repo = "aic8800";
-    rev = "a961e558325e8a32720ade0269a004ff24dc1872";
-    hash = "sha256-YXdBN2uuy9Ulxw9vRg87F8yyWXUD0ZvhvHCE+EFO5Xs=";
+    rev = "0cf6ce9bdf3593e1a67e646973178464e0af8c20";
+    hash = "sha256-+11G7sKfsbIuh4w0fRuxHSjFigYEX5iSmtxAWG0cxXw=";
   };
 
   dontBuild = true;

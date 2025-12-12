@@ -1,37 +1,37 @@
 {
     "dnsmasq-china-list": {
         "branch": "master",
-        "hash": "sha256-g5vkvH8b4gCsY1o9YTW4S5yU5K9ND9BO+GKXawmhriM=",
+        "hash": "sha256-j6KqpDpcpY2pK907KeGEA7REt9/ZmwgmISqIWlMu9iY=",
         "owner": "felixonmars",
         "repo": "dnsmasq-china-list",
-        "rev": "6d421448d6c42a8df910f6a318dbf613db9103bb",
+        "rev": "a4036bc84ab76850b8bb8a53742899b24bb6c0de",
         "type": "github"
     },
     "gatus": {
-        "latest": "v5.32.0",
+        "latest": "v5.33.1",
         "type": "container",
         "url": "ghcr.io/twin/gatus"
     },
     "home-assistant": {
-        "latest": "2025.11.2",
+        "latest": "2025.12.2",
         "type": "container",
         "url": "ghcr.io/home-assistant/home-assistant"
     },
     "kernel-q6a": {
         "branch": "linux-6.17.1",
-        "hash": "sha256-rF1XA82W8uo3tICNgnhTa6qCHY9H6y1bwVAf+Gqe9SI=",
+        "hash": "sha256-5nWveVNY5GevkBws1CjKf6WOGLFakBgiNzBsf6B2rrQ=",
         "owner": "radxa",
         "repo": "kernel",
-        "rev": "c4fba664b52da9595ed2a9bd17d7bb1a92a07786",
+        "rev": "996b43f72835d22c2f79e1f476dd34f90f9e69bb",
         "type": "github"
     },
     "owrx": {
-        "digest": "sha256:fad0c761b3303f82d4e6e66ab844dcf79ba4abf676a35e4ec625e5e5a8a51c60",
+        "digest": "sha256:d33977b62224e3e94208696600971d9b47b909f7f0c1d6ee19f1a80cf12af586",
         "type": "container",
         "url": "docker.io/slechev/openwebrxplus-softmbe"
     },
     "wavelog": {
-        "latest": "2.1.2",
+        "latest": "2.2.1",
         "type": "container",
         "url": "ghcr.io/wavelog/wavelog"
     }

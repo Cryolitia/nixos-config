@@ -22,4 +22,6 @@ in
       devices = [ "/dev/bus/usb:/dev/bus/usb" ];
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 8073 ];
 }

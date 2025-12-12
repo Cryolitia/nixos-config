@@ -20,26 +20,21 @@
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = {
+    ntfs = true;
+    zfs = lib.mkForce false;
+  };
 
   services.openssh.enable = true;
-
-  nixpkgs.overlays = [
-    (_: super: {
-      zfs = super.zfs.overrideAttrs (_: {
-        meta.platforms = [ ];
-      });
-    })
-  ];
 
   services.pulseaudio.enable = lib.mkForce false;
 
   environment.sessionVariables.POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = "true";
 
   systemd.user.services.activate-linux.serviceConfig.ExecStart = lib.mkForce ''
-    ${lib.getExe pkgs.activate-linux} -x 300 -y 80 -t "Activate NixOS" -m "Contact Cryolitia to activate NixOS"
+    ${lib.getExe pkgs.activate-linux} -x 400 -y 80 -t "Activate NixOS" -m "Evaluation Copy. Build ${lib.version}" -f "Sarasa Mono SC"
   '';
 
   # For test https://github.com/NixOS/nixpkgs/pull/271342
