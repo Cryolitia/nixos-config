@@ -12,22 +12,16 @@
     ../../hardware/sound.nix
     ../../graphic/desktop/niri.nix
     ../../graphic/software
-    ./hamradio.nix
   ];
 
-  boot = {
-    loader.timeout = lib.mkDefault 5;
-
-    kernelParams = [
-      "loglevel=8"
-    ];
+  boot.loader = {
+    timeout = lib.mkDefault 5;
+    systemd-boot-enable = true;
   };
 
   systemd.enableEmergencyMode = true;
 
-  hardware.uinput.enable = true;
-
-  networking.hostName = "q6a-nixos";
+  networking.hostName = "o6-nixos";
 
   services.openssh.enable = true;
 
@@ -50,25 +44,8 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 6 * 1024;
+      size = 16 * 1024;
     }
-  ];
-
-  services.sunshine = {
-    enable = true;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
-
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "cryolitia";
-  };
-
-  environment.systemPackages = with pkgs; [
-    helvum
-    alsa-utils
-    slurp
   ];
 
   xdg.portal = {
@@ -85,13 +62,6 @@
       xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
       xdg-desktop-portal-wlr
-    ];
-  };
-
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
     ];
   };
 }

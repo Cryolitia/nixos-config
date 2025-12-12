@@ -41,7 +41,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:Cryolitia-forks/nixos-hardware/0ebdcce";
+    nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/sky1";
 
     nur = {
       url = "github:nix-community/NUR";
@@ -161,6 +162,28 @@
               { services.vscode-server.enable = true; }
             ]);
         };
+
+        o6-nixos = inputs.nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules =
+            (commonModule (import ./hosts/o6/home.nix))
+            ++ (with inputs; [
+
+              ./hosts/o6
+
+              vscode-server.nixosModules.default
+
+              { services.vscode-server.enable = true; }
+
+              inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+              {
+                boot.initrd.allowMissingModules = true;
+              }
+            ]);
+        };
       };
 
       packages = eachSystem (
@@ -192,10 +215,29 @@
                 { lib, ... }:
                 {
                   hardware.enableAllHardware = lib.mkForce false;
-                    boot.supportedFilesystems.zfs = lib.mkForce false;
+                  boot.supportedFilesystems.zfs = lib.mkForce false;
+                  system.nixos.tags = [ "radxa-q6a" ];
                 }
               )
             ];
+          };
+
+          radxa-o6-iso = inputs.nixos-generators.nixosGenerate {
+            system = "aarch64-linux";
+            format = "install-iso";
+            specialArgs = {
+              inherit inputs;
+            };
+            modules =
+              (commonModule (import ./hosts/image/home.nix))
+              ++ (with inputs; [
+                ./hosts/image
+                inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+                {
+                  boot.initrd.allowMissingModules = true;
+                  system.nixos.tags = [ "radxa-o6" ];
+                }
+              ]);
           };
 
           neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);

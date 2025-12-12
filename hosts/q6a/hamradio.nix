@@ -14,6 +14,7 @@
     wfview
     gridtracker2
     jtdx
+    wsjtx
     tqsl
     gpredict
     qsstv
