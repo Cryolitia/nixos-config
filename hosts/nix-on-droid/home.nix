@@ -1,22 +1,7 @@
-{
-  lib,
-  inputs,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 
 {
-
-  imports = [
-    inputs.nix-index-database.homeModules.nix-index
-  ];
-
   programs.nix-index.enable = true;
-
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "cryolitia";
-  home.homeDirectory = "/home/cryolitia";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -25,11 +10,11 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "22.11"; # Please read the comment before changing.
+  home.stateVersion = "24.05"; # Please read the comment before changing.
 
   programs.zsh = {
     enable = true;
-    initContent = ''
+    initExtra = ''
       source ~/.p10k.zsh
       export SSH_AUTH_SOCK="/run/user/1000/gnupg/S.gpg-agent.ssh"
     '';
@@ -42,12 +27,10 @@
 
   programs.git = {
     enable = true;
+    userName = "Cryolitia PukNgae";
+    userEmail = "Cryolitia@gmail.com";
     package = pkgs.gitFull;
-    settings = {
-      user = {
-        name = "Cryolitia PukNgae";
-        email = "Cryolitia@gmail.com";
-      };
+    extraConfig = {
       core = {
         autocrlf = "input";
       };
@@ -103,8 +86,8 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
-    ".p10k.zsh".source = ../dotfiles/.p10k.zsh;
-    ".config/hyfetch.json".source = ../dotfiles/hyfetch.json;
+    ".p10k.zsh".source = ../../dotfiles/.p10k.zsh;
+    ".config/hyfetch.json".source = ../../dotfiles/hyfetch.json;
   };
 
   # You can also manage environment variables but you will have to manually

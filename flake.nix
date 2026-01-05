@@ -16,6 +16,7 @@
       "https://cuda-maintainers.cachix.org"
       "https://ezkea.cachix.org"
       "https://niri.cachix.org"
+      "https://nix-on-droid.cachix.org"
       "http://cache.cryolitia.dn42"
     ];
     trusted-public-keys = [
@@ -26,6 +27,7 @@
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "kp920.cryolitia.dn42:M68UcYMNX/2yWXFwDb21jAregdcIsF3uIrSmXldX70k="
+      "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU="
     ];
   };
 
@@ -98,6 +100,19 @@
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs-2405";
+      inputs.home-manager.follows = "home-manager-2405";
+    };
+
+    nixpkgs-2405.url = "github:nixos/nixpkgs/nixos-24.05";
+
+    home-manager-2405 = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs-2405";
     };
   };
 
@@ -194,7 +209,7 @@
         {
           iso = inputs.nixos-generators.nixosGenerate {
             inherit system;
-            modules = (commonModule (import ./hosts/image/home.nix)) ++ (with inputs; [ ./hosts/image ]);
+            modules = (commonModule (import ./hosts/image/home.nix)) ++ ([ ./hosts/image ]);
             format = "install-iso";
             specialArgs = {
               inherit inputs;
@@ -228,16 +243,14 @@
             specialArgs = {
               inherit inputs;
             };
-            modules =
-              (commonModule (import ./hosts/image/home.nix))
-              ++ (with inputs; [
-                ./hosts/image
-                inputs.nixos-hardware-yuntian.nixosModules.orion-o6
-                {
-                  boot.initrd.allowMissingModules = true;
-                  system.nixos.tags = [ "radxa-o6" ];
-                }
-              ]);
+            modules = (commonModule (import ./hosts/image/home.nix)) ++ ([
+              ./hosts/image
+              inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+              {
+                boot.initrd.allowMissingModules = true;
+                system.nixos.tags = [ "radxa-o6" ];
+              }
+            ]);
           };
 
           neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
@@ -327,10 +340,36 @@
         })
       );
 
+      nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+        modules = [
+          ./hosts/nix-on-droid
+        ];
+
+        # list of extra special args for Nix-on-Droid modules
+        extraSpecialArgs = {
+          inherit inputs;
+          # rootPath = ./.;
+        };
+
+        # set nixpkgs instance, it is recommended to apply `nix-on-droid.overlays.default`
+        pkgs = import inputs.nixpkgs-2405 {
+          system = "aarch64-linux";
+
+          overlays = [
+            inputs.nix-on-droid.overlays.default
+            # add other overlays
+          ];
+        };
+
+        # set path to home-manager flake
+        home-manager-path = inputs.home-manager-2405.outPath;
+      };
+
       hydraJobs = {
         # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
         kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
         q6a = nixosConfigurations.q6a-nixos.config.system.build.toplevel;
+        nix-on-droid = nixOnDroidConfigurations.default;
       };
     };
 }
