@@ -92,6 +92,9 @@
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
+      obs-gstreamer
     ];
   };
+
+  hardware.bluetooth.enable = false;
 }
