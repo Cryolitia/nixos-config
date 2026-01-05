@@ -6,7 +6,6 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./common.nix
     ./hardware-configuration.nix
     ../../common
     ../../hardware/sound.nix
@@ -16,7 +15,7 @@
 
   boot.loader = {
     timeout = lib.mkDefault 5;
-    systemd-boot-enable = true;
+    systemd-boot.enable = true;
   };
 
   systemd.enableEmergencyMode = true;
@@ -48,20 +47,10 @@
     }
   ];
 
-  xdg.portal = {
-    enable = true;
-    config.niri = {
-      default = [ "gtk" ];
-      "org.freedesktop.impl.portal.Secret" = [
-        "gnome-keyring"
-      ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
+  specialisation = {
+    mainline.configuration = {
+      hardware.cix.sky1.bspRelease = "none";
+      boot.kernelPackages = pkgs.linuxPackages_latest;
     };
-    wlr.enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
-    ];
   };
 }

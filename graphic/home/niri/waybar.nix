@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  osConfig,
+  ...
+}:
 {
   programs.waybar = {
     enable = true;
@@ -28,7 +33,9 @@
           "idle_inhibitor"
           "pulseaudio"
           "network"
-          "bluetooth"
+        ]
+        ++ (lib.optionals osConfig.hardware.bluetooth.enable [ "bluetooth" ])
+        ++ [
           "cpu"
           "memory"
           "temperature"

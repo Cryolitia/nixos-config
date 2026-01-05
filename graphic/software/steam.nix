@@ -22,17 +22,4 @@
   programs.gamemode.enable = true;
 
   environment.systemPackages = [ pkgs.mangohud ];
-
-  nixpkgs.overlays = [
-    (_: super: {
-      gamescope = super.gamescope.overrideAttrs (oldAttrs: {
-        patches = (oldAttrs.patches or [ ]) ++ [
-          (pkgs.fetchpatch {
-            url = "https://github.com/ValveSoftware/gamescope/commit/e07c32c6684b56bf969e22a9f04e6a2c1dd95061.patch";
-            hash = "sha256-ONjSInJ7M8niL5xWaNk5Z16ZMcM/A7M7bHTrgCFjrts=";
-          })
-        ];
-      });
-    })
-  ];
 }
