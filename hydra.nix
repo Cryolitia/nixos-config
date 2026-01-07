@@ -11,9 +11,10 @@ let
   output = builtins.getFlake (toString ./.);
 in
 {
-  linux_rpi5 = pkgs.linux_rpi4.override {
-    rpiVersion = 5;
-    argsOverride.defconfig = "bcm2712_defconfig";
-  };
+  # linux_rpi5 = pkgs.linux_rpi4.override {
+  #   rpiVersion = 5;
+  #   argsOverride.defconfig = "bcm2712_defconfig";
+  # };
   linux_q6a = output.outputs.packages."aarch64-linux".linux_q6a;
+  linux_o6 = output.outputs.nixosConfigurations.o6-nixos.config.boot.kernelPackages.kernel;
 }
