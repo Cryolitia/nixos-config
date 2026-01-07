@@ -273,18 +273,6 @@
             argsOverride.defconfig = "bcm2712_defconfig";
           };
 
-          pkgsCross.aarch64-multiplatform.linux_rpi5 =
-            (import inputs.nixpkgs {
-              inherit system;
-              crossSystem = {
-                config = "aarch64-unknown-linux-gnu";
-              };
-            }).linuxKernel.kernels.linux_rpi4.override
-              {
-                rpiVersion = 5;
-                argsOverride.defconfig = "bcm2712_defconfig";
-              };
-
           linux_q6a = import ./hosts/q6a/kernel.nix { inherit pkgs; };
         }
       );
@@ -369,7 +357,6 @@
         # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
         kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
         q6a = nixosConfigurations.q6a-nixos.config.system.build.toplevel;
-        nix-on-droid = nixOnDroidConfigurations.default;
       };
     };
 }
