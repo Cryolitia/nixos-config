@@ -5,7 +5,7 @@
   kernel,
   kernelModuleMakeFlags,
   dpkg,
-#  aic8800-firmware,
+  #  aic8800-firmware,
 }:
 let
   aic8800-firmware = pkgs.callPackage ./aic8800-firmware.nix { };

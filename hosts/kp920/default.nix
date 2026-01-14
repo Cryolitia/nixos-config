@@ -6,6 +6,7 @@
     ./hardware-configuration.nix
     ./software
     ../../common
+    ../../common/cooperator.nix
     ./hardware/bluetooth.nix
     ../../hardware/sound.nix
     ./dn42
