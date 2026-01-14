@@ -103,8 +103,8 @@ in
   gtk = {
     enable = true;
     theme = {
-      name = "Arc";
-      package = pkgs.arc-theme;
+      name = "Nordic";
+      package = pkgs.nordic;
     };
     font.name = "更纱黑体 SC 11";
   };

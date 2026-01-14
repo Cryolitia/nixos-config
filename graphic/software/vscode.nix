@@ -3,8 +3,12 @@
 let
   vscode-extensions-input = inputs.nix-vscode-extensions;
   vscode-extensions =
-    pkgs.lib.attrsets.recursiveUpdate vscode-extensions-input.extensions.${pkgs.system}
-      (vscode-extensions-input.extensions.${pkgs.system}.forVSCodeVersion pkgs.vscode.version);
+    pkgs.lib.attrsets.recursiveUpdate
+      vscode-extensions-input.extensions.${pkgs.stdenv.hostPlatform.system}
+      (
+        vscode-extensions-input.extensions.${pkgs.stdenv.hostPlatform.system}.forVSCodeVersion
+          pkgs.vscode.version
+      );
 in
 
 (pkgs.vscode-with-extensions.override {

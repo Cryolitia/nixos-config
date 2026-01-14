@@ -6,7 +6,7 @@
 let
   pkgs-patched = (
     import inputs.nixpkgs-patched {
-      system = pkgs.system;
+      system = pkgs.stdenv.hostPlatform.system;
     }
   );
 in

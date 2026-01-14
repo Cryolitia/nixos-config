@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 pkgs.treefmt.withConfig {
-  runtimeInputs = [ pkgs.nixfmt-rfc-style ];
+  runtimeInputs = [ pkgs.nixfmt ];
 
   settings = {
     # Log level for files treefmt won't format
