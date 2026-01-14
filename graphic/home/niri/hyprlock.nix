@@ -130,15 +130,9 @@
     extraArgs = [
       "-w"
     ];
-    events = [
-      {
-        event = "before-sleep";
-        command = "${pkgs.systemd}/bin/loginctl lock-session && sleep 5";
-      }
-      {
-        event = "lock";
-        command = "${pkgs.systemd}/bin/systemd-run -u hyprlock --service-type=exec --user ${lib.getExe pkgs.hyprlock} --grace 0";
-      }
-    ];
+    events = {
+      before-sleep = "${pkgs.systemd}/bin/loginctl lock-session && sleep 5";
+      lock = "${pkgs.systemd}/bin/systemd-run -u hyprlock --service-type=exec --user ${lib.getExe pkgs.hyprlock} --grace 0";
+    };
   };
 }

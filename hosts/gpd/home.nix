@@ -4,7 +4,7 @@
   imports = [ ../../graphic/home ];
 
   programs.git.signing = {
-    signByDefault = true;
+    signByDefault = false;
     key = "3E5D1772FC8A8EDD";
   };
 
