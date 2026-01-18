@@ -383,16 +383,16 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1765372024,
-        "narHash": "sha256-/9yBTzMBHDK1IvgxRSGZvLp5VYjBSiEWnU2Z4K1GYl4=",
-        "owner": "Cryolitia-forks",
+        "lastModified": 1768736227,
+        "narHash": "sha256-qgGq7CfrYKc3IBYQ7qp0Z/ZXndQVC5Bj0N8HW9mS2rM=",
+        "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "0ebdcce3b2135681280a1dc48f02ecb6f98d2a80",
+        "rev": "d447553bcbc6a178618d37e61648b19e744370df",
         "type": "github"
       },
       "original": {
-        "owner": "Cryolitia-forks",
-        "ref": "0ebdcce",
+        "owner": "NixOS",
+        "ref": "master",
         "repo": "nixos-hardware",
         "type": "github"
       }
