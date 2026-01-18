@@ -7,7 +7,7 @@
       "flakes"
     ];
     substituters = [
-      # "https://mirrors.mirrorz.org/nix-channels/store"
+      "https://mirrors.mirrorz.org/nix-channels/store"
       "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
 
@@ -43,7 +43,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:Cryolitia-forks/nixos-hardware/0ebdcce";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/sky1";
 
     nur = {
@@ -243,14 +243,16 @@
             specialArgs = {
               inherit inputs;
             };
-            modules = (commonModule (import ./hosts/image/home.nix)) ++ ([
-              ./hosts/image
-              inputs.nixos-hardware-yuntian.nixosModules.orion-o6
-              {
-                boot.initrd.allowMissingModules = true;
-                system.nixos.tags = [ "radxa-o6" ];
-              }
-            ]);
+            modules =
+              (commonModule (import ./hosts/image/home.nix))
+              ++ (with inputs; [
+                ./hosts/image
+                inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+                {
+                  boot.initrd.allowMissingModules = true;
+                  system.nixos.tags = [ "radxa-o6" ];
+                }
+              ]);
           };
 
           neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
