@@ -10,7 +10,17 @@
     ../../common
     ../../hardware/sound.nix
     ../../graphic/desktop/niri.nix
+    ../../graphic/desktop/gnome.nix
     ../../graphic/software
+    (
+      { lib, config, ... }:
+      {
+        config = lib.mkIf (config.specialisation != { }) {
+          hardware.cix.sky1.bspRelease = "none";
+          boot.kernelPackages = pkgs.linuxPackages_latest;
+        };
+      }
+    )
   ];
 
   boot.loader = {
@@ -48,9 +58,10 @@
   ];
 
   specialisation = {
-    mainline.configuration = {
-      hardware.cix.sky1.bspRelease = "none";
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+    vendor.configuration = {
+      # Use CIX vendor kernel
     };
   };
+
+  services.displayManager.gdm.autoSuspend = false;
 }
