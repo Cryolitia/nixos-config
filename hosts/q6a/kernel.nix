@@ -9,8 +9,8 @@ in
 
 pkgs.buildLinux {
   defconfig = "qcom_module_defconfig";
-  version = "6.17.1-q6a";
-  modDirVersion = "6.17.1";
+  version = "6.18.2-q6a";
+  modDirVersion = "6.18.2";
 
   src = pkgs.fetchFromGitHub {
     inherit (version)
@@ -27,6 +27,7 @@ pkgs.buildLinux {
   };
 
   extraConfig = ''
+    DRM_NOVA n
     NOVA_CORE n
     COMPRESSED_INSTALL n
     WLAN_VENDOR_AIC8800 n

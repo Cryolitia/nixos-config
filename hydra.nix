@@ -16,5 +16,6 @@ in
   #   argsOverride.defconfig = "bcm2712_defconfig";
   # };
   linux_q6a = output.outputs.packages."aarch64-linux".linux_q6a;
-  linux_o6 = output.outputs.nixosConfigurations.o6-nixos.config.boot.kernelPackages.kernel;
+  linux_o6 =
+    output.outputs.nixosConfigurations.o6-nixos.config.specialisation.vendor.configuration.boot.kernelPackages.kernel;
 }
