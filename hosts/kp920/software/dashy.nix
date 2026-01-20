@@ -91,7 +91,7 @@
             hideForGuests = false;
           };
           items = lib.mkMerge [
-            (lib.optional config.virtualisation.oci-containers.containers.gatus.autoStart {
+            (lib.optional config.services.gatus.enable {
               title = "Status";
               description = pkgs.gatus.meta.description;
               icon = "hl-gatus";

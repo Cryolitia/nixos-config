@@ -20,7 +20,7 @@
     qsstv
     gpsd
     (sdrpp.override { sdrplay_source = true; })
-    sdrangel
+    (sdrangel.override { withSDRplay = true; })
     fldigi
   ];
 
