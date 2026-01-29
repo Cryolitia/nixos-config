@@ -78,11 +78,9 @@
       "org.freedesktop.impl.portal.Secret" = [
         "gnome-keyring"
       ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
     };
     wlr.enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
       xdg-desktop-portal-wlr
     ];

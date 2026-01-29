@@ -37,6 +37,14 @@
 
   nixpkgs.overlays = [
     (final: prev: {
+      fftw = prev.fftw.overrideAttrs (prev: {
+        configureFlags = prev.configureFlags ++ [ "--enable-neon" ];
+      });
+      fftwFloat = prev.fftwFloat.overrideAttrs (prev: {
+        configureFlags = prev.configureFlags ++ [ "--enable-neon" ];
+      });
+    })
+    (final: prev: {
       soapysdrplay = prev.soapysdrplay.overrideAttrs (prev: {
         cmakeFlags = prev.cmakeFlags ++ [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
       });
