@@ -29,6 +29,7 @@
         };
         General.Locale = "zh_CN";
       };
+      BitTorrent.Session.QueueingSystemEnabled = false;
     };
   };
 

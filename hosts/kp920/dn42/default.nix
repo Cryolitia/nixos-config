@@ -9,7 +9,7 @@
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = "yes";
-      ExecStart = "${pkgs.iproute2}/bin/ip -6 addr add fdd2:4372:796f::1/64 dev enp4s0f0";
+      ExecStart = "${pkgs.iproute2}/bin/ip -6 addr add fdd2:4372:796f::1/64 dev enx6c92bf27043a";
     };
   };
 

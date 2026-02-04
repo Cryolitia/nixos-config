@@ -26,7 +26,6 @@ in
   home.sessionVariables = {
     GTK_THEME = "Arc-Dark";
     QT_STYLE_OVERRIDE = "Nordic-Polar";
-    GDK_BACKEND = "wayland,x11";
     QT_QPA_PLATFORM = "wayland;xcb";
   };
 

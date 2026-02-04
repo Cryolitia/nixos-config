@@ -30,7 +30,7 @@ in
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  networking.hostName = "cryolitia-gpd-nixos"; # Define your hostname.
+  networking.hostName = "cryolitia-gpd-wm2-nixos"; # Define your hostname.
 
   services.logind.settings.Login.HandleLidSwitchExternalPower = "lock";
 

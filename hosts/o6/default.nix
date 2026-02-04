@@ -30,7 +30,7 @@
 
   systemd.enableEmergencyMode = true;
 
-  networking.hostName = "o6-nixos";
+  networking.hostName = "cryolitia-radxa-o6-nixos";
 
   services.openssh.enable = true;
 
