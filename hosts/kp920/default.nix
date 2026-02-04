@@ -17,6 +17,8 @@
     kernelParams = [
       "initcall_blacklist=hisi_ddrc_pmu_module_init"
       "arm64.nompam"
+      "console=ttyMSM0,115200n8"
+      "earlycon"
     ];
     loader = {
       systemd-boot.enable = true;
@@ -25,7 +27,7 @@
   };
 
   networking = {
-    hostName = "kp920-nixos";
+    hostName = "cryolitia-huawei-kp920-nixos";
     tempAddresses = "disabled";
     firewall.enable = true;
   };

@@ -121,85 +121,88 @@
     let
       commonModule = import ./common/module.nix { inherit inputs; };
       eachSystem = inputs.nixpkgs.lib.genAttrs (import inputs.systems);
+      lib = inputs.nixpkgs.lib;
     in
     builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」" rec {
       # nixosConfigurations.[name].config.system.build.toplevel
-      nixosConfigurations = {
-        cryolitia-gpd-nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
+      nixosConfigurations =
+        lib.mapAttrs' (name: value: lib.nameValuePair ("cryolitia-" + name + "-nixos") value)
+          {
+            gpd-wm2 = inputs.nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              specialArgs = {
+                inherit inputs;
+              };
+
+              modules =
+                (commonModule (import ./hosts/gpd/home.nix))
+                ++ (with inputs; [
+
+                  ./hosts/gpd
+
+                  nixos-hardware.nixosModules.gpd-win-max-2-2023
+                  # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+
+                  nur-cryolitia.nixosModules.gpd-fan-driver
+                ]);
+            };
+
+            huawei-kp920 = inputs.nixpkgs.lib.nixosSystem {
+              system = "aarch64-linux";
+              specialArgs = {
+                inherit inputs;
+              };
+              modules =
+                (commonModule (import ./hosts/kp920/home.nix))
+                ++ (with inputs; [
+
+                  ./hosts/kp920
+
+                  vscode-server.nixosModules.default
+
+                  { services.vscode-server.enable = true; }
+                ]);
+            };
+
+            radxa-q6a = inputs.nixpkgs.lib.nixosSystem {
+              system = "aarch64-linux";
+              specialArgs = {
+                inherit inputs;
+              };
+              modules =
+                (commonModule (import ./hosts/q6a/home.nix))
+                ++ (with inputs; [
+
+                  ./hosts/q6a
+
+                  vscode-server.nixosModules.default
+
+                  { services.vscode-server.enable = true; }
+                ]);
+            };
+
+            radxa-o6 = inputs.nixpkgs.lib.nixosSystem {
+              system = "aarch64-linux";
+              specialArgs = {
+                inherit inputs;
+              };
+              modules =
+                (commonModule (import ./hosts/o6/home.nix))
+                ++ (with inputs; [
+
+                  ./hosts/o6
+
+                  vscode-server.nixosModules.default
+
+                  { services.vscode-server.enable = true; }
+
+                  inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+                  {
+                    boot.initrd.allowMissingModules = true;
+                  }
+                ]);
+            };
           };
-
-          modules =
-            (commonModule (import ./hosts/gpd/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/gpd
-
-              nixos-hardware.nixosModules.gpd-win-max-2-2023
-              # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-
-              nur-cryolitia.nixosModules.gpd-fan-driver
-            ]);
-        };
-
-        kp920-nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules =
-            (commonModule (import ./hosts/kp920/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/kp920
-
-              vscode-server.nixosModules.default
-
-              { services.vscode-server.enable = true; }
-            ]);
-        };
-
-        q6a-nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules =
-            (commonModule (import ./hosts/q6a/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/q6a
-
-              vscode-server.nixosModules.default
-
-              { services.vscode-server.enable = true; }
-            ]);
-        };
-
-        o6-nixos = inputs.nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules =
-            (commonModule (import ./hosts/o6/home.nix))
-            ++ (with inputs; [
-
-              ./hosts/o6
-
-              vscode-server.nixosModules.default
-
-              { services.vscode-server.enable = true; }
-
-              inputs.nixos-hardware-yuntian.nixosModules.orion-o6
-              {
-                boot.initrd.allowMissingModules = true;
-              }
-            ]);
-        };
-      };
 
       packages = eachSystem (
         system:
@@ -357,8 +360,9 @@
 
       hydraJobs = {
         # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
-        kp920 = nixosConfigurations.kp920-nixos.config.system.build.toplevel;
-        q6a = nixosConfigurations.q6a-nixos.config.system.build.toplevel;
+        huawei-kp920 = nixosConfigurations.cryolitia-huawei-kp920-nixos.config.system.build.toplevel;
+        radxa-q6a = nixosConfigurations.cryolitia-radxa-q6a-nixos.config.system.build.toplevel;
+        radxa-o6 = nixosConfigurations.cryolitia-radxa-o6-nixos.config.system.build.toplevel;
       };
     };
 }

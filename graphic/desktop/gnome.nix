@@ -97,20 +97,4 @@
     enable = true;
     terminal = "kitty";
   };
-
-  # xdg.portal = {
-  #   extraPortals = with pkgs; [
-  #     #xdg-desktop-portal-gnome
-  #   ];
-  #   config = {
-  #     common = {
-  #       default = [
-  #         "gtk"
-  #       ];
-  #       "org.freedesktop.impl.portal.Secret" = [
-  #         "gnome-keyring"
-  #       ];
-  #     };
-  #   };
-  # };
 }

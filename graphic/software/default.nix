@@ -36,14 +36,14 @@
 
   services.xserver.excludePackages = [ pkgs.xterm ];
 
-  xdg.portal = {
-    enable = true;
-    config = lib.mkDefault {
-      common = {
-        default = lib.mkDefault [
-          "gtk"
-        ];
-      };
-    };
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   config = lib.mkDefault {
+  #     common = {
+  #       default = lib.mkDefault [
+  #         "gtk"
+  #       ];
+  #     };
+  #   };
+  # };
 }

@@ -42,6 +42,4 @@
   ];
 
   security.pam.services.hyprlock = { };
-
-  xdg.portal.wlr.enable = true;
 }

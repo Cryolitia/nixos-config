@@ -27,7 +27,7 @@
 
   hardware.uinput.enable = true;
 
-  networking.hostName = "q6a-nixos";
+  networking.hostName = "cryolitia-radxa-q6a-nixos";
 
   services.openssh.enable = true;
 
@@ -71,30 +71,7 @@
     slurp
   ];
 
-  xdg.portal = {
-    enable = true;
-    config.niri = {
-      default = [ "gtk" ];
-      "org.freedesktop.impl.portal.Secret" = [
-        "gnome-keyring"
-      ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
-    };
-    wlr.enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
-    ];
-  };
-
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-gstreamer
-    ];
-  };
+  programs.obs-studio.enable = true;
 
   hardware.bluetooth.enable = false;
 }
