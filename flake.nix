@@ -114,6 +114,11 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-2405";
     };
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -204,6 +209,27 @@
             };
           };
 
+      darwinConfigurations."Cryolitia-MacBook-Air" = inputs.nix-darwin.lib.darwinSystem {
+        modules = [
+          ./hosts/darwin
+          { nixpkgs.overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ]; }
+          inputs.home-manager.darwinModules.home-manager
+          inputs.nur.modules.darwin.default
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = false;
+            home-manager.backupFileExtension = "backup";
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+            home-manager.users.cryolitia = (import ./hosts/darwin/home.nix);
+          }
+        ];
+        specialArgs = {
+          inherit inputs;
+        };
+      };
+
       packages = eachSystem (
         system:
         let
@@ -262,6 +288,7 @@
 
           vscode = (
             import ./graphic/software/vscode.nix {
+              inherit inputs;
               pkgs = import inputs.nixpkgs {
                 config = {
                   allowUnfree = true;

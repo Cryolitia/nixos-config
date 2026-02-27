@@ -159,6 +159,12 @@
   # always use the daemon
   environment.variables.NIX_REMOTE = "daemon";
 
+  environment.variables = {
+    NIXPKGS_ALLOW_UNFREE = "1";
+    EDITOR = "nvim";
+    SSH_AUTH_SOCK = "/run/user/1000/gnupg/S.gpg-agent.ssh";
+  };
+
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
       if (subject.isInGroup("wheel"))

@@ -16,7 +16,8 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "cryolitia";
-  home.homeDirectory = "/home/cryolitia";
+  home.homeDirectory =
+    if pkgs.stdenv.hostPlatform.isDarwin then "/Users/cryolitia" else "/home/cryolitia";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -31,7 +32,6 @@
     enable = true;
     initContent = ''
       source ~/.p10k.zsh
-      export SSH_AUTH_SOCK="/run/user/1000/gnupg/S.gpg-agent.ssh"
     '';
     history = {
       extended = true;
@@ -68,27 +68,6 @@
   #    gitCredentialHelper.enable = true;
   #  };
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-  ];
-
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -105,22 +84,6 @@
 
     ".p10k.zsh".source = ../dotfiles/.p10k.zsh;
     ".config/hyfetch.json".source = ../dotfiles/hyfetch.json;
-  };
-
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/cryolitia/etc/profile.d/hm-session-vars.sh
-  #
-  # if you don't want to manage your shell through Home Manager.
-  home.sessionVariables = {
-    NIXPKGS_ALLOW_UNFREE = 1;
-    EDITOR = "nvim";
-    SSH_AUTH_SOCK = "/run/user/1000/gnupg/S.gpg-agent.ssh";
   };
 
   # Let Home Manager install and manage itself.

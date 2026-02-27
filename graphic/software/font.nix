@@ -1,17 +1,7 @@
 { pkgs, ... }:
 {
   fonts = {
-    packages = with pkgs; [
-      sarasa-gothic
-      nerd-fonts.jetbrains-mono
-      source-han-serif
-      source-han-sans
-      noto-fonts-color-emoji
-      shanggu-fonts
-      lxgw-wenkai
-      arphic-ukai
-      dinish
-    ];
+    packages = (import ./fontPackages.nix { inherit pkgs; });
 
     fontconfig = {
       defaultFonts = {

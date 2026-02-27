@@ -1,4 +1,4 @@
-.PHONY: boot-nom, switch, boot, build-nom, build, build-no-cache, remote, clean, fmt
+.PHONY: boot-nom, switch, boot, build-nom, build, build-no-cache, remote, clean, fmt, darwin
 
 boot-nom: fmt deadnix
 	sudo nixos-rebuild boot --flake .# --log-format internal-json -v --accept-flake-config |& nom --json
@@ -39,3 +39,6 @@ deadnix:
 update:
 	nix flake update
 	./update.py
+
+darwin: fmt deadnix
+	sudo darwin-rebuild switch --flake .# -vL

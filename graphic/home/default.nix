@@ -7,13 +7,11 @@
 }:
 
 let
-
-  jsonFormat = pkgs.formats.json { };
-  yamlFormat = pkgs.formats.yaml { };
-
   rimeConfig = ../../dotfiles/rime/default.custom.yaml;
   rimeDict = ../../dotfiles/rime/my.dict.yaml;
   rimeIce = ../../dotfiles/rime/rime_ice.custom.yaml;
+
+  vscodeConfig = import ./vscode.nix { inherit pkgs; };
 in
 {
   imports = [
@@ -41,53 +39,7 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
-    ".config/Code/User/settings.json".source = jsonFormat.generate "vscode-user-settings" {
-      "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
-      "editor.unicodeHighlight.nonBasicASCII" = false;
-      "editor.wordWrap" = "on";
-      "files.autoSave" = "afterDelay";
-      "git.enableSmartCommit" = true;
-      "latex-workshop.latex.autoBuild.run" = "never";
-      "latex-workshop.view.pdf.viewer" = "tab";
-      "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font Mono";
-      "workbench.colorTheme" = "Material Theme Darker High Contrast";
-      "workbench.editor.enablePreview" = false;
-      "workbench.preferredDarkColorTheme" = "Material Theme High Contrast";
-      "workbench.preferredLightColorTheme" = "Material Theme Lighter High Contrast";
-      "glassit.alpha" = 220;
-      "workbench.iconTheme" = "eq-material-theme-icons";
-      "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "nixd";
-      "nix.serverSettings" = {
-        "nixd" = {
-          "formatting" = {
-            "command" = "nixpkgs-fmt";
-          };
-        };
-      };
-      "debug.javascript.autoAttachFilter" = "onlyWithFlag";
-      "git.autofetch" = false;
-      "latex-workshop.latex.recipe.default" = "latexmk (xelatex)";
-      "files.insertFinalNewline" = true;
-      "[json]" = {
-        "editor.defaultFormatter" = "esbenp.prettier-vscode";
-      };
-      "[markdown]" = {
-        "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
-      };
-      "[html]" = {
-        "editor.defaultFormatter" = "esbenp.prettier-vscode";
-      };
-      "editor.unicodeHighlight.allowedLocales" = {
-        zh-hans = true;
-      };
-      "github.copilot.editor.enableAutoCompletions" = true;
-      "gitlens.ai.experimental.generateCommitMessage.enabled" = false;
-
-      "[css]" = {
-        "editor.defaultFormatter" = "esbenp.prettier-vscode";
-      };
-    };
+    ".config/Code/User/settings.json".source = vscodeConfig;
 
     ".config/ibus/rime/default.custom.yaml".source = rimeConfig;
     ".local/share/fcitx5/rime/default.custom.yaml".source = rimeConfig;
