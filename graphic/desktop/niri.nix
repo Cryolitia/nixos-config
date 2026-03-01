@@ -42,4 +42,6 @@
   ];
 
   security.pam.services.hyprlock = { };
+
+  programs.dconf.enable = true;
 }

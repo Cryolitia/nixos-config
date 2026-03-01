@@ -35,14 +35,10 @@
 
   services.xserver.excludePackages = [ pkgs.xterm ];
 
-  # xdg.portal = {
-  #   enable = true;
-  #   config = lib.mkDefault {
-  #     common = {
-  #       default = lib.mkDefault [
-  #         "gtk"
-  #       ];
-  #     };
-  #   };
-  # };
+  xdg.terminal-exec = {
+    enable = true;
+    settings.default = [ "kitty.desktop" ];
+  };
+
+  services.nixseparatedebuginfod2.enable = true;
 }

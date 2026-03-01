@@ -152,6 +152,19 @@
                 ]);
             };
 
+            lecoo-minipro = inputs.nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              specialArgs = {
+                inherit inputs;
+              };
+
+              modules =
+                (commonModule (import ./hosts/lecoo/home.nix))
+                ++ (with inputs; [
+                  ./hosts/lecoo
+                ]);
+            };
+
             huawei-kp920 = inputs.nixpkgs.lib.nixosSystem {
               system = "aarch64-linux";
               specialArgs = {

@@ -82,11 +82,6 @@ in
     SUBSYSTEM=="usb", ATTRS{idVendor}=="2f24", ATTRS{idProduct}=="0135", MODE="0666", GROUP="plugdev"
   '';
 
-  xdg.terminal-exec = {
-    enable = true;
-    settings.default = [ "kitty.desktop" ];
-  };
-
   hardware.gpd-fan.enable = true;
 
   services.sunshine = {
@@ -95,8 +90,6 @@ in
     capSysAdmin = true;
     # autoStart = false;
   };
-
-  services.nixseparatedebuginfod2.enable = true;
 
   hardware.xone.enable = true;
   hardware.xpad-noone.enable = true;
