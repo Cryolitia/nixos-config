@@ -45,6 +45,7 @@
     dig
     (import ./nixfmt.nix { inherit pkgs; })
     nur-cryolitia.pgp-sig2dot
+    whois
   ];
 
   programs.git = {
