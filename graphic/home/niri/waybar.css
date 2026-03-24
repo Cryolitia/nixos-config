@@ -33,7 +33,8 @@ window#waybar.hidden {
   opacity: 0.2;
 }
 
-#workspaces {
+#workspaces,
+.niri-taskbar {
   background: #2e3440;
   border: 2px solid #8fbcbb;
   border-radius: 5px 5px 5px 5px;
@@ -44,9 +45,9 @@ window#waybar.hidden {
 }
 
 #workspaces button,
-#taskbar button {
+.niri-taskbar button {
   border-radius: 3px 3px 3px 3px;
-  padding: 0px 6px;
+  padding: 0px 2px;
   margin: 3px 2px;
   color: #eceff4;
   transition: all 0.3s ease-in-out;
@@ -63,7 +64,8 @@ window#waybar.hidden {
   opacity: 1;
 }
 
-#workspaces button:hover {
+#workspaces button:hover,
+.niri-taskbar button:hover {
   opacity: 0.7;
 }
 
@@ -77,13 +79,15 @@ window#waybar.hidden {
   transition: all 0.3s ease-in-out;
 }
 
-#workspaces button.focused {
+#workspaces button.focused,
+.niri-taskbar button.focused {
   color: #eceff4;
   background: #88c0d0;
   transition: all 0.3s ease-in-out;
 }
 
-#workspaces button.urgent {
+#workspaces button.urgent,
+.niri-taskbar button.urgent  {
   background-color: #bf616a;
 }
 
@@ -93,25 +97,6 @@ window#waybar.hidden {
 
 .modules-right > widget:last-child > #workspaces {
   margin-right: 0;
-}
-
-#taskbar {
-  background: #2e3440;
-  border: 2px solid #8fbcbb;
-  border-radius: 5px 5px 5px 5px;
-  padding: 0px 2px;
-  opacity: 0.8;
-  transition: all 0.3s ease-in-out;
-}
-
-#taskbar button.active {
-  background: #5e81ac;
-  transition: all 0.3s ease-in-out;
-}
-
-#taskbar button.fullscreen {
-  background: #d08770;
-  transition: all 0.3s ease-in-out;
 }
 
 #clock,
@@ -149,15 +134,6 @@ window#waybar.hidden {
 }
 
 window#waybar.empty #window,
-#taskbar.empty {
-  color: transparent;
-  background: transparent;
-  border: none;
-  padding: 0px;
-  margin: 0px;
-  opacity: 0;
-}
-
 #mpris.empty {
   color: transparent;
   background: transparent;

@@ -22,9 +22,12 @@
         # Choose the order of the modules
         modules-left = [
           "niri/workspaces"
-          "wlr/taskbar"
+          "cffi/niri-taskbar"
           "mpris"
         ];
+        "cffi/niri-taskbar" = {
+          "module_path" = "${pkgs.nur.repos.linyinfeng.niri-taskbar}/lib/libniri_taskbar.so";
+        };
         modules-center = [
           "clock"
           "niri/window"
@@ -51,6 +54,12 @@
         };
         "niri/window" = {
           separate-outputs = true;
+        };
+        "cffi/niri-taskbar" = {
+          "show_all_outputs" = false;
+          "notifications" = {
+            "enabled" = true;
+          };
         };
         "wlr/taskbar" = {
           all-outputs = false;

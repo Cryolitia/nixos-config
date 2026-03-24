@@ -51,7 +51,7 @@
   environment.systemPackages =
     (with pkgs; [
       gnome-tweaks
-      tela-icon-theme
+      papirus-icon-theme
       xdg-terminal-exec
       nautilus-open-any-terminal
     ])

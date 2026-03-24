@@ -92,6 +92,7 @@ lib.optionals osConfig.programs.niri.enable {
           inactive.color = "#81a1c1";
           urgent.color = "#bf616a";
         };
+        always-center-single-column = true;
       };
 
       binds = with config.lib.niri.actions; {

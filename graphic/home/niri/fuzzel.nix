@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.fuzzel = {
     enable = true;
@@ -5,6 +6,7 @@
       main = {
         dpi-aware = false;
         terminal = "kitty";
+        icon-theme = "Papirus";
       };
       colors = {
         background = "303446dd";
@@ -21,4 +23,6 @@
       };
     };
   };
+
+  home.packages = [ pkgs.papirus-icon-theme ];
 }
