@@ -9,7 +9,7 @@
     enable = true;
     systemd = {
       enable = true;
-      target = "niri.service";
+      targets = [ "niri.service" ];
     };
     style = ./waybar.css;
     settings = {
@@ -22,9 +22,12 @@
         # Choose the order of the modules
         modules-left = [
           "niri/workspaces"
-          "wlr/taskbar"
+          "cffi/niri-taskbar"
           "mpris"
         ];
+        "cffi/niri-taskbar" = {
+          "module_path" = "${pkgs.nur.repos.linyinfeng.niri-taskbar}/lib/libniri_taskbar.so";
+        };
         modules-center = [
           "clock"
           "niri/window"
@@ -51,6 +54,12 @@
         };
         "niri/window" = {
           separate-outputs = true;
+        };
+        "cffi/niri-taskbar" = {
+          "show_all_outputs" = false;
+          "notifications" = {
+            "enabled" = true;
+          };
         };
         "wlr/taskbar" = {
           all-outputs = false;
@@ -92,8 +101,9 @@
         };
         clock = {
           # "timezone"= "America/New_York";
-          # tooltip-format = ''<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>'';
-          format = "{:%F %R}";
+          tooltip-format = "{:%FT%R}";
+          format = lib.mkDefault "{:%F %R}";
+          on-click = "${lib.getExe pkgs.kitty} --class floating sh -c \"${pkgs.util-linux.bin}/bin/cal -y;read\"";
         };
         cpu = {
           format = "{usage}% ";
@@ -129,7 +139,7 @@
             critical = 15;
           };
           format = "{capacity}% {icon}";
-          format-charging = "";
+          format-charging = " {capacity}%";
           format-discharging = "{capacity}% {icon}";
           tooltip-format = "{capacity}% {timeTo}";
           format-icons = [
@@ -142,13 +152,13 @@
         };
         network = {
           # "interface"= "wlp2*"; # (Optional) To force the use of this interface
-          format-wifi = "{essid} ({signalStrength}%) ";
+          format-wifi = lib.mkDefault "{essid} ({signalStrength}%) ";
           format-ethernet = "{ipaddr}/{cidr} 󰈀";
           tooltip-format = "{ifname} via {gwaddr}";
-          tooltip-format-wifi = "{ifname} via {gwaddr} {frequency}MHz";
+          tooltip-format-wifi = "{ifname}={ipaddr}/{cidr} via {gwaddr} {frequency}GHz";
           format-linked = "{ifname} (No IP)";
           format-disconnected = "Disconnected ⚠";
-          format-alt = "{ifname}= {ipaddr}/{cidr}";
+          on-click = "${lib.getExe pkgs.kitty} --class floating ${pkgs.networkmanager}/bin/nmtui";
         };
         bluetooth = {
           "format" = " {status}";

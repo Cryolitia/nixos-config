@@ -18,6 +18,7 @@ lib.optionals osConfig.programs.niri.enable {
     ./clipse.nix
     ./fuzzel.nix
     ./nm-applet.nix
+    ./swayidle.nix
   ];
 
   programs.niri = {
@@ -92,6 +93,7 @@ lib.optionals osConfig.programs.niri.enable {
           inactive.color = "#81a1c1";
           urgent.color = "#bf616a";
         };
+        always-center-single-column = true;
       };
 
       binds = with config.lib.niri.actions; {
@@ -113,9 +115,12 @@ lib.optionals osConfig.programs.niri.enable {
           action.spawn = "fuzzel";
         };
 
-        "XF86AudioRaiseVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
-        "XF86AudioLowerVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-        "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        "XF86AudioRaiseVolume".action = sh "${pkgs.swayosd}/bin/swayosd-client --output-volume +10";
+        "XF86AudioLowerVolume".action = sh "${pkgs.swayosd}/bin/swayosd-client --output-volume -10";
+        "XF86AudioMute".action = sh "${pkgs.swayosd}/bin/swayosd-client --output-volume mute-toggle";
+
+        "XF86MonBrightnessUp".action = sh "${pkgs.swayosd}/bin/swayosd-client --brightness +10";
+        "XF86MonBrightnessDown".action = sh "${pkgs.swayosd}/bin/swayosd-client --brightness -10";
 
         "Alt+Tab".action = toggle-overview;
 
@@ -124,20 +129,10 @@ lib.optionals osConfig.programs.niri.enable {
         "Mod+Up".action = focus-workspace-up;
         "Mod+Right".action = focus-column-right;
 
-        "Mod+J".action = focus-column-left;
-        "Mod+L".action = focus-column-right;
-        "Mod+I".action = focus-workspace-up;
-        "Mod+K".action = focus-workspace-down;
-
         "Mod+Ctrl+Left".action = move-column-left;
         "Mod+Ctrl+Down".action = move-column-to-workspace-down;
         "Mod+Ctrl+Up".action = move-column-to-workspace-up;
         "Mod+Ctrl+Right".action = move-column-right;
-
-        "Mod+Ctrl+J".action = move-column-left;
-        "Mod+Ctrl+I".action = move-column-to-workspace-up;
-        "Mod+Ctrl+K".action = move-column-to-workspace-down;
-        "Mod+Ctrl+L".action = move-column-right;
 
         "Mod+Home".action = focus-column-first;
         "Mod+End".action = focus-column-last;
@@ -148,19 +143,11 @@ lib.optionals osConfig.programs.niri.enable {
         "Mod+Shift+Down".action = focus-monitor-down;
         "Mod+Shift+Up".action = focus-monitor-up;
         "Mod+Shift+Right".action = focus-monitor-right;
-        "Mod+Shift+J".action = focus-monitor-left;
-        "Mod+Shift+K".action = focus-monitor-down;
-        "Mod+Shift+I".action = focus-monitor-up;
-        "Mod+Shift+L".action = focus-monitor-right;
 
         "Mod+Shift+Ctrl+Left".action = move-column-to-monitor-left;
         "Mod+Shift+Ctrl+Down".action = move-column-to-monitor-down;
         "Mod+Shift+Ctrl+Up".action = move-column-to-monitor-up;
         "Mod+Shift+Ctrl+Right".action = move-column-to-monitor-right;
-        "Mod+Shift+Ctrl+J".action = move-column-to-monitor-left;
-        "Mod+Shift+Ctrl+K".action = move-column-to-monitor-down;
-        "Mod+Shift+Ctrl+I".action = move-column-to-monitor-up;
-        "Mod+Shift+Ctrl+L".action = move-column-to-monitor-right;
 
         "Mod+Page_Down".action = focus-workspace-down;
         "Mod+Page_Up".action = focus-workspace-up;
@@ -193,15 +180,6 @@ lib.optionals osConfig.programs.niri.enable {
         "Mod+7".action = focus-workspace 7;
         "Mod+8".action = focus-workspace 8;
         "Mod+9".action = focus-workspace 9;
-        #"Mod+Ctrl+1".action = move-column-to-workspace 1;
-        #"Mod+Ctrl+2".action = move-column-to-workspace 2;
-        #"Mod+Ctrl+3".action = move-column-to-workspace 3;
-        #"Mod+Ctrl+4".action = move-column-to-workspace 4;
-        #"Mod+Ctrl+5".action = move-column-to-workspace 5;
-        #"Mod+Ctrl+6".action = move-column-to-workspace 6;
-        #"Mod+Ctrl+7".action = move-column-to-workspace 7;
-        #"Mod+Ctrl+8".action = move-column-to-workspace 8;
-        #"Mod+Ctrl+9".action = move-column-to-workspace 9;
 
         "Mod+Comma".action = consume-window-into-column;
         "Mod+Period".action = expel-window-from-column;
@@ -223,9 +201,8 @@ lib.optionals osConfig.programs.niri.enable {
         "Alt+Print".action.screenshot-window = [ ];
 
         "Mod+Shift+E".action = quit;
-        "Mod+P".action = sh "systemd-run -u hyprlock --service-type=exec --user hyprlock --grace 0";
-        "Mod+Shift+P".action =
-          sh "systemd-run -u hyprlock --service-type=exec --user hyprlock --grace 15 && sleep 5 && niri msg action power-off-monitors";
+        "Mod+L".action = sh "systemd-run -u hyprlock --service-type=exec --user hyprlock --grace 0";
+        "Mod+P".action = sh "systemctl suspend";
       };
     };
   };

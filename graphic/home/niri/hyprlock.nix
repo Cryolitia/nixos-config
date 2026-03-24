@@ -83,6 +83,45 @@
           halign = "right";
           valign = "bottom";
         }
+        {
+          monitor = "";
+          text = "Poweroff";
+          font_size = 18;
+          font_family = "Sans";
+          color = "rgba(216,222,233,0.5)";
+
+          position = "-1%, -2%";
+          halign = "right";
+          valign = "top";
+
+          onclick = "poweroff";
+        }
+        {
+          monitor = "";
+          text = "Reboot";
+          font_size = 18;
+          font_family = "Monospace";
+          color = "rgba(216,222,233,0.5)";
+
+          position = "-1%, -5%";
+          halign = "right";
+          valign = "top";
+
+          onclick = "reboot";
+        }
+        {
+          monitor = "";
+          text = "Suspend";
+          font_size = 18;
+          font_family = "Monospace";
+          color = "rgba(216,222,233,0.5)";
+
+          position = "-1%, -8%";
+          halign = "right";
+          valign = "top";
+
+          onclick = "systemctl suspend";
+        }
       ];
       image = {
         monitor = "";
@@ -125,8 +164,6 @@
   };
 
   services.swayidle = {
-    enable = true;
-    systemdTarget = "niri.service";
     extraArgs = [
       "-w"
     ];

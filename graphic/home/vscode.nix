@@ -48,4 +48,12 @@ jsonFormat.generate "vscode-user-settings" {
   "[css]" = {
     "editor.defaultFormatter" = "esbenp.prettier-vscode";
   };
+  "nix.hiddenLanguageServerErrors" = [
+    "textDocument/definition"
+    "textDocument/codeAction"
+    "textDocument/documentSymbol"
+    "textDocument/inlayHint"
+    "textDocument/documentLink"
+  ];
+
 }

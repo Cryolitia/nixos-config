@@ -49,6 +49,8 @@ in
     ".local/share/fcitx5/rime/rime_ice.custom.yaml".source = rimeIce;
 
     ".face".source = ../face.jpg;
+
+    ".config/MangoHud/MangoHud.conf".source = ../../dotfiles/MangoHud.conf;
   };
 
   gtk = {
@@ -57,6 +59,7 @@ in
       name = "Nordic";
       package = pkgs.nordic;
     };
+    gtk4.theme = config.gtk.theme;
     font.name = "更纱黑体 SC 11";
   };
 

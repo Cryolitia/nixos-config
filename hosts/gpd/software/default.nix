@@ -15,5 +15,6 @@
   environment.systemPackages = with pkgs; [
     nur-cryolitia.gpd-linux-controls
     modem-manager-gui
+    nvtopPackages.amd
   ];
 }

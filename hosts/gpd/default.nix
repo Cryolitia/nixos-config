@@ -23,6 +23,8 @@ in
   # Bootloader.
   boot.loader.systemd-boot = {
     enable = true;
+    edk2-uefi-shell.enable = true;
+    windows."11".efiDeviceHandle = "FS0";
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -32,7 +34,10 @@ in
 
   networking.hostName = "cryolitia-gpd-wm2-nixos"; # Define your hostname.
 
-  services.logind.settings.Login.HandleLidSwitchExternalPower = "lock";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "lock";
+  };
 
   services.openssh.enable = true;
 
@@ -84,12 +89,7 @@ in
 
   hardware.gpd-fan.enable = true;
 
-  services.sunshine = {
-    enable = true;
-    openFirewall = true;
-    capSysAdmin = true;
-    # autoStart = false;
-  };
+  services.nixseparatedebuginfod2.enable = true;
 
   hardware.xone.enable = true;
   hardware.xpad-noone.enable = true;

@@ -51,6 +51,7 @@
     nix.enable = true;
     nvim-lightbulb.enable = true;
     #octo.enable = true;
+    smear-cursor.enable = true;
     statuscol.enable = true;
     telescope.enable = true;
     toggleterm.enable = true;

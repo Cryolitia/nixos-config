@@ -25,7 +25,7 @@
     man-pages-posix
     jq
     fastfetch
-    dig
+    doggo
     firefox
     (import ../../common/software/nixfmt.nix { inherit pkgs; })
     nur-cryolitia.pgp-sig2dot
@@ -42,6 +42,8 @@
     nixd
     kitty
     comma
+    localsend
+    typst
   ];
 
   # Set Git commit hash for darwin-version.

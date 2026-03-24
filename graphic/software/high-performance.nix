@@ -29,8 +29,8 @@ in
     perf
     kdePackages.kleopatra
     keepassxc
-    nodePackages.pnpm
-    nodePackages.nodejs
+    pnpm
+    nodejs
     discord
     # yesplaymusic
     # lutris
@@ -54,7 +54,7 @@ in
     vlc
     typst
     tinymist
-    nur-cryolitia.get-lrc
+    # nur-cryolitia.get-lrc
     moonlight-qt
   ];
 

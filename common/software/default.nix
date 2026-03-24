@@ -42,10 +42,11 @@
     wiremix
     bluetui
     fastfetch
-    dig
+    doggo
     (import ./nixfmt.nix { inherit pkgs; })
     nur-cryolitia.pgp-sig2dot
     whois
+    minicom
   ];
 
   programs.git = {

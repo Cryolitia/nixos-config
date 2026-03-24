@@ -171,4 +171,14 @@
         return polkit.Result.YES;
     });
   '';
+
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      item = "nofile";
+      type = "-";
+      # https://github.com/lutris/docs/blob/master/HowToEsync.md
+      value = "524288";
+    }
+  ];
 }

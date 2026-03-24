@@ -10,7 +10,7 @@
     fastfetch
     hyfetch
     iperf
-    dig
+    doggo
     mtr
   ];
 

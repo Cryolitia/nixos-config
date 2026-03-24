@@ -5,6 +5,10 @@
   ...
 }:
 {
+  imports = [
+    ../software/fcitx5.nix
+    ../software/swayosd.nix
+  ];
 
   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
 
@@ -36,10 +40,6 @@
     };
     displayManager.gdm.enable = lib.mkDefault true;
   };
-
-  imports = [
-    ../software/fcitx5.nix
-  ];
 
   security.pam.services.hyprlock = { };
 
