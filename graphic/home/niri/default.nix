@@ -92,6 +92,7 @@ lib.optionals osConfig.programs.niri.enable {
           inactive.color = "#81a1c1";
           urgent.color = "#bf616a";
         };
+        always-center-single-column = true;
       };
 
       binds = with config.lib.niri.actions; {
@@ -113,9 +114,12 @@ lib.optionals osConfig.programs.niri.enable {
           action.spawn = "fuzzel";
         };
 
-        "XF86AudioRaiseVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
-        "XF86AudioLowerVolume".action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-        "XF86AudioMute".action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        "XF86AudioRaiseVolume".action = sh "${pkgs.swayosd}/bin/swayosd-client --output-volume +10";
+        "XF86AudioLowerVolume".action = sh "${pkgs.swayosd}/bin/swayosd-client --output-volume -10";
+        "XF86AudioMute".action = sh "${pkgs.swayosd}/bin/swayosd-client --output-volume mute-toggle";
+
+        "XF86MonBrightnessUp".action = sh "${pkgs.swayosd}/bin/swayosd-client --brightness +10";
+        "XF86MonBrightnessDown".action = sh "${pkgs.swayosd}/bin/swayosd-client --brightness -10";
 
         "Alt+Tab".action = toggle-overview;
 

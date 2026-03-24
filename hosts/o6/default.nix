@@ -64,4 +64,10 @@
   };
 
   services.displayManager.gdm.autoSuspend = false;
+
+  environment.systemPackages = with pkgs; [ openclaw ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "openclaw-2026.3.12"
+  ];
 }

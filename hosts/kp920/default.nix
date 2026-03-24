@@ -62,15 +62,6 @@
     options = [ "space_cache=v2" ];
   };
 
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      item = "nofile";
-      type = "-";
-      value = "32768";
-    }
-  ];
-
   systemd.services."disable-enp3s0" = {
     enable = true;
     wantedBy = [ "multi-user.target" ];

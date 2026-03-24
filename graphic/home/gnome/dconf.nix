@@ -23,9 +23,8 @@ in
   };
 
   "org/gnome/desktop/interface" = {
-    #gtk-theme = "Nordic";
     cursor-theme = "Adwaita";
-    icon-theme = "Tela";
+    icon-theme = "Papirus";
     clock-show-weekday = true;
     document-font-name = "Source Han Serif 11";
     monospace-font-name = "JetBrainsMono Nerd Font Mono 10";

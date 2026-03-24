@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -6,5 +6,9 @@
     ../../../graphic/software/aagl.nix
     ../../../graphic/software/steam.nix
     ../../../common/software/transmission.nix
+  ];
+
+  environment.systemPackages = with pkgs; [
+    nvtopPackages.amd
   ];
 }

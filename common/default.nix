@@ -171,4 +171,13 @@
         return polkit.Result.YES;
     });
   '';
+
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      item = "nofile";
+      type = "-";
+      value = "32768";
+    }
+  ];
 }
