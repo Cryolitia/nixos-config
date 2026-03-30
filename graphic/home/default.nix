@@ -49,6 +49,8 @@ in
     ".local/share/fcitx5/rime/rime_ice.custom.yaml".source = rimeIce;
 
     ".face".source = ../face.jpg;
+
+    ".config/MangoHud/MangoHud.conf".source = ../../dotfiles/MangoHud.conf;
   };
 
   gtk = {

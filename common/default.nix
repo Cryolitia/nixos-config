@@ -177,7 +177,8 @@
       domain = "*";
       item = "nofile";
       type = "-";
-      value = "32768";
+      # https://github.com/lutris/docs/blob/master/HowToEsync.md
+      value = "524288";
     }
   ];
 }
