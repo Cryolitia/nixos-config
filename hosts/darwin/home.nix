@@ -55,4 +55,13 @@ in
       map ctrl+v paste_from_clipboard
     '';
   };
+
+  programs.git = {
+    settings = {
+      user = {
+        name = "Cryolitia PukNgae";
+        email = "cryolitia@mercallure.com";
+      };
+    };
+  };
 }

@@ -42,6 +42,7 @@
     nixd
     kitty
     comma
+    localsend
   ];
 
   # Set Git commit hash for darwin-version.
