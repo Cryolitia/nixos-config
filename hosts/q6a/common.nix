@@ -6,6 +6,21 @@
 }:
 let
   aic8800-firmware = pkgs.callPackage ./aic8800-firmware.nix { };
+
+  patchesFromDir =
+    patchDir:
+    let
+      dirEntries = builtins.readDir patchDir;
+      patchFiles = builtins.sort builtins.lessThan (
+        builtins.filter (
+          name: dirEntries.${name} == "regular" && builtins.match ".*\\.patch" name != null
+        ) (builtins.attrNames dirEntries)
+      );
+    in
+    map (name: {
+      name = lib.removeSuffix ".patch" name;
+      patch = patchDir + "/${name}";
+    }) patchFiles;
 in
 {
   config = {
@@ -18,6 +33,18 @@ in
 
     boot = {
       kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+      kernelPatches = (patchesFromDir ./patches) ++ [
+        {
+          name = "enable-config";
+          patch = null;
+          extraConfig = ''
+            RPMB y
+            SCSI_UFSHCD y
+            SCSI_UFSHCD_PLATFORM y
+            SCSI_UFS_QCOM y
+          '';
+        }
+      ];
       loader = {
         systemd-boot = {
           enable = true;
