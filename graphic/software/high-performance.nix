@@ -45,7 +45,6 @@ in
     #jetbrains-with-plugins.rust-rover
     #jetbrains-with-plugins.clion
     snipaste
-    localsend
     telegram-desktop
     kdePackages.okular
     hugo
@@ -94,4 +93,9 @@ in
   virtualisation.podman.enable = true;
 
   services.flatpak.enable = true;
+
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 }

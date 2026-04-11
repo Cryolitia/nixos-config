@@ -11,4 +11,9 @@
   environment.systemPackages = with pkgs; [
     nvtopPackages.amd
   ];
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-vulkan;
+  };
 }
