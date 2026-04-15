@@ -36,7 +36,7 @@ in
 
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
-    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchExternalPower = "suspend";
   };
 
   services.openssh.enable = true;

@@ -14,6 +14,12 @@
 
   services.ollama = {
     enable = true;
-    package = pkgs.ollama-vulkan;
+    package = pkgs.ollama-rocm;
+    rocmOverrideGfx = "11.0.3";
+    environmentVariables = {
+      OLLAMA_VULKAN = "1";
+      ROCR_VISIBLE_DEVICES = "0";
+      OLLAMA_GPU_OVERHEAD = "0";
+    };
   };
 }
