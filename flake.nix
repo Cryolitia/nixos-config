@@ -44,7 +44,7 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/sky1";
+    nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/cix-mainline";
 
     nur = {
       url = "github:nix-community/NUR";
@@ -214,10 +214,12 @@
 
                   { services.vscode-server.enable = true; }
 
-                  inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+                  inputs.nixos-hardware-yuntian.nixosModules.radxa-orion-o6
                   {
                     boot.initrd.allowMissingModules = true;
                   }
+
+                  nixos-hardware.nixosModules.common-gpu-nvidia
                 ]);
             };
           };

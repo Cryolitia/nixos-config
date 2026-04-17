@@ -16,8 +16,7 @@
       { lib, config, ... }:
       {
         config = lib.mkIf (config.specialisation != { }) {
-          hardware.cix.sky1.bspRelease = "none";
-          boot.kernelPackages = pkgs.linuxPackages_latest;
+          boot.kernelPackages = pkgs.linuxPackages_cix;
         };
       }
     )
@@ -57,17 +56,36 @@
     }
   ];
 
-  specialisation = {
-    vendor.configuration = {
-      # Use CIX vendor kernel
+  services.displayManager.gdm.autoSuspend = false;
+
+  environment.systemPackages = with pkgs; [
+    openclaw
+    nvtopPackages.nvidia
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "openclaw-2026.4.2"
+  ];
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+    environmentVariables = {
+      OLLAMA_VULKAN = "1";
     };
   };
 
-  services.displayManager.gdm.autoSuspend = false;
+  nixpkgs.config.cudaSupport = true;
 
-  environment.systemPackages = with pkgs; [ openclaw ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "openclaw-2026.3.12"
+  hardware.nvidia = {
+    open = true;
+    prime.offload.enable = false;
+  };
+  nixpkgs.overlays = [
+    (final: prev: {
+      onnxruntime = prev.onnxruntime.override { cudaSupport = false; };
+    })
   ];
+
+  hardware.graphics.enable32Bit = lib.mkForce false;
 }

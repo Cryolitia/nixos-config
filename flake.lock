@@ -420,16 +420,16 @@
     },
     "nixos-hardware-yuntian": {
       "locked": {
-        "lastModified": 1765793170,
-        "narHash": "sha256-6+fyKx0cuwzcub0Y1HHBJ/YsURlQ67K2wM1WTgNqdts=",
+        "lastModified": 1776249486,
+        "narHash": "sha256-rvyVyCzvZNHEDNyRQ5tO7DYYUAGC/2qjyu53sNlAfLY=",
         "owner": "RadxaYuntian",
         "repo": "nixos-hardware",
-        "rev": "440eaf2f47dc27dc4fbb6475b55f0575a5e8e6cc",
+        "rev": "f11ae3e2e3ad750dd000bcb0f128b0ed2b48561c",
         "type": "github"
       },
       "original": {
         "owner": "RadxaYuntian",
-        "ref": "sky1",
+        "ref": "cix-mainline",
         "repo": "nixos-hardware",
         "type": "github"
       }
