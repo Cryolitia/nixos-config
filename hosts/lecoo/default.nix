@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -18,11 +18,27 @@
     enable = true;
     edk2-uefi-shell.enable = true;
   };
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.binfmt = {
+    emulatedSystems = [
+      "riscv64-linux"
+    ];
+
+    preferStaticEmulators = true;
+
+    # https://github.com/felixonmars/archriscv-packages/blob/7c270ecef6a84edd6031b357b7bd1f6be2d6d838/devtools-riscv64/z-archriscv-qemu-riscv64.conf
+    registrations."riscv64-linux" = {
+      wrapInterpreterInShell = false;
+      preserveArgvZero = true;
+      matchCredentials = true;
+      fixBinary = true;
+      interpreter = "${pkgs.pkgsStatic.qemu-user}/bin/qemu-riscv64";
+    };
+  };
 
   networking.hostName = "cryolitia-lecoo-minipro-nixos"; # Define your hostname.
 
@@ -44,4 +60,9 @@
     capSysAdmin = true;
     autoStart = true;
   };
+
+  hardware.bluetooth.enable = true;
+
+  hardware.amdgpu.opencl.enable = true;
+  nixpkgs.config.rocmSupport = true;
 }

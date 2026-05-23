@@ -63,11 +63,10 @@
     };
   };
 
-  # https://github.com/nix-community/home-manager/issues/4816
-  #  programs.gh = {
-  #    enable = true;
-  #    gitCredentialHelper.enable = true;
-  #  };
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

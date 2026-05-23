@@ -9,24 +9,18 @@
     ./hardware-configuration.nix
     ../../common
     ../../hardware/sound.nix
-    ../../graphic/desktop/niri.nix
+    #../../graphic/desktop/niri.nix
     ../../graphic/desktop/gnome.nix
     ../../graphic/software
-    (
-      { lib, config, ... }:
-      {
-        config = lib.mkIf (config.specialisation != { }) {
-          hardware.cix.sky1.bspRelease = "none";
-          boot.kernelPackages = pkgs.linuxPackages_latest;
-        };
-      }
-    )
   ];
 
   boot.loader = {
     timeout = lib.mkDefault 5;
     systemd-boot.enable = true;
   };
+
+  hardware.cix.sky1.enable = lib.mkForce false;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   systemd.enableEmergencyMode = true;
 
@@ -57,17 +51,31 @@
     }
   ];
 
-  specialisation = {
-    vendor.configuration = {
-      # Use CIX vendor kernel
+  services.displayManager.gdm.autoSuspend = false;
+
+  environment.systemPackages = with pkgs; [
+    nvtopPackages.nvidia
+  ];
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+    environmentVariables = {
+      OLLAMA_VULKAN = "1";
     };
   };
 
-  services.displayManager.gdm.autoSuspend = false;
+  nixpkgs.config.cudaSupport = true;
 
-  environment.systemPackages = with pkgs; [ openclaw ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "openclaw-2026.3.12"
+  hardware.nvidia = {
+    open = true;
+    prime.offload.enable = false;
+  };
+  nixpkgs.overlays = [
+    (final: prev: {
+      onnxruntime = prev.onnxruntime.override { cudaSupport = false; };
+    })
   ];
+
+  hardware.graphics.enable32Bit = lib.mkForce false;
 }

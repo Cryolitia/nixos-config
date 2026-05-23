@@ -21,7 +21,6 @@ in
 
   environment.systemPackages = with pkgs; [
     firefox
-    wechat-uos
     # texlive.combined.scheme-full
     android-tools
     wpsoffice
@@ -32,7 +31,6 @@ in
     pnpm
     nodejs
     discord
-    # yesplaymusic
     # lutris
     scrcpy
     nixpkgs-review
@@ -45,7 +43,6 @@ in
     #jetbrains-with-plugins.rust-rover
     #jetbrains-with-plugins.clion
     snipaste
-    localsend
     telegram-desktop
     kdePackages.okular
     hugo
@@ -54,7 +51,6 @@ in
     vlc
     typst
     tinymist
-    # nur-cryolitia.get-lrc
     moonlight-qt
   ];
 
@@ -81,11 +77,6 @@ in
     };
   };
 
-  # pkgs.nur.repos.xddxdd.netease-cloud-music
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
-  ];
-
   boot.extraModulePackages = with config.boot.kernelPackages; [
     # required by obs-studio
     v4l2loopback
@@ -94,4 +85,9 @@ in
   virtualisation.podman.enable = true;
 
   services.flatpak.enable = true;
+
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 }

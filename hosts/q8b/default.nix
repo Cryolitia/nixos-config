@@ -10,9 +10,8 @@
     ./hardware-configuration.nix
     ../../common
     ../../hardware/sound.nix
-    ../../graphic/desktop/niri.nix
+    ../../graphic/desktop/gnome.nix
     ../../graphic/software
-    ./hamradio.nix
   ];
 
   boot = {
@@ -24,7 +23,7 @@
 
   hardware.uinput.enable = true;
 
-  networking.hostName = "cryolitia-radxa-q6a-nixos";
+  networking.hostName = "cryolitia-radxa-q8b-nixos";
 
   services.openssh.enable = true;
 
@@ -47,15 +46,9 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 6 * 1024;
+      size = 8 * 1024;
     }
   ];
-
-  services.sunshine = {
-    enable = true;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
 
   services.displayManager.autoLogin = {
     enable = true;
@@ -63,7 +56,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    crosspipe
     alsa-utils
     slurp
   ];

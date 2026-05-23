@@ -23,8 +23,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  boot.supportedFilesystems = [ "ntfs" ];
-
   networking.hostName = "cryolitia-nixos"; # Define your hostname.
 
   services.logind.lidSwitchExternalPower = "lock";

@@ -15,7 +15,7 @@ in
   #   rpiVersion = 5;
   #   argsOverride.defconfig = "bcm2712_defconfig";
   # };
-  linux_q6a = output.outputs.packages."aarch64-linux".linux_q6a;
-  linux_o6 =
+  radxa-linux-qcom = output.outputs.packages."aarch64-linux".radxa-linux-qcom;
+  linux-o6 =
     output.outputs.nixosConfigurations.cryolitia-radxa-o6-nixos.config.specialisation.vendor.configuration.boot.kernelPackages.kernel;
 }

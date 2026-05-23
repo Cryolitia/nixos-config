@@ -3,9 +3,8 @@
 (with pkgs.vscode-extensions; [
   ms-vscode-remote.remote-ssh
   ms-vscode-remote.remote-ssh-edit
-  github.copilot
   github.copilot-chat
-  #eamodio.gitlens
+  eamodio.gitlens
 ])
 ++ (with vscode-extensions.vscode-marketplace; [
   ms-ceintl.vscode-language-pack-zh-hans
@@ -13,7 +12,7 @@
   github.vscode-pull-request-github
   brunnerh.insert-unicode
   davidanson.vscode-markdownlint
-  equinusocio.vsc-material-theme
+  vira.vsc-vira-theme
   pkief.material-icon-theme
   esbenp.prettier-vscode
   medo64.code-point
@@ -32,4 +31,5 @@
   curlybrackets.markdown-word-count
   ms-vscode.hexeditor
   filipjonckers.adif-syntax-highlighting
+  iliazeus.vscode-ansi
 ])

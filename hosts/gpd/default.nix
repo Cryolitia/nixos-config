@@ -2,14 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ inputs, pkgs, ... }:
-let
-  pkgs-patched = (
-    import inputs.nixpkgs-patched {
-      system = pkgs.stdenv.hostPlatform.system;
-    }
-  );
-in
+{ pkgs, ... }:
+
 {
   imports = [
     # Include the results of the hardware scan.
@@ -30,13 +24,11 @@ in
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  boot.supportedFilesystems = [ "ntfs" ];
-
   networking.hostName = "cryolitia-gpd-wm2-nixos"; # Define your hostname.
 
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
-    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchExternalPower = "suspend";
   };
 
   services.openssh.enable = true;
@@ -62,7 +54,7 @@ in
       preserveArgvZero = true;
       matchCredentials = true;
       fixBinary = true;
-      interpreter = "${pkgs-patched.pkgsStatic.qemu-user}/bin/qemu-aarch64";
+      interpreter = "${pkgs.pkgsStatic.qemu-user}/bin/qemu-aarch64";
     };
 
     # https://github.com/felixonmars/archriscv-packages/blob/7c270ecef6a84edd6031b357b7bd1f6be2d6d838/devtools-riscv64/z-archriscv-qemu-riscv64.conf
@@ -71,7 +63,7 @@ in
       preserveArgvZero = true;
       matchCredentials = true;
       fixBinary = true;
-      interpreter = "${pkgs-patched.pkgsStatic.qemu-user}/bin/qemu-riscv64";
+      interpreter = "${pkgs.pkgsStatic.qemu-user}/bin/qemu-riscv64";
     };
   };
 
@@ -95,4 +87,9 @@ in
   hardware.xpad-noone.enable = true;
 
   hardware.sensor.iio.enable = true;
+
+  hardware.amdgpu.opencl.enable = true;
+  nixpkgs.config.rocmSupport = true;
+
+  hardware.bluetooth.enable = true;
 }

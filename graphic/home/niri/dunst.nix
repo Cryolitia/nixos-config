@@ -18,6 +18,7 @@
         mouse_middle_click = "close_all";
         mouse_right_click = "close_current";
         enable_posix_regex = true;
+        notification_limit = 5;
       };
       telegram = {
         appname = ".*Telegram.*";

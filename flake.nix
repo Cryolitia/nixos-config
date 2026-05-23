@@ -13,7 +13,6 @@
 
       "https://nix-community.cachix.org"
       "https://cryolitia.cachix.org"
-      "https://cuda-maintainers.cachix.org"
       "https://ezkea.cachix.org"
       "https://niri.cachix.org"
       "https://nix-on-droid.cachix.org"
@@ -23,7 +22,6 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="
-      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "kp920.cryolitia.dn42:M68UcYMNX/2yWXFwDb21jAregdcIsF3uIrSmXldX70k="
@@ -33,9 +31,8 @@
 
   inputs = {
     # NixOS 官方软件源，这里使用 nixos-unstable 分支
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    nixpkgs-patched.url = "github:cryolitia/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:nixos/nixpkgs/7766073f61f2fbd09d6309ee4e45f86b16610b3a";
+    nixpkgs.url = "github:cryolitia/nixpkgs/nixos-unstable";
 
     # home-manager，用于管理用户配置
     home-manager = {
@@ -44,7 +41,7 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/sky1";
+    nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/cix-mainline";
 
     nur = {
       url = "github:nix-community/NUR";
@@ -69,11 +66,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -92,8 +84,6 @@
     };
 
     jetbrains-plugins.url = "github:Cryolitia/nix-jetbrains-plugins";
-
-    systems.url = "github:nix-systems/default";
 
     niri.url = "github:sodiboo/niri-flake";
 
@@ -124,8 +114,13 @@
   outputs =
     inputs:
     let
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
       commonModule = import ./common/module.nix { inherit inputs; };
-      eachSystem = inputs.nixpkgs.lib.genAttrs (import inputs.systems);
+      eachSystem = inputs.nixpkgs.lib.genAttrs systems;
       lib = inputs.nixpkgs.lib;
     in
     builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」" rec {
@@ -199,6 +194,21 @@
                 ]);
             };
 
+            radxa-q8b = inputs.nixpkgs.lib.nixosSystem {
+              system = "aarch64-linux";
+              specialArgs = {
+                inherit inputs;
+              };
+              modules =
+                (commonModule (import ./hosts/q8b/home.nix))
+                ++ (with inputs; [
+
+                  ./hosts/q8b
+
+                  vscode-server.nixosModules.default
+                ]);
+            };
+
             radxa-o6 = inputs.nixpkgs.lib.nixosSystem {
               system = "aarch64-linux";
               specialArgs = {
@@ -214,10 +224,12 @@
 
                   { services.vscode-server.enable = true; }
 
-                  inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+                  inputs.nixos-hardware-yuntian.nixosModules.radxa-orion-o6
                   {
                     boot.initrd.allowMissingModules = true;
                   }
+
+                  nixos-hardware.nixosModules.common-gpu-nvidia
                 ]);
             };
           };
@@ -243,84 +255,112 @@
         };
       };
 
-      packages = eachSystem (
-        system:
-        let
-          pkgs = (import inputs.nixpkgs { inherit system; });
-        in
-        {
-          iso = inputs.nixos-generators.nixosGenerate {
-            inherit system;
-            modules = (commonModule (import ./hosts/image/home.nix)) ++ ([ ./hosts/image ]);
-            format = "install-iso";
-            specialArgs = {
-              inherit inputs;
-            };
-          };
+      packages =
+        lib.recursiveUpdate
+          (eachSystem (
+            system:
+            let
+              pkgs = (import inputs.nixpkgs { inherit system; });
+            in
+            {
+              iso =
+                (inputs.nixpkgs.lib.nixosSystem {
+                  inherit system;
+                  modules = (commonModule (import ./hosts/image/home.nix)) ++ ([ ./hosts/image ]);
+                  specialArgs = {
+                    inherit inputs;
+                  };
+                }).config.system.build.isoImage;
 
-          radxa-q6a-image = inputs.nixos-generators.nixosGenerate {
-            system = "aarch64-linux";
-            format = "raw-efi";
-            specialArgs = {
-              inherit inputs;
-            };
-            modules = [
-              "${inputs.nixpkgs}/nixos/modules/profiles/base.nix"
-              "${inputs.nixpkgs}/nixos/modules/profiles/installation-device.nix"
-              ./hosts/q6a/common.nix
-              (
-                { lib, ... }:
-                {
-                  hardware.enableAllHardware = lib.mkForce false;
-                  boot.supportedFilesystems.zfs = lib.mkForce false;
-                  system.nixos.tags = [ "radxa-q6a" ];
+              neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
+
+              vscode = (
+                import ./graphic/software/vscode.nix {
+                  inherit inputs;
+                  pkgs = import inputs.nixpkgs {
+                    config = {
+                      allowUnfree = true;
+                      cudaSupport = false;
+                    };
+                    inherit system;
+                    overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ];
+                  };
                 }
-              )
-            ];
-          };
-
-          radxa-o6-iso = inputs.nixos-generators.nixosGenerate {
-            system = "aarch64-linux";
-            format = "install-iso";
-            specialArgs = {
-              inherit inputs;
-            };
-            modules =
-              (commonModule (import ./hosts/image/home.nix))
-              ++ (with inputs; [
-                ./hosts/image
-                inputs.nixos-hardware-yuntian.nixosModules.orion-o6
-                {
-                  boot.initrd.allowMissingModules = true;
-                  system.nixos.tags = [ "radxa-o6" ];
-                }
-              ]);
-          };
-
-          neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
-
-          vscode = (
-            import ./graphic/software/vscode.nix {
-              inherit inputs;
-              pkgs = import inputs.nixpkgs {
-                config = {
-                  allowUnfree = true;
-                  cudaSupport = false;
-                };
-                inherit system;
-                overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ];
-              };
+              );
             }
-          );
+          ))
+          {
+            "aarch64-linux" = {
+              radxa-q6a-image =
+                (inputs.nixpkgs.lib.nixosSystem {
+                  system = "aarch64-linux";
+                  format = "raw-efi";
+                  specialArgs = {
+                    inherit inputs;
+                  };
+                  modules = [
+                    "${inputs.nixpkgs}/nixos/modules/profiles/base.nix"
+                    "${inputs.nixpkgs}/nixos/modules/profiles/installation-device.nix"
+                    ./hosts/q6a/common.nix
+                    (
+                      { lib, ... }:
+                      {
+                        hardware.enableAllHardware = lib.mkForce false;
+                        boot.supportedFilesystems.zfs = lib.mkForce false;
+                        system.nixos.tags = [ "radxa-q6a" ];
+                        systemd.tpm2.enable = false;
+                        boot.initrd.systemd.tpm2.enable = false;
+                      }
+                    )
+                  ];
+                }).config.system.build.images.raw-efi;
 
-          linux_rpi5 = pkgs.linuxKernel.kernels.linux_rpi4.override {
-            rpiVersion = 5;
-            argsOverride.defconfig = "bcm2712_defconfig";
+              radxa-q8b-image =
+                (inputs.nixpkgs.lib.nixosSystem {
+                  system = "aarch64-linux";
+                  specialArgs = {
+                    inherit inputs;
+                  };
+                  modules = [
+                    "${inputs.nixpkgs}/nixos/modules/profiles/base.nix"
+                    "${inputs.nixpkgs}/nixos/modules/profiles/installation-device.nix"
+                    ./hosts/q8b/common.nix
+                    (
+                      { lib, ... }:
+                      {
+                        hardware.enableAllHardware = lib.mkForce false;
+                        boot.supportedFilesystems.zfs = lib.mkForce false;
+                        system.nixos.tags = [ "radxa-q8b" ];
+                        systemd.tpm2.enable = false;
+                        boot.initrd.systemd.tpm2.enable = false;
+                      }
+                    )
+                  ];
+                }).config.system.build.images.raw-efi;
+
+              radxa-o6-iso =
+                (inputs.nixpkgs.lib.nixosSystem {
+                  system = "aarch64-linux";
+                  specialArgs = {
+                    inherit inputs;
+                  };
+                  modules =
+                    (commonModule (import ./hosts/image/home.nix))
+                    ++ (with inputs; [
+                      ./hosts/image
+                      inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+                      {
+                        boot.initrd.allowMissingModules = true;
+                        system.nixos.tags = [ "radxa-o6" ];
+                      }
+                    ]);
+                }).config.system.build.images.iso;
+
+              radxa-linux-qcom = import ./common/radxa-linux-qcom.nix {
+                pkgs = (import inputs.nixpkgs { system = "aarch64-linux"; });
+              };
+            };
           };
-
-          linux_q6a = import ./hosts/q6a/kernel.nix { inherit pkgs; };
-        }
-      );
 
       devShells = eachSystem (
         system:
@@ -337,8 +377,6 @@
             config = {
               allowUnfree = true;
               cudaSupport = true;
-              # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
-              cudaCapabilities = [ "8.6" ];
               cudaEnableForwardCompat = false;
             };
             inherit system;
@@ -402,6 +440,7 @@
         # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
         huawei-kp920 = nixosConfigurations.cryolitia-huawei-kp920-nixos.config.system.build.toplevel;
         radxa-q6a = nixosConfigurations.cryolitia-radxa-q6a-nixos.config.system.build.toplevel;
+        radxa-q8b = nixosConfigurations.cryolitia-radxa-q8b-nixos.config.system.build.toplevel;
         radxa-o6 = nixosConfigurations.cryolitia-radxa-o6-nixos.config.system.build.toplevel;
       };
     };

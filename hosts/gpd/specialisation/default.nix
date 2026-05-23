@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../../graphic/desktop/gnome.nix
+    # ../../../graphic/desktop/gnome.nix
     ../../../graphic/desktop/niri.nix
   ];
 

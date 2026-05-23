@@ -8,7 +8,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./user.nix
-    #./dns.nix
     ./software
     ./dn42
   ];
@@ -59,7 +58,7 @@
   nix = {
     gc = {
       automatic = true;
-      options = "--delete-older-than 7d";
+      options = "--delete-older-than 30d";
       dates = "daily";
     };
     optimise = {
@@ -181,4 +180,16 @@
       value = "524288";
     }
   ];
+
+  boot.supportedFilesystems = [ "ntfs" ];
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      hinfo = true;
+    };
+  };
 }

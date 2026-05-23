@@ -12,7 +12,7 @@
   plugins = {
     airline.enable = true;
     autoclose.enable = true;
-    barbar.enable = true;
+    # barbar.enable = true;
     barbecue.enable = true;
     #chadtree.enable = true;
     cmp.enable = true;
@@ -20,7 +20,7 @@
     cmp-buffer.enable = true;
     cmp-cmdline.enable = true;
     cmp-dictionary.enable = true;
-    cmp-emoji.enable = true;
+    # cmp-emoji.enable = true;
     cmp-git.enable = true;
     cmp-nvim-lsp.enable = true;
     cmp-nvim-lsp-signature-help.enable = true;
@@ -55,7 +55,7 @@
     statuscol.enable = true;
     telescope.enable = true;
     toggleterm.enable = true;
-    transparent.enable = true;
+    # transparent.enable = true;
     treesitter.enable = true;
     treesitter-context.enable = true;
     trouble.enable = true;

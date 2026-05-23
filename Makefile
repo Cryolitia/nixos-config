@@ -37,8 +37,9 @@ deadnix:
 	nix run nixpkgs#deadnix . -vL
 
 update:
-	nix flake update
 	./update.py
+	nix flake lock --update-input nixpkgs --refresh
+	nix flake update
 
 darwin: fmt deadnix
 	sudo darwin-rebuild switch --flake .# -vL

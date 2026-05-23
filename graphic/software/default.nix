@@ -29,6 +29,7 @@
     qt6.qtwayland
     libnotify
     mission-center
+    nautilus
   ];
 
   services.gnome.gnome-keyring.enable = true;

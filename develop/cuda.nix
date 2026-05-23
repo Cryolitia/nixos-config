@@ -23,25 +23,21 @@ let
     ]
   );
 in
-{
-  default = (
-    pkgs.mkShell {
-      buildInputs = [
-        pythonWithPackages
-        cuda.cuda-native-redist
-      ];
+pkgs.mkShell {
+  buildInputs = [
+    pythonWithPackages
+    cuda.cuda-native-redist
+  ];
 
-      LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
+  LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
 
-      shellHook = ''
-        ${pythonWithPackages}/bin/python3 --version
-        export PYTHONHOME=${pythonWithPackages}
-        export PATH=${pythonWithPackages}/bin:$PATH
+  shellHook = ''
+    ${pythonWithPackages}/bin/python3 --version
+    export PYTHONHOME=${pythonWithPackages}
+    export PATH=${pythonWithPackages}/bin:$PATH
 
-        rm -rf $PWD/env
-        ln -sv ${pythonWithPackages} $PWD/env
-        exec zsh
-      '';
-    }
-  );
+    rm -rf $PWD/env
+    ln -sv ${pythonWithPackages} $PWD/env
+    exec zsh
+  '';
 }

@@ -27,6 +27,8 @@
     fuzzel
     playerctl
     wl-mirror
+
+    utterly-nord-plasma
   ];
 
   system.nixos.tags = [ "Niri" ];
@@ -38,7 +40,15 @@
       xkb.variant = "";
       excludePackages = [ pkgs.xterm ];
     };
-    displayManager.gdm.enable = lib.mkDefault true;
+    # https://github.com/nixos/nixpkgs/issues/523332
+    displayManager.gdm.enable = false;
+    displayManager.sddm = {
+      enable = lib.mkDefault true;
+      theme = "${pkgs.utterly-nord-plasma}/share/sddm/themes/Utterly-Nord";
+      extraPackages = pkgs.utterly-nord-plasma.propagatedBuildInputs;
+      wayland.enable = true;
+      enableHidpi = true;
+    };
   };
 
   security.pam.services.hyprlock = { };
