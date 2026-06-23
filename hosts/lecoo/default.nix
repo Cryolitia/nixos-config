@@ -65,4 +65,14 @@
 
   hardware.amdgpu.opencl.enable = true;
   nixpkgs.config.rocmSupport = true;
+
+  services.nix-serve = {
+    enable = true;
+    openFirewall = true;
+    port = 80;
+    secretKeyFile = "/var/lib/nix-serve-private";
+    bindAddress = "*";
+    package = pkgs.nix-serve-ng;
+  };
+  systemd.services.nix-serve.serviceConfig.AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
 }

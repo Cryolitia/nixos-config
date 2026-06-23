@@ -48,6 +48,34 @@ let
       }
     ) zoneCfg)
   );
+
+  generateSSLConfig = (
+    {
+      zoneCfg,
+    }:
+    (
+      (lib.attrsets.mapAttrs' (
+        name: value:
+        lib.attrsets.nameValuePair "${name}.cryolitia.dn42" (
+          (generateVirtualHostConfig { inherit zoneCfg; })."${name}.*"
+          // {
+            addSSL = true;
+            enableACME = true;
+          }
+        )
+      ) zoneCfg)
+      // (lib.attrsets.mapAttrs' (
+        name: value:
+        lib.attrsets.nameValuePair "${name}.crylt.dn42" (
+          (generateVirtualHostConfig { inherit zoneCfg; })."${name}.*"
+          // {
+            addSSL = true;
+            enableACME = true;
+          }
+        )
+      ) zoneCfg)
+    )
+  );
 in
 {
   options = {
@@ -79,13 +107,25 @@ in
               deny fd00::/7;
             '';
         })
-        // (generateVirtualHostConfig { zoneCfg = cfg.external; });
+        // (generateVirtualHostConfig { zoneCfg = cfg.external; })
+        // (generateSSLConfig { zoneCfg = cfg.external; });
     };
 
     networking.firewall.allowedTCPPorts =
-      (lib.optionals config.services.nginx.enable [ 80 ])
+      (lib.optionals config.services.nginx.enable [
+        80
+        443
+      ])
       ++ (lib.optionals (!config.services.nginx.enable) (
         lib.attrsets.mapAttrsToList (_: value: value) cfg.external
       ));
+
+    security.acme = {
+      acceptTerms = true;
+      defaults = {
+        email = "cryolitia@gmail.com";
+        server = "https://acme.burble.dn42/v1/dn42/acme/directory";
+      };
+    };
   };
 }

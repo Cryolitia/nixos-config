@@ -227,13 +227,49 @@
                 script = "fetch('/whoami').then(response => response.text()).then(data => { document.getElementById('ip').textContent = data;});";
               };
             }
-            {
-              type = "image";
-              options.imagePath = "https://raw.githubusercontent.com/Cryolitia/Cryolitia.github.io/refs/heads/main/content/post/gallery/20250731_234121%7E2.JPG";
-            }
           ];
         }
       ];
     };
   };
+
+  services.nginx.virtualHosts =
+    let
+      hostConfig = {
+        listenAddresses = [
+          "0.0.0.0"
+          "[::]"
+        ];
+        locations."/" = {
+          extraConfig = ''
+            allow 127.0.0.1;
+            allow ::1;
+            allow 192.168.0.0/16;
+            allow fd00::/7;
+            deny all;
+          '';
+        };
+        locations."/whoami" = {
+          return = "200 \"$remote_addr\"";
+          extraConfig = ''
+            default_type text/plain;
+          '';
+        };
+      };
+
+      dn42HostConfig = lib.recursiveUpdate hostConfig {
+        locations."/" = {
+          root = config.services.dashy.finalDrv;
+          tryFiles = "$uri /index.html ";
+        };
+        addSSL = true;
+        enableACME = true;
+      };
+    in
+    {
+      "${config.services.dashy.virtualHost.domain}" = hostConfig;
+
+      "cryolitia.dn42" = dn42HostConfig;
+      "crylt.dn42" = dn42HostConfig;
+    };
 }

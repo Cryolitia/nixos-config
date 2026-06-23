@@ -20,6 +20,15 @@
       "0.0.0.0"
       "[::]"
     ];
-    locations."/".root = "${pkgs.callPackage ./static-pages { }}/share/cryolitia-static-pages";
+    locations."/" = {
+      root = "${pkgs.callPackage ./static-pages { }}/share/cryolitia-static-pages";
+      extraConfig = ''
+        allow 127.0.0.1;
+        allow ::1;
+        allow 192.168.0.0/16;
+        allow "fd00::/7";
+        deny all;
+      '';
+    };
   };
 }
