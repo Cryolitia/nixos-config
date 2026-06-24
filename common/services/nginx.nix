@@ -52,12 +52,13 @@ let
   generateSSLConfig = (
     {
       zoneCfg,
+      extraConfig ? null,
     }:
     (
       (lib.attrsets.mapAttrs' (
         name: value:
         lib.attrsets.nameValuePair "${name}.cryolitia.dn42" (
-          (generateVirtualHostConfig { inherit zoneCfg; })."${name}.*"
+          (generateVirtualHostConfig { inherit zoneCfg extraConfig; })."${name}.*"
           // {
             addSSL = true;
             enableACME = true;
@@ -67,7 +68,7 @@ let
       // (lib.attrsets.mapAttrs' (
         name: value:
         lib.attrsets.nameValuePair "${name}.crylt.dn42" (
-          (generateVirtualHostConfig { inherit zoneCfg; })."${name}.*"
+          (generateVirtualHostConfig { inherit zoneCfg extraConfig; })."${name}.*"
           // {
             addSSL = true;
             enableACME = true;
@@ -75,6 +76,15 @@ let
         )
       ) zoneCfg)
     )
+  );
+
+  generateAllConfig = (
+    {
+      zoneCfg,
+      extraConfig ? null,
+    }:
+    (generateVirtualHostConfig { inherit zoneCfg extraConfig; })
+    // (generateSSLConfig { inherit zoneCfg extraConfig; })
   );
 in
 {
@@ -96,7 +106,7 @@ in
       statusPage = true;
       recommendedProxySettings = true;
       virtualHosts =
-        (generateVirtualHostConfig {
+        (generateAllConfig {
           zoneCfg = cfg.internal;
           extraConfig =
             "\n"
@@ -107,8 +117,7 @@ in
               deny fd00::/7;
             '';
         })
-        // (generateVirtualHostConfig { zoneCfg = cfg.external; })
-        // (generateSSLConfig { zoneCfg = cfg.external; });
+        // (generateAllConfig { zoneCfg = cfg.external; });
     };
 
     networking.firewall.allowedTCPPorts =
