@@ -196,9 +196,13 @@ lib.optionals osConfig.programs.niri.enable {
         "Mod+Shift+Minus".action = set-window-height "-10%";
         "Mod+Shift+Equal".action = set-window-height "+10%";
 
-        "Print".action.screenshot = [ ];
-        "Ctrl+Print".action.screenshot-screen = [ ];
-        "Alt+Print".action.screenshot-window = [ ];
+        "Print".action.screenshot = {
+          show-pointer = false;
+        };
+        "Ctrl+Print".action.screenshot-screen = {
+          show-pointer = false;
+        };
+        "Alt+Print".action.screenshot-window = { };
 
         "Mod+Shift+E".action = quit;
         "Mod+L".action = sh "systemd-run -u hyprlock --service-type=exec --user hyprlock --grace 0";

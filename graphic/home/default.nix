@@ -22,7 +22,6 @@ in
   ++ lib.optionals osConfig.programs.niri.enable [ ./niri ];
 
   home.sessionVariables = {
-    GTK_THEME = "Arc-Dark";
     QT_STYLE_OVERRIDE = "Nordic-Polar";
     QT_QPA_PLATFORM = "wayland;xcb";
   };
@@ -55,11 +54,12 @@ in
 
   gtk = {
     enable = true;
+    colorScheme = "dark";
     theme = {
       name = "Nordic";
       package = pkgs.nordic;
     };
-    gtk4.theme = config.gtk.theme;
+    gtk4.theme = null;
     font.name = "更纱黑体 SC 11";
   };
 

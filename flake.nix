@@ -61,10 +61,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -257,38 +254,34 @@
 
       packages =
         lib.recursiveUpdate
-          (eachSystem (
-            system:
-            let
-              pkgs = (import inputs.nixpkgs { inherit system; });
-            in
-            {
-              iso =
-                (inputs.nixpkgs.lib.nixosSystem {
-                  inherit system;
-                  modules = (commonModule (import ./hosts/image/home.nix)) ++ ([ ./hosts/image ]);
-                  specialArgs = {
-                    inherit inputs;
-                  };
-                }).config.system.build.isoImage;
-
-              neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (import ./common/software/neovim.nix);
-
-              vscode = (
-                import ./graphic/software/vscode.nix {
+          (eachSystem (system: {
+            iso =
+              (inputs.nixpkgs.lib.nixosSystem {
+                inherit system;
+                modules = (commonModule (import ./hosts/image/home.nix)) ++ ([ ./hosts/image ]);
+                specialArgs = {
                   inherit inputs;
-                  pkgs = import inputs.nixpkgs {
-                    config = {
-                      allowUnfree = true;
-                      cudaSupport = false;
-                    };
-                    inherit system;
-                    overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ];
+                };
+              }).config.system.build.isoImage;
+
+            neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (
+              import ./common/software/neovim.nix { inherit inputs; }
+            );
+
+            vscode = (
+              import ./graphic/software/vscode.nix {
+                inherit inputs;
+                pkgs = import inputs.nixpkgs {
+                  config = {
+                    allowUnfree = true;
+                    cudaSupport = false;
                   };
-                }
-              );
-            }
-          ))
+                  inherit system;
+                  overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ];
+                };
+              }
+            );
+          }))
           {
             "aarch64-linux" = {
               radxa-q6a-image =
@@ -361,46 +354,6 @@
               };
             };
           };
-
-      devShells = eachSystem (
-        system:
-        let
-          pkgs-unfree = import inputs.nixpkgs {
-            config = {
-              allowUnfree = true;
-              cudaSupport = false;
-            };
-            inherit system;
-          };
-
-          pkgs-cuda = import inputs.nixpkgs {
-            config = {
-              allowUnfree = true;
-              cudaSupport = true;
-              cudaEnableForwardCompat = false;
-            };
-            inherit system;
-          };
-
-          pkgs-rust = import inputs.nixpkgs {
-            config = {
-              allowUnfree = true;
-              cudaSupport = false;
-            };
-            inherit system;
-            overlays = [ (import inputs.rust-overlay) ];
-          };
-        in
-        {
-          gcc = import ./develop/gcc.nix { pkgs = pkgs-unfree; };
-
-          cuda = import ./develop/cuda.nix { pkgs = pkgs-cuda; };
-
-          rust = import ./develop/rust.nix { pkgs = pkgs-rust; };
-
-          python = import ./develop/python.nix { pkgs = pkgs-unfree; };
-        }
-      );
 
       formatter = eachSystem (
         system:

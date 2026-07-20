@@ -13,8 +13,7 @@
   environment.systemPackages = with pkgs; [
     wfview
     gridtracker2
-    jtdx
-    wsjtx
+    wsjtz
     tqsl
     gpredict
     qsstv
@@ -42,5 +41,9 @@
       });
       soapysdr-with-plugins = prev.soapysdr.override { extraPackages = [ final.soapysdrplay ]; };
     })
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
   ];
 }

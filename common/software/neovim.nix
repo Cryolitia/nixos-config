@@ -1,4 +1,6 @@
-{
+{ inputs }: {
+  nixpkgs.source = inputs.nixpkgs;
+
   clipboard.providers.wl-copy.enable = true;
 
   colorschemes.nord.enable = true;

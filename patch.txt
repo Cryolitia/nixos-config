@@ -1,2 +1,2 @@
-https://github.com/NixOS/nixpkgs/pull/530373.patch
-https://github.com/NixOS/nixpkgs/pull/530321.patch
+https://github.com/NixOS/nixpkgs/pull/539280.patch
+https://github.com/NixOS/nixpkgs/pull/543974.patch

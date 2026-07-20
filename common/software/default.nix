@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -64,7 +64,7 @@
   programs.nixvim = {
     enable = true;
   }
-  // (import ./neovim.nix);
+  // (import ./neovim.nix { inherit inputs; });
 
   programs.less = {
     enable = true;

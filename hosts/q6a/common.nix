@@ -12,7 +12,7 @@ in
     loader = {
       systemd-boot = {
         enable = true;
-        installDeviceTree = true;
+        #installDeviceTree = true;
         edk2-uefi-shell.enable = true;
       };
       efi.canTouchEfiVariables = false;
@@ -49,10 +49,10 @@ in
       linux-firmware
       aic8800-firmware
     ];
-    deviceTree = {
-      enable = true;
-      name = "qcom/qcs6490-radxa-dragon-q6a.dtb";
-    };
+    # deviceTree = {
+    #   enable = true;
+    #   name = "qcom/qcs6490-radxa-dragon-q6a.dtb";
+    # };
   };
 
   environment.systemPackages = with pkgs; [
@@ -64,4 +64,6 @@ in
 
   systemd.tpm2.enable = false;
   boot.initrd.systemd.tpm2.enable = false;
+
+  services.speechd.enable = false;
 }

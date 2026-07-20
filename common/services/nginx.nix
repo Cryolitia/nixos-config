@@ -56,7 +56,7 @@ let
     }:
     (
       (lib.attrsets.mapAttrs' (
-        name: value:
+        name: _:
         lib.attrsets.nameValuePair "${name}.cryolitia.dn42" (
           (generateVirtualHostConfig { inherit zoneCfg extraConfig; })."${name}.*"
           // {
@@ -66,7 +66,7 @@ let
         )
       ) zoneCfg)
       // (lib.attrsets.mapAttrs' (
-        name: value:
+        name: _:
         lib.attrsets.nameValuePair "${name}.crylt.dn42" (
           (generateVirtualHostConfig { inherit zoneCfg extraConfig; })."${name}.*"
           // {

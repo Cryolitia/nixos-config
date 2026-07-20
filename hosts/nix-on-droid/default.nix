@@ -4,7 +4,9 @@
   # Simply install just the packages
   environment.packages = with pkgs; [
     # (import ../../common/software/nixfmt.nix { inherit pkgs; })
-    (inputs.nixvim.legacyPackages."${system}".makeNixvim (import ../../common/software/neovim.nix))
+    (inputs.nixvim.legacyPackages."${system}".makeNixvim (
+      import ../../common/software/neovim.nix { inherit inputs; }
+    ))
     openssh
     gnupg
     fastfetch

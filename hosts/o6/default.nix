@@ -72,7 +72,7 @@
     prime.offload.enable = false;
   };
   nixpkgs.overlays = [
-    (final: prev: {
+    (_: prev: {
       onnxruntime = prev.onnxruntime.override { cudaSupport = false; };
     })
   ];

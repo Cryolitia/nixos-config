@@ -25,11 +25,12 @@
     nixpkgs-fmt
     kitty
     nordic
-    libsForQt5.qt5.qtwayland
+    qt5.qtwayland
     qt6.qtwayland
     libnotify
     mission-center
     nautilus
+    crosspipe
   ];
 
   services.gnome.gnome-keyring.enable = true;

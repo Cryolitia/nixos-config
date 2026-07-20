@@ -13,6 +13,7 @@
     ../../graphic/desktop/niri.nix
     ../../graphic/software
     ./hamradio.nix
+    ./pipewire.nix
   ];
 
   boot = {
@@ -63,7 +64,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    crosspipe
     alsa-utils
     slurp
   ];

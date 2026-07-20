@@ -13,4 +13,7 @@
     interval = 1;
     format = lib.mkForce "{:%FT%T%z}";
   };
+
+  services.swayidle.enable = lib.mkForce false;
+  programs.hyprlock.enable = lib.mkForce false;
 }

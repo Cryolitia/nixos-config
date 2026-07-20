@@ -57,20 +57,15 @@ let
     audit-enable yes
     audit-console yes
 
-    server-tls 8.8.8.8
-    server-tls 8.8.4.4
-    server-tls [2001:4860:4860::8888]
-    server-tls [2001:4860:4860::8844]
-    server-tls 1.1.1.1
-    server-tls 1.0.0.1
-    server-tls [2606:4700:4700::1111]
-    server-tls [2606:4700:4700::1001]
+    server-https https://dns.google/dns-query -host-ip 8.8.8.8 -host-name dns.google -tls-host-verify dns.google
+    server-https https://cloudflare-dns.com/dns-query -host-ip 1.1.1.1 -host-name cloudflare-dns.com -tls-host-verify cloudflare-dns.com
 
     server [fdd2:4372:796f::] -g cn -e
     server [fdd2:4372:796f::] -g internal -e
     server 127.0.0.1 -g DN42local -e
     server [fd42:d42:d42:53::1] -g DN42 -e
     server [fd42:d42:d42:54::1] -g DN42 -e
+    server [fd10:127:53:53::] -g NEO -e
 
     domain-set -name cn -file ${dnsmasq-china-list-pkgs}/share/dnsmasq-china-list/accelerated-domains.china.conf
     domain-set -name apple -file ${dnsmasq-china-list-pkgs}/share/dnsmasq-china-list/apple.china.conf
@@ -83,6 +78,7 @@ let
     domain-rules /cryolitia.dn42/ -nameserver DN42local -address -6
     domain-rules /f.6.9.7.2.7.3.4.2.d.d.f.ip6.arpa/ -nameserver DN42local
     domain-rules /dn42/ -nameserver DN42 -address -6
+    domain-rules /neo/ -nameserver NEO -address -6
     domain-rules /d.f.ip6.arpa/ -nameserver DN42
     domain-rules /domain-set:cn/ -nameserver cn -address -6
     domain-rules /domain-set:apple/ -nameserver cn -address -6

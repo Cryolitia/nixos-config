@@ -30,7 +30,7 @@
     (import ../../common/software/nixfmt.nix { inherit pkgs; })
     nur-cryolitia.pgp-sig2dot
     (inputs.nixvim.legacyPackages."${system}".makeNixvim (
-      (import ../../common/software/neovim.nix)
+      (import ../../common/software/neovim.nix { inherit inputs; })
       // {
         clipboard.providers.wl-copy.enable = false;
       }
@@ -44,6 +44,9 @@
     comma
     localsend
     typst
+    caffeine
+    maccy
+    cacert
   ];
 
   # Set Git commit hash for darwin-version.
@@ -114,14 +117,12 @@
 
         "https://nix-community.cachix.org"
         "https://cryolitia.cachix.org"
-        "http://cache.cryolitia.dn42"
       ];
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cryolitia.cachix.org-1:/RUeJIs3lEUX4X/oOco/eIcysKZEMxZNjqiMgXVItQ8="
-        "kp920.cryolitia.dn42:M68UcYMNX/2yWXFwDb21jAregdcIsF3uIrSmXldX70k="
       ];
     };
   };
@@ -136,6 +137,7 @@
     histSize = 1000000;
     interactiveShellInit = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      export SSH_SK_PROVIDER=/usr/lib/ssh-keychain.dylib
     '';
   };
 

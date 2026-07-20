@@ -2,15 +2,8 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
-let
-  jetbrains-with-plugins = import ./jetbrains.nix {
-    inherit pkgs;
-    inherit inputs;
-  };
-in
 {
   imports = [
     # ./waydroid.nix
@@ -37,11 +30,6 @@ in
     element-desktop
     distrobox
     thunderbird
-    #androidStudioPackages.beta
-    #jetbrains-with-plugins.idea-ultimate
-    #jetbrains-with-plugins.pycharm-professional
-    #jetbrains-with-plugins.rust-rover
-    #jetbrains-with-plugins.clion
     snipaste
     telegram-desktop
     kdePackages.okular

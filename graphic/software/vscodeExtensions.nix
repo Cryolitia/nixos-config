@@ -32,4 +32,5 @@
   ms-vscode.hexeditor
   filipjonckers.adif-syntax-highlighting
   iliazeus.vscode-ansi
+  openai.chatgpt
 ])
