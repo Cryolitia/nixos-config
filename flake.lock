@@ -543,11 +543,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1784581506,
-        "narHash": "sha256-y344d7lhK85ETsWQi25WTjOfrf60rdI7TYNEfcVWEms=",
+        "lastModified": 1785054275,
+        "narHash": "sha256-7hE6QL8YvPvl1LkFTfcXft7cy6uk12OHQGkmhd4Nspk=",
         "owner": "cryolitia",
         "repo": "nixpkgs",
-        "rev": "979b94356be904a235864331e90216d7dd97520d",
+        "rev": "6cc8233c7872f264eaaecf587f022e3c2ce5d951",
         "type": "github"
       },
       "original": {
