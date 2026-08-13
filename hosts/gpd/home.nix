@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [ ../../graphic/home ];
@@ -40,4 +40,11 @@
     clock.format = "{:%R}";
     temperature.hwmon-path = "/sys/devices/virtual/thermal/thermal_zone0/temp";
   };
+
+  services.swayidle.timeouts = [
+    {
+      timeout = 1800;
+      command = "${pkgs.systemd}/bin/systemctl suspend";
+    }
+  ];
 }

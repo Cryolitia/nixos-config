@@ -34,5 +34,11 @@ in
   services.nginx.virtualHosts."code.*".locations."/".basicAuthFile =
     pkgs.writeText "cryolitia.passwd" "cryolitia:$2y$05$l7yhPPI3jZwUN1DKIhJHi.0g9YKjNyp0Qax.497/Ww7j2F1rNS7da";
 
+  services.nginx.virtualHosts."code.crylt.dn42".locations."/".basicAuthFile =
+    pkgs.writeText "cryolitia.passwd" "cryolitia:$2y$05$l7yhPPI3jZwUN1DKIhJHi.0g9YKjNyp0Qax.497/Ww7j2F1rNS7da";
+
+  services.nginx.virtualHosts."code.cryolitia.dn42".locations."/".basicAuthFile =
+    pkgs.writeText "cryolitia.passwd" "cryolitia:$2y$05$l7yhPPI3jZwUN1DKIhJHi.0g9YKjNyp0Qax.497/Ww7j2F1rNS7da";
+
   me.cryolitia.services.nginx.internal."code" = 4444;
 }

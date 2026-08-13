@@ -92,4 +92,34 @@
   nixpkgs.config.rocmSupport = true;
 
   hardware.bluetooth.enable = true;
+
+  powerManagement.resumeCommands = ''
+    ${pkgs.systemd}/bin/systemctl restart --no-block lid-resuspend.timer
+  '';
+
+  systemd.timers.lid-resuspend = {
+    description = "Re-suspend timer for closed lid";
+
+    timerConfig = {
+      OnActiveSec = "1min";
+      AccuracySec = "1s";
+      Unit = "lid-resuspend.service";
+    };
+  };
+
+  systemd.services.lid-resuspend = {
+    description = "Re-suspend if lid is still closed";
+
+    serviceConfig.Type = "oneshot";
+
+    script = ''
+      if [[ "$(${pkgs.systemd}/bin/busctl get-property \
+        org.freedesktop.login1 \
+        /org/freedesktop/login1 \
+        org.freedesktop.login1.Manager \
+        LidClosed)" == "b true" ]]; then
+        ${pkgs.systemd}/bin/systemctl suspend
+      fi
+    '';
+  };
 }
