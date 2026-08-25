@@ -8,6 +8,13 @@
 
   programs.zsh = {
     enable = true;
+    histSize = 999999;
+    setOptions = [
+      "HIST_IGNORE_DUPS"
+      "SHARE_HISTORY"
+      "HIST_FCNTL_LOCK"
+      "EXTENDED_HISTORY"
+    ];
     ohMyZsh = {
       enable = true;
       # package = pkgs.oh-my-zsh.overrideAttrs (oldAttrs: {
@@ -31,6 +38,7 @@
       export ZSH_COLORIZE_TOOL=chroma
       export bgnotify_threshold=10
       export bgnotify_extraargs=-e
+      source ${../../dotfiles/.p10k.zsh}
     '';
 
     autosuggestions.enable = true;

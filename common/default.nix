@@ -2,15 +2,43 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./user.nix
+    ./user-files.nix
     ./software
     ./dn42
   ];
+
+  programs.nix-index.enable = true;
+
+  programs.git.config = {
+    core.autocrlf = "input";
+    gpg.format = "openpgp";
+    sendemail = {
+      smtpServer = "localhost";
+      smtpServerPort = 25;
+    };
+    pull.ff = "only";
+    credential = {
+      "https://github.com".helper = [
+        ""
+        "${pkgs.gh}/bin/gh auth git-credential"
+      ];
+      "https://gist.github.com".helper = [
+        ""
+        "${pkgs.gh}/bin/gh auth git-credential"
+      ];
+    };
+  };
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

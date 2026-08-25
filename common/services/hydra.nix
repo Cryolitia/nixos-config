@@ -23,5 +23,7 @@
     allowed-uris = https://github.com/ github: https://api.github.com/
   '';
 
-  me.cryolitia.services.nginx.external."hydra" = 3000;
+  me.cryolitia.services.nginx.external."hydra" = {
+    port = 3000;
+  };
 }

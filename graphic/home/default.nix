@@ -78,11 +78,6 @@ in
     '';
   };
 
-  home.file.".config/maa".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/maa";
-
-  home.file."Documents/template.tex".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/template.tex";
   home.file."Documents/template.typ".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/dotfiles/template.typ";
 }

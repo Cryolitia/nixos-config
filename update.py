@@ -104,10 +104,16 @@ if __name__ == "__main__":
             if info.get("type") == "container":
                 print(f"Checking {name}")
                 completed = subprocess.run(
-                    f"skopeo inspect docker://{info['url']}:latest",
-                    shell=True,
+                    [
+                        "skopeo",
+                        "--registries-conf",
+                        os.devnull,
+                        "inspect",
+                        f"docker://{info['url']}:latest",
+                    ],
                     stdout=subprocess.PIPE,
-                    text=True
+                    text=True,
+                    check=True,
                 )
                 data = json.loads(completed.stdout)
                 if "ghcr.io" in info["url"]:

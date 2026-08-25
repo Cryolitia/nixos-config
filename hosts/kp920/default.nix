@@ -54,7 +54,9 @@
     bindAddress = "*";
     package = pkgs.nix-serve-ng;
   };
-  me.cryolitia.services.nginx.external."cache" = 5000;
+  me.cryolitia.services.nginx.external."cache" = {
+    port = 5000;
+  };
 
   fileSystems."/mnt/NAS" = {
     device = "/dev/disk/by-uuid/cd1d85fa-f4f7-4d16-898c-0231b324401d";

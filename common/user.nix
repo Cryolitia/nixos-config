@@ -1,4 +1,12 @@
-{ ... }:
+{ pkgs, ... }:
+
+let
+  cryolitiaGitConfig = pkgs.writeText "gitconfig-cryolitia" ''
+    [user]
+      name = Cryolitia PukNgae
+      email = Cryolitia@gmail.com
+  '';
+in
 
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -24,4 +32,9 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN2mmQ5YQrQyUSYRNvRKTgYiTSdPt3wtCdiY0YBD7+X9 openpgp:0xA2647D3C"
     ];
   };
+
+  systemd.user.tmpfiles.users.cryolitia.rules = [
+    "d %h/.config/git 0755 - - - -"
+    "L+ %h/.config/git/config - - - - ${cryolitiaGitConfig}"
+  ];
 }

@@ -6,5 +6,7 @@
     package = pkgs.netdata.override { withCloudUi = true; };
   };
 
-  me.cryolitia.services.nginx.external."netdata" = 19999;
+  me.cryolitia.services.nginx.external."netdata" = {
+    port = 19999;
+  };
 }

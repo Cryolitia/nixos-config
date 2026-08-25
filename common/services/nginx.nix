@@ -14,6 +14,26 @@ let
     "fdcb:dded:cbcc::/48" # Kagura
     "fd3f:a1f1:54ed:e00::/64" # Yuuta
   ];
+  upstreamType = lib.types.submodule {
+    options = {
+      address = lib.mkOption {
+        type = lib.types.str;
+        default = "http://127.0.0.1";
+        example = "http://127.0.0.1";
+        description = "Upstream scheme and address.";
+      };
+      port = lib.mkOption {
+        type = lib.types.ints.between 1 65535;
+        example = 8080;
+        description = "Upstream TCP port.";
+      };
+      forceSSL = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether to redirect HTTP requests to HTTPS.";
+      };
+    };
+  };
   generateVirtualHostConfig = (
     {
       zoneCfg,
@@ -27,7 +47,7 @@ let
           "[::]"
         ];
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${builtins.toString value}";
+          proxyPass = "${value.address}:${builtins.toString value.port}";
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig = ''
             # required when the target is also TLS server with multiple hosts
@@ -56,21 +76,23 @@ let
     }:
     (
       (lib.attrsets.mapAttrs' (
-        name: _:
+        name: value:
         lib.attrsets.nameValuePair "${name}.cryolitia.dn42" (
           (generateVirtualHostConfig { inherit zoneCfg extraConfig; })."${name}.*"
           // {
-            addSSL = true;
+            addSSL = !value.forceSSL;
+            forceSSL = value.forceSSL;
             enableACME = true;
           }
         )
       ) zoneCfg)
       // (lib.attrsets.mapAttrs' (
-        name: _:
+        name: value:
         lib.attrsets.nameValuePair "${name}.crylt.dn42" (
           (generateVirtualHostConfig { inherit zoneCfg extraConfig; })."${name}.*"
           // {
-            addSSL = true;
+            addSSL = !value.forceSSL;
+            forceSSL = value.forceSSL;
             enableACME = true;
           }
         )
@@ -91,11 +113,11 @@ in
   options = {
     me.cryolitia.services.nginx = {
       external = lib.mkOption {
-        type = lib.types.attrsOf (lib.types.ints.between 1 65535);
+        type = lib.types.attrsOf upstreamType;
         default = { };
       };
       internal = lib.mkOption {
-        type = lib.types.attrsOf (lib.types.ints.between 1 65535);
+        type = lib.types.attrsOf upstreamType;
         default = { };
       };
     };
@@ -126,7 +148,7 @@ in
         443
       ])
       ++ (lib.optionals (!config.services.nginx.enable) (
-        lib.attrsets.mapAttrsToList (_: value: value) cfg.external
+        lib.attrsets.mapAttrsToList (_: value: value.port) cfg.external
       ));
 
     security.acme = {

@@ -1,2 +1,1 @@
-https://github.com/NixOS/nixpkgs/pull/539280.patch
-https://github.com/NixOS/nixpkgs/pull/543974.patch
+https://github.com/Cryolitia-Forks/nixpkgs/commit/53e8040b88f40318f6fbd4188dbdecbedc2dd11b.patch

@@ -37,5 +37,7 @@
     #8080
     55555
   ];
-  me.cryolitia.services.nginx.internal."qbt" = 8080;
+  me.cryolitia.services.nginx.internal."qbt" = {
+    port = 8080;
+  };
 }

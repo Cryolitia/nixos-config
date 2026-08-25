@@ -31,5 +31,7 @@ in
     # HomeKit
     21064
   ];
-  me.cryolitia.services.nginx.internal."ha" = 8123;
+  me.cryolitia.services.nginx.internal."ha" = {
+    port = 8123;
+  };
 }

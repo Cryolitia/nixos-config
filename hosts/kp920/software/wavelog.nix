@@ -33,5 +33,7 @@ in
   };
 
   #networking.firewall.allowedTCPPorts = [ 8086 ];
-  me.cryolitia.services.nginx.internal."wavelog" = 8086;
+  me.cryolitia.services.nginx.internal."wavelog" = {
+    port = 8086;
+  };
 }

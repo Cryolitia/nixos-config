@@ -1,7 +1,0 @@
-[connection]
-type = "ADB"
-adb_path = "adb"
-config = "General"
-
-[instance_options]
-touch_mode = "ADB"

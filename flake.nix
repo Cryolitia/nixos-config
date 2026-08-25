@@ -82,7 +82,7 @@
 
     jetbrains-plugins.url = "github:Cryolitia/nix-jetbrains-plugins";
 
-    niri.url = "github:sodiboo/niri-flake";
+    niri.url = "github:epireyn/niri-flake";
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -163,7 +163,7 @@
                 inherit inputs;
               };
               modules =
-                (commonModule (import ./hosts/kp920/home.nix))
+                (commonModule null)
                 ++ (with inputs; [
 
                   ./hosts/kp920

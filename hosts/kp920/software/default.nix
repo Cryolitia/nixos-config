@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }:
 
@@ -37,24 +36,14 @@
     openFirewall = true;
   };
 
-  me.cryolitia.services.nginx.internal."sdr" = 8073;
-  services.nginx.virtualHosts."sdr.*".locations."/".proxyPass =
-    lib.mkForce "http://q6a.internal:8073";
-  services.nginx.virtualHosts."sdr.cryolitia.dn42".locations."/".proxyPass =
-    lib.mkForce "http://q6a.internal:8073";
-  services.nginx.virtualHosts."sdr.crylt.dn42".locations."/".proxyPass =
-    lib.mkForce "http://q6a.internal:8073";
-
-  me.cryolitia.services.nginx.internal."linkr" = 80;
-  services.nginx.virtualHosts."linkr.*".locations."/".proxyPass = lib.mkForce "http://linkr.internal";
-  services.nginx.virtualHosts."linkr.cryolitia.dn42" = {
-    addSSL = lib.mkForce false;
-    forceSSL = true;
-    locations."/".proxyPass = lib.mkForce "http://linkr.internal";
+  me.cryolitia.services.nginx.internal."sdr" = {
+    address = "http://q6a.internal";
+    port = 8073;
   };
-  services.nginx.virtualHosts."linkr.crylt.dn42" = {
-    addSSL = lib.mkForce false;
+
+  me.cryolitia.services.nginx.internal."linkr" = {
+    address = "http://linkr.internal";
+    port = 80;
     forceSSL = true;
-    locations."/".proxyPass = lib.mkForce "http://linkr.internal";
   };
 }

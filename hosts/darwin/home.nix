@@ -1,14 +1,70 @@
-{ pkgs, lib, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 let
   rimeConfig = ../../dotfiles/rime/default.custom.yaml;
   rimeDict = ../../dotfiles/rime/my.dict.yaml;
   rimeIce = ../../dotfiles/rime/rime_ice.custom.yaml;
+  dirmngrConfig =
+    lib.generators.toKeyValue
+      {
+        mkKeyValue =
+          key: value: if lib.isString value then "${key} ${value}" else lib.optionalString value key;
+        listsAsDuplicateKeys = true;
+      }
+      {
+        keyserver = "hkps://keyserver.ubuntu.com";
+        disable-ipv6 = true;
+      };
   rime-data = import ../../graphic/software/rime-data.nix {
     inherit pkgs;
   };
 in
 {
-  imports = [ ../../common/home.nix ];
+  imports = [
+    ../../common/home.nix
+    inputs.nix-index-database.homeModules.nix-index
+  ];
+
+  programs.nix-index.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    initContent = ''
+      source ~/.p10k.zsh
+    '';
+    history = {
+      extended = true;
+      save = 999999;
+      size = 999999;
+    };
+  };
+
+  programs.git = {
+    enable = true;
+    package = pkgs.gitFull;
+    signing.format = "openpgp";
+    settings = {
+      user = {
+        name = "Cryolitia PukNgae";
+        email = "cryolitia@mercallure.com";
+      };
+      core.autocrlf = "input";
+      sendemail = {
+        smtpServer = "localhost";
+        smtpServerPort = 25;
+      };
+      pull.ff = "only";
+    };
+  };
+
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
+  };
 
   home.file = {
     "Library/Application Support/Code/User/settings.json".source =
@@ -16,6 +72,8 @@ in
         { inherit pkgs; };
 
     ".p10k.zsh".source = lib.mkForce ../../dotfiles/.p10k.simple.zsh;
+    ".config/hyfetch.json".source = ../../dotfiles/hyfetch.json;
+    ".gnupg/dirmngr.conf".text = dirmngrConfig;
 
     "Library/Rime/default.custom.yaml".source = rimeConfig;
     "Library/Rime/my.dict.yaml".source = rimeDict;
@@ -56,12 +114,23 @@ in
     '';
   };
 
-  programs.git = {
+  programs.btop = {
+    enable = true;
     settings = {
-      user = {
-        name = "Cryolitia PukNgae";
-        email = lib.mkForce "cryolitia@mercallure.com";
-      };
+      color_theme = "TTY";
+      theme_background = false;
+    };
+  };
+
+  programs.gpg = {
+    enable = true;
+    settings = lib.mkForce {
+      ask-cert-level = true;
+      keyserver-options = [
+        "no-self-sigs-only"
+        "no-import-clean"
+      ];
+      armor = true;
     };
   };
 }

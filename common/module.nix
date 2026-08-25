@@ -1,6 +1,7 @@
 { inputs, ... }:
 
-home-config: [
+home-config:
+[
   { nixpkgs.overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ]; }
 
   inputs.nur.modules.nixos.default
@@ -9,7 +10,8 @@ home-config: [
   inputs.nix-index-database.nixosModules.nix-index
 
   { programs.nix-index-database.comma.enable = true; }
-
+]
+++ inputs.nixpkgs.lib.optionals (home-config != null) [
   inputs.home-manager.nixosModules.home-manager
   {
     home-manager.useGlobalPkgs = true;

@@ -38,7 +38,7 @@ deadnix:
 
 update:
 	./update.py
-	nix flake lock --update-input nixpkgs --refresh
+	nix flake update nixpkgs --refresh
 	nix flake update
 
 darwin: fmt deadnix
