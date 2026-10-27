@@ -103,7 +103,7 @@
               icon = "hl-nixos";
               url = "//hydra.cryolitia.dn42";
             })
-            (lib.optional config.services.hydra.enable {
+            (lib.optional config.services.netdata.enable {
               title = "Netdata";
               description = pkgs.netdata.meta.description;
               icon = "hl-netdata";
@@ -128,7 +128,7 @@
             hideForGuests = false;
           };
           items = lib.mkMerge [
-            (lib.optional config.virtualisation.oci-containers.containers.wavelog-main.autoStart {
+            (lib.optional (config.virtualisation.oci-containers.containers.wavelog-main.autoStart or false) {
               title = "Wavelog";
               description = pkgs.wavelog.meta.description;
               icon = "hl-wavelog";
@@ -140,7 +140,7 @@
               icon = "hl-code";
               url = "//code.cryolitia.dn42";
             })
-            (lib.optional config.virtualisation.oci-containers.containers.homeassistant.autoStart {
+            (lib.optional (config.virtualisation.oci-containers.containers.homeassistant.autoStart or false) {
               title = "Home Assistant";
               description = pkgs.home-assistant.meta.description;
               icon = "hl-home-assistant-alt";

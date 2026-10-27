@@ -1,4 +1,7 @@
-.PHONY: boot-nom, switch, boot, build-nom, build, build-no-cache, remote, clean, fmt, darwin
+SHELL := bash
+.SHELLFLAGS := -o pipefail -c
+
+.PHONY: boot-nom switch boot build-nom build build-no-cache remote clean fmt deadnix update darwin
 
 boot-nom: fmt deadnix
 	sudo nixos-rebuild boot --flake .# --log-format internal-json -v --accept-flake-config |& nom --json

@@ -8,7 +8,7 @@
 let
   sh = config.lib.niri.actions.spawn "sh" "-c";
 in
-lib.optionals osConfig.programs.niri.enable {
+lib.optionalAttrs osConfig.programs.niri.enable {
 
   imports = [
     ./dunst.nix

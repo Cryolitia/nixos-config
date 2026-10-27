@@ -6,10 +6,8 @@
     enable = true;
     openFirewall = true;
     settings = {
-      glogal = {
+      global = {
         workgroup = "WORKGROUP";
-        "server string" = "smbnix";
-        "netbios name" = "smbnix";
         security = "user";
         "use sendfile" = "yes";
         # "max protocol" = "smb2";

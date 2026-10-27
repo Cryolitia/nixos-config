@@ -287,7 +287,6 @@
               radxa-q6a-image =
                 (inputs.nixpkgs.lib.nixosSystem {
                   system = "aarch64-linux";
-                  format = "raw-efi";
                   specialArgs = {
                     inherit inputs;
                   };
@@ -341,7 +340,7 @@
                     (commonModule (import ./hosts/image/home.nix))
                     ++ (with inputs; [
                       ./hosts/image
-                      inputs.nixos-hardware-yuntian.nixosModules.orion-o6
+                      inputs.nixos-hardware-yuntian.nixosModules.radxa-orion-o6
                       {
                         boot.initrd.allowMissingModules = true;
                         system.nixos.tags = [ "radxa-o6" ];
