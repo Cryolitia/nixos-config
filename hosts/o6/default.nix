@@ -23,8 +23,8 @@
     systemd-boot.enable = true;
   };
 
-  hardware.cix.sky1.enable = lib.mkForce false;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Keep the board module, but use the upstream nixpkgs kernel.
+  hardware.cix.sky1.enable = lib.mkOverride 900 false;
 
   systemd.enableEmergencyMode = true;
 
@@ -64,7 +64,7 @@
   nixpkgs.config.cudaSupport = true;
 
   hardware.nvidia.prime.offload.enable = false;
-  nixpkgs.overlays = [
+  nixpkgs.overlays = lib.mkAfter [
     (_: prev: {
       # Keep Firefox's ONNX dependency compatible with the upstream binary cache.
       onnxruntime = prev.onnxruntime.override {

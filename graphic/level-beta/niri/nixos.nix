@@ -5,6 +5,17 @@
   inputs,
   ...
 }:
+let
+  # https://github.com/HimDek/Utterly-Nord-Plasma/pull/29
+  patchedUtterlyNordPlasma = pkgs.utterly-nord-plasma.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ [
+      (pkgs.fetchpatch {
+        url = "https://github.com/HimDek/Utterly-Nord-Plasma/commit/3000c9451bb7ed7e7fbbe1d381ae21bdb714c6ee.patch";
+        hash = "sha256-G5w7hOjjt6PF6uayp9ebLLcyduxHg9Vltc+2u2n/dFg=";
+      })
+    ];
+  });
+in
 
 {
   config = lib.mkIf (lib.elem "niri" config.features.desktop) {
@@ -26,7 +37,7 @@
       playerctl
       wl-mirror
 
-      utterly-nord-plasma
+      patchedUtterlyNordPlasma
       swayosd
     ];
 
@@ -40,8 +51,8 @@
         excludePackages = [ pkgs.xterm ];
       };
       displayManager.sddm = lib.mkIf (!(lib.elem "gnome" config.features.desktop)) {
-        theme = "${pkgs.utterly-nord-plasma}/share/sddm/themes/Utterly-Nord";
-        extraPackages = pkgs.utterly-nord-plasma.propagatedBuildInputs;
+        theme = "${patchedUtterlyNordPlasma}/share/sddm/themes/Utterly-Nord";
+        extraPackages = patchedUtterlyNordPlasma.propagatedBuildInputs;
         wayland.enable = true;
         enableHidpi = true;
       };

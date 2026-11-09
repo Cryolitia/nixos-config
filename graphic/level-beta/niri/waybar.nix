@@ -4,6 +4,17 @@
   osConfig,
   ...
 }:
+let
+  niriTaskbar = pkgs.nur.repos.linyinfeng.niri-taskbar.overrideAttrs (oldAttrs: {
+    # https://github.com/LawnGnome/niri-taskbar/pull/35
+    patches = (oldAttrs.patches or [ ]) ++ [
+      (pkgs.fetchpatch {
+        url = "https://github.com/LawnGnome/niri-taskbar/commit/4c0b9232a136bb00f1f1536259071141ac541554.patch";
+        hash = "sha256-JLwDou+zHdiCafKSF9GN57MpDKS3OR9gywgcTqinjLQ=";
+      })
+    ];
+  });
+in
 {
   programs.waybar = {
     enable = true;
@@ -26,7 +37,7 @@
           "mpris"
         ];
         "cffi/niri-taskbar" = {
-          "module_path" = "${pkgs.nur.repos.linyinfeng.niri-taskbar}/lib/libniri_taskbar.so";
+          "module_path" = "${niriTaskbar}/lib/libniri_taskbar.so";
         };
         modules-center = [
           "clock"

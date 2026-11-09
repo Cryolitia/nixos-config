@@ -1,9 +1,10 @@
+{ config, ... }:
+
 {
   services.hydra = {
     enable = true;
     hydraURL = "http://localhost:3000";
     notificationSender = "hydra@localhost";
-    buildMachinesFiles = [ ];
     useSubstitutes = true;
     extraConfig = ''
       <git-input>
@@ -11,6 +12,13 @@
       </git-input>
     '';
   };
+
+  services.hydra-builder = {
+    enable = true;
+    queueRunnerAddr = "http://[::1]:${toString config.services.hydra.queueRunner.grpc.port}";
+  };
+
+  systemd.services.hydra-builder.after = [ "hydra-queue-runner.service" ];
 
   # networking.firewall.allowedTCPPorts = [ 3000 ];
 

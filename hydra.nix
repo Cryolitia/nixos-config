@@ -12,6 +12,4 @@ let
 in
 {
   radxa-linux-qcom = output.outputs.packages."aarch64-linux".radxa-linux-qcom;
-  linux-o6 =
-    output.outputs.nixosConfigurations.cryolitia-radxa-o6-nixos.config.specialisation.vendor.configuration.boot.kernelPackages.kernel;
 }

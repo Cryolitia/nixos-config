@@ -18,9 +18,9 @@
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
-    publish = {
+    settings.publish = {
       enable = true;
-      hinfo = true;
+      publish-hinfo = true;
     };
   };
   services.openssh.enable = true;

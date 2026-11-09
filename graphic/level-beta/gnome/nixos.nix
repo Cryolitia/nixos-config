@@ -21,7 +21,6 @@
     environment.gnome.excludePackages = (
       with pkgs;
       [
-        gnome-photos
         gnome-tour
         gnome-text-editor
         gedit
