@@ -5,8 +5,9 @@
     enable = true;
     package = pkgs.steam.override {
       steam-unwrapped = pkgs.steam-unwrapped.overrideAttrs (oldAttrs: {
-        postInstall = oldAttrs.postInstall + ''
-          sed -i 's/Exec=steam/Exec=mangohud steam/g' $out/share/applications/steam.desktop
+        postInstall = (oldAttrs.postInstall or "") + ''
+          substituteInPlace "$out/share/applications/steam.desktop" \
+            --replace-fail 'Exec=steam' 'Exec=mangohud steam'
         '';
       });
     };

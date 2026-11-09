@@ -48,6 +48,11 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/cix-mainline";
 
+    xiaomi-piano = {
+      url = "github:cryolitia/xiaomi-piano-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -123,6 +128,14 @@
       nixosConfigurations =
         lib.mapAttrs' (name: value: lib.nameValuePair ("cryolitia-" + name + "-nixos") value)
           {
+            xiaomi-piano = inputs.nixpkgs.lib.nixosSystem {
+              system = "aarch64-linux";
+              specialArgs = {
+                inherit inputs;
+              };
+              modules = [ ./hosts/xiaomi-piano ];
+            };
+
             lecoo-minipro = inputs.nixpkgs.lib.nixosSystem {
               system = "x86_64-linux";
               specialArgs = {

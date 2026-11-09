@@ -14,14 +14,9 @@
     scrcpy
     element-desktop
     thunderbird
-    telegram-desktop
-    kdePackages.okular
     qq
-    mpv
     vlc
-    moonlight-qt
   ];
 
-  programs.kdeconnect.enable = true;
   services.flatpak.enable = true;
 }

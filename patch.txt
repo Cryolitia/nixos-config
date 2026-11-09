@@ -2,3 +2,4 @@ https://github.com/Cryolitia-Forks/nixpkgs/commit/1948685dff4c0353dfcb64eaf9be4b
 https://github.com/NixOS/nixpkgs/pull/585002.patch
 https://github.com/NixOS/nixpkgs/pull/585411.patch
 https://github.com/NixOS/nixpkgs/pull/574794.patch
+https://github.com/Cryolitia-Forks/nixpkgs/commit/ff62739528df07c439fc49a1453061a27eab9d32.patch

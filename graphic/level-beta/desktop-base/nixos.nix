@@ -15,6 +15,10 @@
     mission-center
     nautilus
     crosspipe
+    telegram-desktop
+    kdePackages.okular
+    mpv
+    moonlight-qt
   ];
 
   services.gnome.gnome-keyring.enable = true;

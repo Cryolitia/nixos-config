@@ -4,8 +4,6 @@
     ../../cli/level-gamma/tools/nixos.nix
     ../../graphic/level-gamma/applications/nixos.nix
     ../../graphic/level-gamma/obs-studio/nixos.nix
-    ../../graphic/level-gamma/clash-verge/nixos.nix
-    ../../graphic/level-gamma/localsend/nixos.nix
     ../../graphic/level-gamma/steam/nixos.nix
     ../../graphic/level-gamma/aagl/nixos.nix
     ../../graphic/level-gamma/transmission/nixos.nix

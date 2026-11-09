@@ -7,7 +7,5 @@
     nodejs
     nixpkgs-review
     hugo
-    typst
-    tinymist
   ];
 }

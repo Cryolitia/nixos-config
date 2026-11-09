@@ -19,7 +19,7 @@
     nssmdns4 = true;
     openFirewall = true;
     settings.publish = {
-      enable = true;
+      disable-publishing = false;
       publish-hinfo = true;
     };
   };
