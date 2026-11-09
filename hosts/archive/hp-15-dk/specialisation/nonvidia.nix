@@ -20,8 +20,6 @@ let
 in
 
 {
-  imports = [ ../../../common/libvirt.nix ];
-
   system.nixos.tags = [ "No-Nvidia" ];
 
   boot.initrd.kernelModules = [
@@ -38,7 +36,6 @@ in
   environment.systemPackages = with pkgs; [
     virtiofsd
     looking-glass-client
-    nur-cryolitia.MaaAssistantArknights-beta
   ];
 
   boot.extraModprobeConfig = ''

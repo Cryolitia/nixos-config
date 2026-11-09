@@ -1,0 +1,3 @@
+{
+  environment.enableAllTerminfo = true;
+}

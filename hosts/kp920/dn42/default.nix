@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./bind.nix
+    ./smartdns.nix
+  ];
+
   systemd.services."dn42-static" = {
     enable = true;
     wantedBy = [ "multi-user.target" ];

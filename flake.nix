@@ -40,6 +40,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hjem = {
+      url = "github:feel-co/hjem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/cix-mainline";
 
@@ -92,15 +97,9 @@
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-2405";
-      inputs.home-manager.follows = "home-manager-2405";
     };
 
     nixpkgs-2405.url = "github:nixos/nixpkgs/nixos-24.05";
-
-    home-manager-2405 = {
-      url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs-2405";
-    };
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -116,7 +115,6 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
-      commonModule = import ./common/module.nix { inherit inputs; };
       eachSystem = inputs.nixpkgs.lib.genAttrs systems;
       lib = inputs.nixpkgs.lib;
     in
@@ -131,9 +129,9 @@
                 inherit inputs;
               };
 
-              modules =
-                (commonModule (import ./hosts/gpd/home.nix))
-                ++ (with inputs; [
+              modules = (
+                with inputs;
+                [
 
                   ./hosts/gpd
 
@@ -141,7 +139,8 @@
                   # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
                   nur-cryolitia.nixosModules.gpd-fan-driver
-                ]);
+                ]
+              );
             };
 
             lecoo-minipro = inputs.nixpkgs.lib.nixosSystem {
@@ -150,11 +149,12 @@
                 inherit inputs;
               };
 
-              modules =
-                (commonModule (import ./hosts/lecoo/home.nix))
-                ++ (with inputs; [
+              modules = (
+                with inputs;
+                [
                   ./hosts/lecoo
-                ]);
+                ]
+              );
             };
 
             huawei-kp920 = inputs.nixpkgs.lib.nixosSystem {
@@ -162,16 +162,17 @@
               specialArgs = {
                 inherit inputs;
               };
-              modules =
-                (commonModule null)
-                ++ (with inputs; [
+              modules = (
+                with inputs;
+                [
 
                   ./hosts/kp920
 
                   vscode-server.nixosModules.default
 
                   { services.vscode-server.enable = true; }
-                ]);
+                ]
+              );
             };
 
             radxa-q6a = inputs.nixpkgs.lib.nixosSystem {
@@ -179,16 +180,17 @@
               specialArgs = {
                 inherit inputs;
               };
-              modules =
-                (commonModule (import ./hosts/q6a/home.nix))
-                ++ (with inputs; [
+              modules = (
+                with inputs;
+                [
 
                   ./hosts/q6a
 
                   vscode-server.nixosModules.default
 
                   { services.vscode-server.enable = true; }
-                ]);
+                ]
+              );
             };
 
             radxa-q8b = inputs.nixpkgs.lib.nixosSystem {
@@ -196,14 +198,15 @@
               specialArgs = {
                 inherit inputs;
               };
-              modules =
-                (commonModule (import ./hosts/q8b/home.nix))
-                ++ (with inputs; [
+              modules = (
+                with inputs;
+                [
 
                   ./hosts/q8b
 
                   vscode-server.nixosModules.default
-                ]);
+                ]
+              );
             };
 
             radxa-o6 = inputs.nixpkgs.lib.nixosSystem {
@@ -211,9 +214,9 @@
               specialArgs = {
                 inherit inputs;
               };
-              modules =
-                (commonModule (import ./hosts/o6/home.nix))
-                ++ (with inputs; [
+              modules = (
+                with inputs;
+                [
 
                   ./hosts/o6
 
@@ -225,28 +228,13 @@
                   {
                     boot.initrd.allowMissingModules = true;
                   }
-
-                  nixos-hardware.nixosModules.common-gpu-nvidia
-                ]);
+                ]
+              );
             };
           };
 
       darwinConfigurations."Cryolitia-MacBook-Air" = inputs.nix-darwin.lib.darwinSystem {
-        modules = [
-          ./hosts/darwin
-          { nixpkgs.overlays = [ inputs.nur-cryolitia.overlays.nur-cryolitia ]; }
-          inputs.home-manager.darwinModules.home-manager
-          inputs.nur.modules.darwin.default
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = false;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-            };
-            home-manager.users.cryolitia = (import ./hosts/darwin/home.nix);
-          }
-        ];
+        modules = [ ./hosts/darwin ];
         specialArgs = {
           inherit inputs;
         };
@@ -258,18 +246,18 @@
             iso =
               (inputs.nixpkgs.lib.nixosSystem {
                 inherit system;
-                modules = (commonModule (import ./hosts/image/home.nix)) ++ ([ ./hosts/image ]);
+                modules = ([ ./hosts/image ]);
                 specialArgs = {
                   inherit inputs;
                 };
               }).config.system.build.isoImage;
 
             neovim = inputs.nixvim.legacyPackages."${system}".makeNixvim (
-              import ./common/software/neovim.nix { inherit inputs; }
+              import ./cli/level-alpha/neovim/config.nix { inherit inputs; }
             );
 
             vscode = (
-              import ./graphic/software/vscode.nix {
+              import ./graphic/level-beta/vscode/package.nix {
                 inherit inputs;
                 pkgs = import inputs.nixpkgs {
                   config = {
@@ -293,15 +281,13 @@
                   modules = [
                     "${inputs.nixpkgs}/nixos/modules/profiles/base.nix"
                     "${inputs.nixpkgs}/nixos/modules/profiles/installation-device.nix"
-                    ./hosts/q6a/common.nix
+                    ./hosts/q6a/hardware/board.nix
                     (
                       { lib, ... }:
                       {
                         hardware.enableAllHardware = lib.mkForce false;
                         boot.supportedFilesystems.zfs = lib.mkForce false;
                         system.nixos.tags = [ "radxa-q6a" ];
-                        systemd.tpm2.enable = false;
-                        boot.initrd.systemd.tpm2.enable = false;
                       }
                     )
                   ];
@@ -316,15 +302,13 @@
                   modules = [
                     "${inputs.nixpkgs}/nixos/modules/profiles/base.nix"
                     "${inputs.nixpkgs}/nixos/modules/profiles/installation-device.nix"
-                    ./hosts/q8b/common.nix
+                    ./hosts/q8b/hardware/board.nix
                     (
                       { lib, ... }:
                       {
                         hardware.enableAllHardware = lib.mkForce false;
                         boot.supportedFilesystems.zfs = lib.mkForce false;
                         system.nixos.tags = [ "radxa-q8b" ];
-                        systemd.tpm2.enable = false;
-                        boot.initrd.systemd.tpm2.enable = false;
                       }
                     )
                   ];
@@ -336,19 +320,20 @@
                   specialArgs = {
                     inherit inputs;
                   };
-                  modules =
-                    (commonModule (import ./hosts/image/home.nix))
-                    ++ (with inputs; [
+                  modules = (
+                    with inputs;
+                    [
                       ./hosts/image
                       inputs.nixos-hardware-yuntian.nixosModules.radxa-orion-o6
                       {
                         boot.initrd.allowMissingModules = true;
                         system.nixos.tags = [ "radxa-o6" ];
                       }
-                    ]);
+                    ]
+                  );
                 }).config.system.build.images.iso;
 
-              radxa-linux-qcom = import ./common/radxa-linux-qcom.nix {
+              radxa-linux-qcom = import ./hardware/level-alpha/qcom/package.nix {
                 pkgs = (import inputs.nixpkgs { system = "aarch64-linux"; });
               };
             };
@@ -356,7 +341,7 @@
 
       formatter = eachSystem (
         system:
-        (import ./common/software/nixfmt.nix {
+        (import ./cli/level-alpha/formatter/package.nix {
           pkgs = import inputs.nixpkgs {
             inherit system;
           };
@@ -384,12 +369,9 @@
           ];
         };
 
-        # set path to home-manager flake
-        home-manager-path = inputs.home-manager-2405.outPath;
       };
 
       hydraJobs = {
-        # rpi-nixos = nixosConfigurations.rpi-nixos.config.system.build.toplevel;
         huawei-kp920 = nixosConfigurations.cryolitia-huawei-kp920-nixos.config.system.build.toplevel;
         radxa-q6a = nixosConfigurations.cryolitia-radxa-q6a-nixos.config.system.build.toplevel;
         radxa-q8b = nixosConfigurations.cryolitia-radxa-q8b-nixos.config.system.build.toplevel;

@@ -8,17 +8,19 @@
   inputs,
   ...
 }:
-
 {
   imports = [
     # Include the results of the hardware scan.
-    ../../common
-    ../../hardware
-    ../../graphic/software
-    ../../graphic/desktop/gnome.nix
-    # ../../graphic/desktop/niri.nix
+    ../../profiles/level-beta/nixos.nix
+    ../../hardware/level-beta/graphics/nixos.nix
+    ../../hardware/level-beta/tpm/nixos.nix
+    # ../../graphic/level-beta/niri/nixos.nix
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix"
   ];
+
+  home-manager.users.cryolitia = ./home.nix;
+
+  features.desktop = [ "gnome" ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
@@ -26,8 +28,6 @@
     ntfs = true;
     zfs = lib.mkForce false;
   };
-
-  services.openssh.enable = true;
 
   services.pulseaudio.enable = lib.mkForce false;
 

@@ -7,11 +7,21 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../common
-    ../../hardware
-    ./software
-    ./specialisation
+    ../../profiles/level-gamma/nixos.nix
+    ../../hardware/level-beta/bluetooth/nixos.nix
+    ../../hardware/level-beta/graphics/nixos.nix
+    ../../hardware/level-beta/tpm/nixos.nix
+    ../../hardware/level-gamma/zen-kernel/nixos.nix
+    ../../hardware/level-gamma/amdgpu/nixos.nix
+    ../../services/level-gamma/binfmt/nixos.nix
+    ../../graphic/level-beta/sunshine/nixos.nix
+    ../../services/level-alpha/nix-serve/nixos.nix
   ];
+
+  home-manager.users.cryolitia = ./home.nix;
+
+  # features.desktop = [ "gnome" ];
+  features.desktop = [ "niri" ];
 
   # Bootloader.
   boot.loader.systemd-boot = {
@@ -21,28 +31,9 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  boot.binfmt = {
-    emulatedSystems = [
-      "riscv64-linux"
-    ];
-
-    preferStaticEmulators = true;
-
-    # https://github.com/felixonmars/archriscv-packages/blob/7c270ecef6a84edd6031b357b7bd1f6be2d6d838/devtools-riscv64/z-archriscv-qemu-riscv64.conf
-    registrations."riscv64-linux" = {
-      wrapInterpreterInShell = false;
-      preserveArgvZero = true;
-      matchCredentials = true;
-      fixBinary = true;
-      interpreter = "${pkgs.pkgsStatic.qemu-user}/bin/qemu-riscv64";
-    };
-  };
+  boot.binfmt.emulatedSystems = [ "riscv64-linux" ];
 
   networking.hostName = "cryolitia-lecoo-minipro-nixos"; # Define your hostname.
-
-  services.openssh.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -54,25 +45,11 @@
 
   hardware.cpu.amd.ryzen-smu.enable = true;
 
-  services.sunshine = {
-    enable = true;
-    openFirewall = true;
-    capSysAdmin = true;
-    autoStart = true;
-  };
-
-  hardware.bluetooth.enable = true;
-
-  hardware.amdgpu.opencl.enable = true;
-  nixpkgs.config.rocmSupport = true;
+  services.sunshine.autoStart = true;
 
   services.nix-serve = {
-    enable = true;
     openFirewall = true;
     port = 80;
-    secretKeyFile = "/var/lib/nix-serve-private";
-    bindAddress = "*";
-    package = pkgs.nix-serve-ng;
   };
   systemd.services.nix-serve.serviceConfig.AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
 }

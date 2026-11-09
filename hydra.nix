@@ -11,10 +11,6 @@ let
   output = builtins.getFlake (toString ./.);
 in
 {
-  # linux_rpi5 = pkgs.linux_rpi4.override {
-  #   rpiVersion = 5;
-  #   argsOverride.defconfig = "bcm2712_defconfig";
-  # };
   radxa-linux-qcom = output.outputs.packages."aarch64-linux".radxa-linux-qcom;
   linux-o6 =
     output.outputs.nixosConfigurations.cryolitia-radxa-o6-nixos.config.specialisation.vendor.configuration.boot.kernelPackages.kernel;

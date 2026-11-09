@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  hardware.bluetooth.enable = true;
   systemd.services.btattach = {
     before = [ "bluetooth.service" ];
     after = [ "dev-ttyAMA0.device" ];

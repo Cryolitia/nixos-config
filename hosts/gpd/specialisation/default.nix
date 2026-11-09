@@ -1,10 +1,8 @@
 { ... }:
 
 {
-  imports = [
-    # ../../../graphic/desktop/gnome.nix
-    ../../../graphic/desktop/niri.nix
-  ];
+  # features.desktop = [ "gnome" ];
+  features.desktop = [ "niri" ];
 
   # specialisation."Nvidia".configuration = {
   #   imports = [

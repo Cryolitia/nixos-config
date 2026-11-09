@@ -6,13 +6,17 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./common.nix
+    ./hardware/board.nix
     ./hardware-configuration.nix
-    ../../common
-    ../../hardware/sound.nix
-    ../../graphic/desktop/gnome.nix
-    ../../graphic/software
+    ../../profiles/level-beta/nixos.nix
+    ../../hardware/level-beta/graphics/nixos.nix
+    ../../graphic/level-gamma/obs-studio/nixos.nix
+    ../../services/level-alpha/podman/nixos.nix
   ];
+
+  home-manager.users.cryolitia = ./home.nix;
+
+  features.desktop = [ "gnome" ];
 
   boot = {
     loader.timeout = lib.mkDefault 5;
@@ -24,8 +28,6 @@
   hardware.uinput.enable = true;
 
   networking.hostName = "cryolitia-radxa-q8b-nixos";
-
-  services.openssh.enable = true;
 
   networking.firewall.enable = true;
 
@@ -40,8 +42,6 @@
   nix.extraOptions = ''
     extra-platforms = aarch64-linux
   '';
-
-  virtualisation.podman.enable = true;
 
   swapDevices = [
     {
@@ -59,8 +59,6 @@
     alsa-utils
     slurp
   ];
-
-  programs.obs-studio.enable = true;
 
   hardware.bluetooth.enable = false;
 }

@@ -6,15 +6,20 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./common.nix
+    ./hardware/board.nix
     ./hardware-configuration.nix
-    ../../common
-    ../../hardware/sound.nix
-    ../../graphic/desktop/niri.nix
-    ../../graphic/software
+    ../../profiles/level-beta/nixos.nix
+    ../../hardware/level-beta/graphics/nixos.nix
+    ../../graphic/level-gamma/obs-studio/nixos.nix
+    ../../graphic/level-beta/sunshine/nixos.nix
+    ../../services/level-alpha/podman/nixos.nix
     ./hamradio.nix
     ./pipewire.nix
   ];
+
+  home-manager.users.cryolitia = ./home.nix;
+
+  features.desktop = [ "niri" ];
 
   boot = {
     loader.timeout = lib.mkDefault 5;
@@ -26,8 +31,6 @@
   hardware.uinput.enable = true;
 
   networking.hostName = "cryolitia-radxa-q6a-nixos";
-
-  services.openssh.enable = true;
 
   networking.firewall.enable = true;
 
@@ -43,20 +46,12 @@
     extra-platforms = aarch64-linux
   '';
 
-  virtualisation.podman.enable = true;
-
   swapDevices = [
     {
       device = "/var/lib/swapfile";
       size = 6 * 1024;
     }
   ];
-
-  services.sunshine = {
-    enable = true;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
 
   services.displayManager.autoLogin = {
     enable = true;
@@ -67,8 +62,6 @@
     alsa-utils
     slurp
   ];
-
-  programs.obs-studio.enable = true;
 
   hardware.bluetooth.enable = false;
 }

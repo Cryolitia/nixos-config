@@ -1,14 +1,16 @@
 { pkgs, ... }:
-
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./software
-    ../../common
-    ../../common/cooperator.nix
-    ./hardware/bluetooth.nix
-    ../../hardware/sound.nix
+    ./services
+    ../../profiles/level-alpha/nixos.nix
+    ../../services/level-alpha/podman/nixos.nix
+    ../../services/level-gamma/distrobox/nixos.nix
+    ../../services/level-alpha/nix-serve/nixos.nix
+    ./users.nix
+    ../../hardware/level-beta/bluetooth/nixos.nix
+    ../../hardware/level-beta/sound/nixos.nix
     ./dn42
   ];
 
@@ -32,8 +34,6 @@
     firewall.enable = true;
   };
 
-  services.openssh.enable = true;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
@@ -47,12 +47,8 @@
   '';
 
   services.nix-serve = {
-    enable = true;
     openFirewall = false;
     port = 5000;
-    secretKeyFile = "/var/lib/nix-serve-private";
-    bindAddress = "*";
-    package = pkgs.nix-serve-ng;
   };
   me.cryolitia.services.nginx.external."cache" = {
     port = 5000;

@@ -3,16 +3,21 @@
 # and in the NixOS manual (accessible by running `nixos-help`).
 
 { pkgs, ... }:
-
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../common
-    ../../hardware
+    ../../profiles/level-gamma/nixos.nix
+    ../../hardware/level-beta/graphics/nixos.nix
+    ../../hardware/level-beta/tpm/nixos.nix
+    ../../hardware/level-gamma/zen-kernel/nixos.nix
+    ../../hardware/level-gamma/amdgpu/nixos.nix
+    ../../services/level-gamma/binfmt/nixos.nix
     ./software
     ./specialisation
   ];
+
+  home-manager.users.cryolitia = ./home.nix;
 
   # Bootloader.
   boot.loader.systemd-boot = {
@@ -22,16 +27,12 @@
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
   networking.hostName = "cryolitia-gpd-wm2-nixos"; # Define your hostname.
 
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
     HandleLidSwitchExternalPower = "suspend";
   };
-
-  services.openssh.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -41,31 +42,10 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  boot.binfmt = {
-    emulatedSystems = [
-      "aarch64-linux"
-      "riscv64-linux"
-    ];
-
-    preferStaticEmulators = true;
-
-    registrations."aarch64-linux" = {
-      wrapInterpreterInShell = false;
-      preserveArgvZero = true;
-      matchCredentials = true;
-      fixBinary = true;
-      interpreter = "${pkgs.pkgsStatic.qemu-user}/bin/qemu-aarch64";
-    };
-
-    # https://github.com/felixonmars/archriscv-packages/blob/7c270ecef6a84edd6031b357b7bd1f6be2d6d838/devtools-riscv64/z-archriscv-qemu-riscv64.conf
-    registrations."riscv64-linux" = {
-      wrapInterpreterInShell = false;
-      preserveArgvZero = true;
-      matchCredentials = true;
-      fixBinary = true;
-      interpreter = "${pkgs.pkgsStatic.qemu-user}/bin/qemu-riscv64";
-    };
-  };
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "riscv64-linux"
+  ];
 
   services.displayManager.sddm.settings.General.GreeterEnvironment =
     "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
@@ -76,20 +56,16 @@
     SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
     SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="0", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
 
+    # GPD
     SUBSYSTEM=="usb", ATTRS{idVendor}=="2f24", ATTRS{idProduct}=="0135", MODE="0666", GROUP="plugdev"
   '';
 
   hardware.gpd-fan.enable = true;
 
-  services.nixseparatedebuginfod2.enable = true;
-
   hardware.xone.enable = true;
   hardware.xpad-noone.enable = true;
 
   hardware.sensor.iio.enable = true;
-
-  hardware.amdgpu.opencl.enable = true;
-  nixpkgs.config.rocmSupport = true;
 
   hardware.bluetooth.enable = true;
 }

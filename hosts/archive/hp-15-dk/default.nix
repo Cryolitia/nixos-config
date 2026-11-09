@@ -5,23 +5,10 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ../../common
-    ../../hardware
-    ./software
-    ./specialisation
-  ];
-
   # Bootloader.
   boot.loader.systemd-boot = {
-    enable = true;
     consoleMode = "2";
   };
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   networking.hostName = "cryolitia-nixos"; # Define your hostname.
 
@@ -34,8 +21,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   systemd.services.HPLidKeyCode = {
     description = "Prevent HP laptop to toggle airplane mode when lip close.";
