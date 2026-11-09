@@ -2,30 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../profiles/level-gamma/nixos.nix
-    ../../hardware/level-beta/graphics/nixos.nix
-    ../../hardware/level-beta/tpm/nixos.nix
-    ../../hardware/level-gamma/zen-kernel/nixos.nix
-    ../../hardware/level-gamma/amdgpu/nixos.nix
-    ../../services/level-gamma/binfmt/nixos.nix
-    ./software
-    ./specialisation
+    inputs.nixos-hardware.nixosModules.gpd-win-max-2-2023
+    inputs.nur-cryolitia.nixosModules.gpd-fan-driver
   ];
 
   home-manager.users.cryolitia = ./home.nix;
 
   # Bootloader.
-  boot.loader.systemd-boot = {
-    enable = true;
-    edk2-uefi-shell.enable = true;
-    windows."11".efiDeviceHandle = "FS0";
-  };
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.windows."11".efiDeviceHandle = "FS0";
 
   networking.hostName = "cryolitia-gpd-wm2-nixos"; # Define your hostname.
 
@@ -42,15 +31,8 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  boot.binfmt.emulatedSystems = [
-    "aarch64-linux"
-    "riscv64-linux"
-  ];
-
   services.displayManager.sddm.settings.General.GreeterEnvironment =
     "QT_SCREEN_SCALE_FACTORS=2,QT_FONT_DPI=192";
-
-  hardware.cpu.amd.ryzen-smu.enable = true;
 
   services.udev.extraRules = ''
     SUBSYSTEM=="power_supply", KERNEL=="ADP1", ATTR{online}=="1", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
@@ -67,5 +49,8 @@
 
   hardware.sensor.iio.enable = true;
 
-  hardware.bluetooth.enable = true;
+  environment.systemPackages = with pkgs; [
+    nur-cryolitia.gpd-linux-controls
+    modem-manager-gui
+  ];
 }

@@ -123,26 +123,6 @@
       nixosConfigurations =
         lib.mapAttrs' (name: value: lib.nameValuePair ("cryolitia-" + name + "-nixos") value)
           {
-            gpd-wm2 = inputs.nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              specialArgs = {
-                inherit inputs;
-              };
-
-              modules = (
-                with inputs;
-                [
-
-                  ./hosts/gpd
-
-                  nixos-hardware.nixosModules.gpd-win-max-2-2023
-                  # nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-
-                  nur-cryolitia.nixosModules.gpd-fan-driver
-                ]
-              );
-            };
-
             lecoo-minipro = inputs.nixpkgs.lib.nixosSystem {
               system = "x86_64-linux";
               specialArgs = {
