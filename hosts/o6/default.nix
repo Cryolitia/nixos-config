@@ -66,7 +66,13 @@
   hardware.nvidia.prime.offload.enable = false;
   nixpkgs.overlays = [
     (_: prev: {
-      onnxruntime = prev.onnxruntime.override { cudaSupport = false; };
+      # Keep Firefox's ONNX dependency compatible with the upstream binary cache.
+      onnxruntime = prev.onnxruntime.override {
+        cudaSupport = false;
+        openvino = prev.openvino.override {
+          opencv = prev.opencv.override { enableCuda = false; };
+        };
+      };
     })
   ];
 

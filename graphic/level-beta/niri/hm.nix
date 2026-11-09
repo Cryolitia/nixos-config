@@ -3,9 +3,11 @@
   osConfig,
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
+  cfg = config.programs.niri;
   sh = config.lib.niri.actions.spawn "sh" "-c";
 in
 lib.optionalAttrs osConfig.programs.niri.enable {
@@ -20,6 +22,29 @@ lib.optionalAttrs osConfig.programs.niri.enable {
     ./nm-applet.nix
     ./swayidle.nix
   ];
+
+  # Avoid finalConfig's evaluation-time read; generation and validation stay in the build.
+  xdg.configFile.niri-config = lib.mkForce {
+    enable = cfg.config != null;
+    target = "niri/config.kdl";
+    source =
+      if cfg.config == null then
+        null
+      else
+        pkgs.runCommand "config.kdl"
+          {
+            configPath =
+              if builtins.isString cfg.config then
+                pkgs.writeText "config.kdl" cfg.config
+              else
+                pkgs.callPackage inputs.niri.lib.kdl.generator { document = cfg.config; };
+            buildInputs = [ cfg.package ];
+          }
+          ''
+            niri validate -c $configPath
+            cp $configPath $out
+          '';
+  };
 
   programs.niri = {
     settings = {
