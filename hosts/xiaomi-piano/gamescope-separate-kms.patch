@@ -1,0 +1,38 @@
+Gamescope 3.17: allow an independent KMS device for split render/display GPUs.
+
+Piano uses an Adreno render-only device and a separate MSM DPU. Let the
+session select the scanout node through GAMESCOPE_PREFER_DRM, resolving
+stable device symlinks before asking logind/libseat to open the node.
+Keep the normal Vulkan-derived selection when the variable is unset.
+
+--- a/src/Backends/DRMBackend.cpp
++++ b/src/Backends/DRMBackend.cpp
+@@ -1500,7 +1500,18 @@
+ 
+ 	drm->device_name = nullptr;
+ 	dev_t dev_id = 0;
+-	if (vulkan_primary_dev_id(&dev_id)) {
++	// A render-only GPU and its display controller can be separate DRM devices.
++	const char *preferred_drm = getenv("GAMESCOPE_PREFER_DRM");
++	if (preferred_drm && preferred_drm[0]) {
++		// Resolve stable by-path links before handing the node to logind/libseat.
++		drm->device_name = realpath(preferred_drm, nullptr);
++		if (!drm->device_name) {
++			drm_log.errorf("Could not resolve DRM scanout device '%s': %s", preferred_drm, strerror(errno));
++			return false;
++		}
++		drm_log.infof("using configured DRM scanout node '%s'", drm->device_name);
++	}
++	else if (vulkan_primary_dev_id(&dev_id)) {
+ 		drmDevice *drm_dev = nullptr;
+ 		if (drmGetDeviceFromDevId(dev_id, 0, &drm_dev) != 0) {
+ 			drm_log.errorf("Failed to find DRM device with device ID %" PRIu64, (uint64_t)dev_id);
+@@ -1526,7 +1537,7 @@
+ 	{
+ 		drm_log.errorf( "'%s' is not a KMS device", drm->device_name );
+ 		wlsession_close_kms();
+-		return -1;
++		return false;
+ 	}
+ 
+ 	if (drmSetClientCap(drm->fd, DRM_CLIENT_CAP_ATOMIC, 1) != 0) {

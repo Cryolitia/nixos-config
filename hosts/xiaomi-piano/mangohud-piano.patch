@@ -1,0 +1,126 @@
+From fded399de54df841fe92960f0f10314d8fe6ecee Mon Sep 17 00:00:00 2001
+From: Cryolitia PukNgae <cryolitia@gmail.com>
+Date: Thu, 12 Nov 2026 15:25:35 +0800
+Subject: [PATCH] msm: support separate Adreno render devices
+
+With msm.separate_gpu_kms, the render node is bound to the adreno platform
+driver rather than msm_dpu. It exposes the same DRM engine time and
+resident-memory counters, but is skipped by GPU discovery.
+
+Accept adreno in both the legacy HUD and mangohud-next and reuse the MSM
+metrics implementation without changing the platform driver identity.
+
+Prefer devfreq below the render node's own device. Retain global devfreq
+discovery for the combined msm_dpu device, whose render node belongs to
+the display controller. A separate render device with no readable local
+clock must not inherit another GPU's frequency.
+---
+ mangohud-next/legacy_gpu_wrapper/wrapper.cpp |  2 +-
+ mangohud-next/server/metrics/gpu/gpus.cpp    |  2 +-
+ mangohud-next/server/metrics/gpu/gpus.hpp    |  4 ++--
+ mangohud-next/server/metrics/gpu/msm/dpu.cpp | 21 ++++++++++++++++++++
+ src/gpu.h                                    |  6 +++---
+ 5 files changed, 28 insertions(+), 7 deletions(-)
+
+diff --git a/mangohud-next/legacy_gpu_wrapper/wrapper.cpp b/mangohud-next/legacy_gpu_wrapper/wrapper.cpp
+index 90e4af4..2456c73 100644
+--- a/mangohud-next/legacy_gpu_wrapper/wrapper.cpp
++++ b/mangohud-next/legacy_gpu_wrapper/wrapper.cpp
+@@ -16,7 +16,7 @@ struct LegacyGPUWrapper::Impl {
+             gpu = std::make_unique<Intel_i915>(drm_node, pci_dev, vendor_id, device_id);
+         } else if (driver == "xe") {
+             gpu = std::make_unique<Intel_xe>(drm_node, pci_dev, vendor_id, device_id);
+-        } else if (driver == "msm_dpu") {
++        } else if (driver == "msm_dpu" || driver == "adreno") {
+             gpu = std::make_unique<MSM_DPU>(drm_node, pci_dev, vendor_id, device_id);
+         } else if (driver == "msm_drm") {
+             gpu = std::make_unique<MSM_KGSL>(drm_node, pci_dev, vendor_id, device_id);
+diff --git a/mangohud-next/server/metrics/gpu/gpus.cpp b/mangohud-next/server/metrics/gpu/gpus.cpp
+index 1030a1b..13cc6e7 100644
+--- a/mangohud-next/server/metrics/gpu/gpus.cpp
++++ b/mangohud-next/server/metrics/gpu/gpus.cpp
+@@ -101,7 +101,7 @@ GPUS::GPUS() {
+             gpu = std::make_shared<Panfrost>(drm_node, pci_dev, vendor_id, device_id);
+         } else if (driver == "panthor") {
+             gpu = std::make_shared<Panthor>(drm_node, pci_dev, vendor_id, device_id);
+-        } else if (driver == "msm_dpu") {
++        } else if (driver == "msm_dpu" || driver == "adreno") {
+             gpu = std::make_shared<MSM_DPU>(drm_node, pci_dev, vendor_id, device_id);
+         } else if (driver == "msm_drm") {
+             gpu = std::make_shared<MSM_KGSL>(drm_node, pci_dev, vendor_id, device_id);
+diff --git a/mangohud-next/server/metrics/gpu/gpus.hpp b/mangohud-next/server/metrics/gpu/gpus.hpp
+index e85571b..99359a8 100644
+--- a/mangohud-next/server/metrics/gpu/gpus.hpp
++++ b/mangohud-next/server/metrics/gpu/gpus.hpp
+@@ -14,8 +14,8 @@ private:
+     std::string get_pci_device_address(const std::string& drm_card_path);
+     std::string get_driver(const std::string& drm_card_path);
+ 
+-    const std::array<std::string, 7> supported_drivers = {
+-        "amdgpu", "nvidia", "i915", "xe", "panfrost", "msm_dpu", "msm_drm"
++    const std::array<std::string, 8> supported_drivers = {
++        "amdgpu", "nvidia", "i915", "xe", "panfrost", "msm_dpu", "msm_drm", "adreno"
+     };
+ 
+ public:
+diff --git a/mangohud-next/server/metrics/gpu/msm/dpu.cpp b/mangohud-next/server/metrics/gpu/msm/dpu.cpp
+index a52be12..eefbfb4 100644
+--- a/mangohud-next/server/metrics/gpu/msm/dpu.cpp
++++ b/mangohud-next/server/metrics/gpu/msm/dpu.cpp
+@@ -196,6 +196,27 @@ std::ifstream MSM_DPU::open_thermal_zone(const std::string& type) {
+ std::ifstream MSM_DPU::open_core_clock() {
+     std::error_code ec;
+     std::ifstream file;
++    const fs::path device = fs::path("/sys/class/drm") / drm_node / "device";
++    const fs::path device_devfreq = device / "devfreq";
++    std::error_code device_ec;
++    for (fs::directory_iterator it(device_devfreq, device_ec), end;
++         !device_ec && it != end; it.increment(device_ec)) {
++        const fs::path cur_freq = it->path() / "cur_freq";
++        file.open(cur_freq);
++        if (file.is_open()) {
++            SPDLOG_INFO("devfreq: using gpu clock input: {}", cur_freq.string());
++            return file;
++        }
++        file.clear();
++    }
++    if (device_ec)
++        SPDLOG_DEBUG("Failed to iterate {}: {}", device_devfreq.string(), device_ec.message());
++
++    // Only a combined GPU/KMS device needs to search outside its DRM device.
++    const fs::path driver = fs::read_symlink(device / "driver", ec);
++    if (ec || driver.filename() != "msm_dpu")
++        return file;
++
+     const fs::path sysfs_devfreq = "/sys/class/devfreq";
+ 
+     if (!fs::exists(sysfs_devfreq, ec))
+diff --git a/src/gpu.h b/src/gpu.h
+index 155c5a3..6f307a9 100644
+--- a/src/gpu.h
++++ b/src/gpu.h
+@@ -45,7 +45,7 @@ class GPU {
+                 if (
+                     driver == "i915" || driver == "xe" ||
+                     driver == "panfrost" || driver == "panthor" ||
+-                    driver == "msm_dpu" || driver == "msm_drm"
++                    driver == "msm_dpu" || driver == "msm_drm" || driver == "adreno"
+                 )
+                     fdinfo = std::make_unique<GPU_fdinfo>(driver, pci_dev, drm_node, device_id, vendor_id);
+         }
+@@ -201,8 +201,8 @@ class GPUS {
+         std::string get_pci_device_address(const std::string& drm_card_path);
+         std::string get_driver(const std::string& node);
+ 
+-        const std::array<std::string, 8> supported_drivers = {
+-            "amdgpu", "nvidia", "i915", "xe", "panfrost", "panthor", "msm_dpu", "msm_drm"
++        const std::array<std::string, 9> supported_drivers = {
++            "amdgpu", "nvidia", "i915", "xe", "panfrost", "panthor", "msm_dpu", "msm_drm", "adreno"
+         };
+ };
+ 
+
+base-commit: 6d8782c27b78134be7b1943f5384c44ce957cf8d
+-- 
+2.55.0
+
