@@ -110,6 +110,14 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    paneru = {
+      url = "github:karinushka/paneru";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix-darwin.follows = "nix-darwin";
+      };
+    };
   };
 
   outputs =

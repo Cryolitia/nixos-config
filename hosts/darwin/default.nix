@@ -22,6 +22,7 @@
     ../../graphic/level-beta/vscode/darwin.nix
     ../../graphic/level-beta/input-method/darwin.nix
     ../../graphic/level-beta/localsend/darwin.nix
+    ../../graphic/level-beta/paneru/darwin.nix
   ];
 
   home-manager.users.cryolitia.imports = [ ./home.nix ];
