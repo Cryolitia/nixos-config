@@ -1,0 +1,241 @@
+thermal: expose CPU and MSM GPU temperature aggregation in userspace.
+
+Keep explicit CPU choices and vendor package/GPU temperatures. Where only
+individual CPU/CPUSS or GPUSS measurements exist, report their maximum.
+Keep GPU hotspot separate from GPU/DDR temperatures. Discover all matching
+hwmon and thermal inputs, tolerate missing or faulty sensors, and reopen
+inputs to recover from transient failures without retaining stale values.
+No board names, TSENS channel numbers or thermal policy are encoded here.
+
+--- a/src/cpu.cpp
++++ b/src/cpu.cpp
+@@ -281,6 +281,13 @@
+ }
+ 
+ bool CPUStats::ReadcpuTempFile(int& temp) {
++    if (!m_cpuThermalSensors.empty()) {
++        if (auto value = m_cpuThermalSensors.maximum()) {
++            temp = *value / 1000;
++            return true;
++        }
++        return false;
++    }
+ 	if (!m_cpuTempFile)
+ 		return false;
+ 
+@@ -537,34 +544,15 @@
+     return false;
+ }
+ 
+-static void check_thermal_zones(std::string& path, std::string& input) {
+-    std::string sysfs_thermal = "/sys/class/thermal/";
+-
+-    if (!fs::exists(sysfs_thermal))
+-        return;
+-
+-    for (auto& d : fs::directory_iterator(sysfs_thermal)) {
+-        if (d.path().filename().string().substr(0, 12) != "thermal_zone")
+-            continue;
+-
+-        std::string type = read_line(d / "type");
+-        if (type.substr(0, 6) != "cpuss-")
+-            continue;
+-
+-        path = d.path();
+-        input = d / "temp";
+-
+-        return;
+-    }
+-}
+-
+ bool CPUStats::GetCpuFile() {
+-    if (m_cpuTempFile)
++    if (m_cpuTempFile || !m_cpuThermalSensors.empty())
+         return true;
+ 
+     std::string name, path, input;
+     std::string hwmon = "/sys/class/hwmon/";
+-    std::smatch match;
++    auto custom_sensor = get_params()->cpu_custom_temp_sensor;
++    const bool use_custom = !custom_sensor["hwmon_name"].empty() &&
++                            !custom_sensor["hwmon_input"].empty();
+ 
+     auto dirs = ls(hwmon.c_str());
+     for (auto& dir : dirs) {
+@@ -572,9 +560,7 @@
+         name = read_line(path + "/name");
+         SPDLOG_DEBUG("hwmon: sensor name: {}", name);
+ 
+-        std::map<std::string, std::string> custom_sensor = get_params()->cpu_custom_temp_sensor;
+-
+-        if (!custom_sensor["hwmon_name"].empty() && !custom_sensor["hwmon_input"].empty()) {
++        if (use_custom) {
+             if (name != custom_sensor["hwmon_name"])
+                 continue;
+ 
+@@ -592,9 +578,6 @@
+             break;
+         } else if (name == "it8603") {
+             find_input(path, "temp", input, "temp1");
+-            break;
+-        } else if (starts_with(name, "cpuss0_")) {
+-            find_fallback_input(path, "temp1", input);
+             break;
+         } else if (starts_with(name, "nct")) {
+             // Only break if nct module has TSI0_TEMP node
+@@ -609,9 +592,6 @@
+             // E2K (Elbrus 2000) CPU temperature module
+             find_input(path, "temp", input, "Node 0 Max");
+             break;
+-        } else if (std::regex_match(name, match, std::regex("cpu\\d*_thermal"))) {
+-            find_fallback_input(path, "temp1", input);
+-            break;
+         } else if (name == "apm_xgene") {
+             find_input(path, "temp", input, "SoC Temperature");
+             break;
+@@ -620,23 +600,25 @@
+         }
+     }
+ 
+-    if (path.empty()) {
+-        try {
+-            check_thermal_zones(path, input);
+-        } catch (fs::filesystem_error& ex) {
+-            SPDLOG_DEBUG("check_thermal_zones: {}", ex.what());
+-        }
+-    }
+-
+-    if (input.empty() || !file_exists(input)) {
+-        SPDLOG_ERROR("Could not find cpu temp sensor location");
+-        return false;
+-    }
+-
+-    SPDLOG_INFO("hwmon: using input: {}", input);
+-    m_cpuTempFile = fopen(input.c_str(), "r");
+-
+-    return true;
++    // Preserve explicit choices and vendor-provided package temperatures.
++    if (!input.empty()) {
++        m_cpuTempFile = fopen(input.c_str(), "r");
++        if (m_cpuTempFile) {
++            SPDLOG_INFO("hwmon: using input: {}", input);
++            return true;
++        }
++    }
++    if (!use_custom) {
++        static const std::regex names(
++            "cpu([0-9]+|(_[0-9]+)+)?(_top)?_thermal|cpuss[0-9]*(_[0-9]+)*(_thermal)?");
++        // Scan both ABIs: a missing or unreadable hwmon channel must not hide
++        // other thermal zones. A duplicate input cannot change a maximum.
++        m_cpuThermalSensors.discover(names);
++        if (!m_cpuThermalSensors.empty())
++            return true;
++    }
++    SPDLOG_ERROR("Could not find cpu temp sensor location");
++    return false;
+ }
+ 
+ static CPUPowerData_k10temp* init_cpu_power_data_k10temp(const std::string path) {
+--- a/src/cpu.h
++++ b/src/cpu.h
+@@ -11,6 +11,7 @@
+ #include <windows.h>
+ #endif
+ #include "timing.hpp"
++#include "thermal_sensors.h"
+ #include "gpu.h"
+ 
+ typedef struct CPUData_ {
+@@ -201,6 +202,7 @@
+    bool m_updatedCPUs = false; // TODO use caching or just update?
+    bool m_inited = false;
+    FILE *m_cpuTempFile = nullptr;
++   ThermalSensors m_cpuThermalSensors;
+    std::unique_ptr<CPUPowerData> m_cpuPowerData;
+ 
+    const std::map<std::string, std::string> intel_cores = {
+--- /dev/null
++++ b/src/thermal_sensors.h
+@@ -0,0 +1,82 @@
++#pragma once
++
++#include <algorithm>
++#include <filesystem>
++#include <fstream>
++#include <optional>
++#include <regex>
++#include <set>
++#include <string>
++
++// Read standard hwmon/thermal temperature inputs in millidegrees Celsius.
++// Selection and aggregation policy belong to the consumer, not the DT names.
++class ThermalSensors {
++    std::set<std::filesystem::path> inputs;
++
++    static bool matches(std::string name, const std::regex& names) {
++        std::replace(name.begin(), name.end(), '-', '_');
++        return std::regex_match(name, names);
++    }
++
++    template<typename Visitor>
++    static void visit(const std::filesystem::path& root, Visitor visitor) {
++        if (root.empty())
++            return;
++        std::error_code error;
++        for (std::filesystem::directory_iterator it(root, error), end;
++             !error && it != end; it.increment(error))
++            visitor(it->path());
++    }
++
++public:
++    bool empty() const { return inputs.empty(); }
++
++    void discover(const std::regex& names,
++                  const std::filesystem::path& hwmon = "/sys/class/hwmon",
++                  const std::filesystem::path& thermal = "/sys/class/thermal",
++                  const std::string& hwmon_input = "temp[0-9]+_input") {
++        const std::regex input_name(hwmon_input);
++        visit(hwmon, [&](const auto& directory) {
++            std::ifstream file(directory / "name");
++            std::string name;
++            if (!std::getline(file, name) || !matches(name, names))
++                return;
++            visit(directory, [&](const auto& input) {
++                if (std::regex_match(input.filename().string(), input_name))
++                    inputs.insert(input);
++            });
++        });
++        visit(thermal, [&](const auto& directory) {
++            if (directory.filename().string().find("thermal_zone") != 0)
++                return;
++            std::ifstream file(directory / "type");
++            std::string type;
++            if (std::getline(file, type) && matches(type, names))
++                inputs.insert(directory / "temp");
++        });
++    }
++
++    std::optional<int> maximum() const {
++        std::optional<int> result;
++        for (const auto& input : inputs) {
++            // Reopen so transient errors, sensor removal/recreation and stdio
++            // buffers cannot keep an old value alive. Zero and negatives are valid.
++            std::ifstream file(input);
++            int value;
++            std::string trailing;
++            if (!(file >> value) || (file >> trailing) || file.bad())
++                continue;
++            const auto filename = input.filename().string();
++            if (filename.ends_with("_input")) {
++                auto fault = input;
++                fault.replace_filename(filename.substr(0, filename.size() - 6) + "_fault");
++                std::ifstream fault_file(fault);
++                int failed = 0;
++                if ((fault_file >> failed) && failed)
++                    continue;
++            }
++            result = result ? std::max(*result, value) : value;
++        }
++        return result;
++    }
++};

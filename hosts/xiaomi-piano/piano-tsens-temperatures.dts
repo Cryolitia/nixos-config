@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/dts-v1/;
+/plugin/;
+
+// Restore the SoC definitions verbatim from the pinned kernel source.
+#include <dt-bindings/thermal/thermal.h>
+
+// The board DTB labels the active mainline GPU gpu_ml, not gpu.
+#define gpu gpu_ml
+
+/ {
+	compatible = "xiaomi,piano";
+
+	fragment@0 {
+		target-path = "/";
+
+		__overlay__ {
+#include "sm8750-thermal-zones.dtsi"
+		};
+	};
+
+	fragment@1 {
+		target = <&gpu_ml>;
+		__overlay__ {
+			#cooling-cells = <2>;
+		};
+	};
+};

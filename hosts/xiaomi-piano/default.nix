@@ -1,4 +1,18 @@
-{ inputs, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
+let
+  kernelSource = config.boot.kernelPackages.kernel.src;
+  thermalZones = pkgs.runCommand "sm8750-thermal-zones" { nativeBuildInputs = [ pkgs.python3 ]; } ''
+    mkdir -p "$out"
+    python3 ${../../hardware/level-alpha/qcom/extract-thermal-zones.py} \
+      ${kernelSource}/arch/arm64/boot/dts/qcom/sm8750.dtsi \
+      "$out/sm8750-thermal-zones.dtsi"
+  '';
+in
 {
   imports = [
     inputs.xiaomi-piano.nixosModules.piano
@@ -89,6 +103,9 @@
             hash = "sha256-LDFVYT9gMGX8kw/i85V/Cgmo3ybWC/rhHuqu0mWOskg=";
           })
           ./mangohud-piano.patch
+          # Read and aggregate kernel temperature interfaces in userspace.
+          ./mangohud-cpu-thermal.patch
+          ./mangohud-gpu-thermal.patch
         ];
       });
     })
@@ -104,6 +121,23 @@
       MANGOHUD_CONFIGFILE = "$HOME/.config/MangoHud/MangoHud.conf";
     };
   };
+
+  # Restore the complete SoC thermal descriptions omitted by the board DTB.
+  # Names, sensor mappings, trips and cooling maps come from the pinned kernel
+  # source; all thermal/hwmon consumers see the same hardware interfaces.
+  hardware.deviceTree.overlays = [
+    {
+      name = "piano-tsens-temperatures";
+      dtboFile = pkgs.deviceTree.compileDTS {
+        name = "piano-tsens-temperatures.dtbo";
+        dtsFile = ./piano-tsens-temperatures.dts;
+        includePaths = [
+          thermalZones
+          "${kernelSource}/include"
+        ];
+      };
+    }
+  ];
 
   boot = {
     loader = {
