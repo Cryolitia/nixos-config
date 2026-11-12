@@ -4,6 +4,7 @@
   imports = [
     ../../core/level-alpha/nixpkgs/darwin.nix
     ../../core/level-alpha/nix/darwin.nix
+    ../../core/level-alpha/security/darwin.nix
     ../../core/level-alpha/system/darwin.nix
     ../../core/level-beta/home-manager/darwin.nix
     ../../cli/level-alpha/tools/darwin.nix
