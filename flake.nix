@@ -49,7 +49,7 @@
     nixos-hardware-yuntian.url = "github:RadxaYuntian/nixos-hardware/cix-mainline";
 
     xiaomi-piano = {
-      url = "github:cryolitia/xiaomi-piano-nixos";
+      url = "git+file:///home/cryolitia/xiaomi-piano-nixos?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

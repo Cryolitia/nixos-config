@@ -1004,17 +1004,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1794338545,
-        "narHash": "sha256-vdbF081oDB0xgz31Ub6l9QiqhvpNtTivihaiy/K4YgU=",
-        "owner": "cryolitia",
-        "repo": "xiaomi-piano-nixos",
-        "rev": "4fdba7742f95d0eefebc1881b413859962209d56",
-        "type": "github"
+        "lastModified": 1795249094,
+        "narHash": "sha256-PXbs+SBewTsmAPL9Gnfu91bBR9warcmZp8STxzomw+o=",
+        "ref": "main",
+        "rev": "a44c922b3aa1fe1f0cdb084b5bc4992a76e4b87d",
+        "revCount": 127,
+        "type": "git",
+        "url": "file:///home/cryolitia/xiaomi-piano-nixos"
       },
       "original": {
-        "owner": "cryolitia",
-        "repo": "xiaomi-piano-nixos",
-        "type": "github"
+        "ref": "main",
+        "type": "git",
+        "url": "file:///home/cryolitia/xiaomi-piano-nixos"
       }
     },
     "xwayland-satellite-stable": {
