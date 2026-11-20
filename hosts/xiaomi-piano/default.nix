@@ -131,6 +131,7 @@
       device = "/dev/disk/by-partlabel/sunuefi_esp";
       fsType = "vfat";
       options = [
+        "umask=0077"
         "nosuid"
         "nodev"
         "noexec"
