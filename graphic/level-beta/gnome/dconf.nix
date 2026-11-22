@@ -41,6 +41,7 @@ in
     primary-color = "#000000000000";
     secondary-color = "#000000000000";
     lock-enabled = true;
+    restart-enabled = true;
   };
 
   "org/gnome/desktop/session" = {
