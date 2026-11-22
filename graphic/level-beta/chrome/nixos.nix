@@ -6,8 +6,11 @@
 }:
 
 with lib;
+let
+  chromeSupported = meta.availableOn pkgs.stdenv.hostPlatform pkgs.google-chrome;
+in
 {
-  environment.systemPackages = mkIf pkgs.stdenv.hostPlatform.isx86_64 (mkMerge [
+  environment.systemPackages = mkIf chromeSupported (mkMerge [
     (mkIf (elem "nvidia" config.services.xserver.videoDrivers) (
       with pkgs;
       [
