@@ -1004,11 +1004,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795249094,
-        "narHash": "sha256-PXbs+SBewTsmAPL9Gnfu91bBR9warcmZp8STxzomw+o=",
+        "lastModified": 1795336290,
+        "narHash": "sha256-bu6OdLy4/zLahJ5rF2okmEp7jndgm/yfOa4R+Em6MZw=",
         "ref": "main",
-        "rev": "a44c922b3aa1fe1f0cdb084b5bc4992a76e4b87d",
-        "revCount": 127,
+        "rev": "ca1ece765b61613fcebfcfa7a7bd9461475a76f9",
+        "revCount": 112,
         "type": "git",
         "url": "file:///home/cryolitia/xiaomi-piano-nixos"
       },
