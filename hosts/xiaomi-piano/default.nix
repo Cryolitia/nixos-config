@@ -2,6 +2,7 @@
 {
   imports = [
     inputs.xiaomi-piano.nixosModules.piano
+    ./sensors.nix
     ../../profiles/level-beta/nixos.nix
     ../../graphic/level-gamma/steam/nixos.nix
   ];
@@ -153,10 +154,6 @@
       programs.kitty.settings.linux_display_server = "wayland";
 
       dconf.settings."org/gnome/shell/extensions/dash-to-dock".show-mounts-network = lib.mkForce false;
-      dconf.settings."org/gnome/shell/extensions/freon".hot-sensors = lib.mkForce [
-        "__max__"
-        "in0"
-      ];
       # Use the keyboard layout with Fcitx5 and Kimpanel.
       dconf.settings."org/gnome/desktop/input-sources".sources = lib.mkForce [
         (lib.hm.gvariant.mkTuple [
